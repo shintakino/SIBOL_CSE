@@ -1,0 +1,19 @@
+# Weekly study planning
+
+Status: specified; not implemented.
+Source: [Sibol CSE PRD](../../Sibol-CSE-PRD.md), FR-07.
+
+## Scope and acceptance
+
+Depends on preferences, content coverage, diagnostic evidence, and review state. Route: /plan. Generate on demand using days, daily minutes, level, evidence, optional date, and available inventory.
+
+Default configurable allocation: roughly 20% due reviews, 60% priority topics, 20% mixed retrieval. Prioritize low first-exposure accuracy, due burden, and coverage gaps; sparse evidence favors broad coverage. Explain recommendations.
+
+Acceptance:
+- Scheduled work fits the learner's time budget; carry excess forward with a documented cap.
+- Rebuilds preserve completed tasks; missed tasks do not multiply without bound.
+- Do not promise complete coverage when time/content is insufficient.
+- Never schedule beyond the chosen target date without confirmation.
+- Level/availability changes rebuild appropriately without altering old attempts.
+- Tests cover sparse evidence, zero availability, missed work, date boundaries, and rebuild retries.
+- Choose and document the exact carryover cap before implementation; the PRD does not specify it.
