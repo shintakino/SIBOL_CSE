@@ -2,6 +2,7 @@ import { sql } from "drizzle-orm";
 import {
   boolean,
   check,
+  customType,
   date,
   foreignKey,
   index,
@@ -202,6 +203,23 @@ export const questionVersion = pgTable(
     version: integer().notNull(),
     status: publicationStatus().notNull().default("draft"),
     level: level().notNull(),
+    importHash: text("import_hash"),
+    levels: level("levels").array(),
+    kind: text().notNull().default("choice"),
+    instruction: text(),
+    highlight: text(),
+    orderItems: jsonb("order_items")
+      .$type<{ id: string; text: string; label?: string }[]>()
+      .notNull()
+      .default([]),
+    answerOrder: text("answer_order").array(),
+    provider: jsonb().$type<{
+      name: "topnotcher";
+      questionId: string;
+      category: string;
+      subcategory: string;
+      group?: string;
+    }>(),
     language: language().notNull(),
     difficulty: text().notNull(),
     prompt: text().notNull(),
@@ -210,7 +228,7 @@ export const questionVersion = pgTable(
     distractorExplanations: jsonb("distractor_explanations").$type<Record<string, string>>(),
     reviewChecklist: jsonb("review_checklist").$type<unknown>(),
     publishedAt: instant("published_at"),
-    answerChoiceId: text("answer_choice_id").notNull(),
+    answerChoiceId: text("answer_choice_id"),
     explanation: text().notNull(),
     primaryTopicId: text("primary_topic_id")
       .notNull()
@@ -224,8 +242,18 @@ export const questionVersion = pgTable(
   },
   (t) => [
     unique().on(t.questionId, t.version),
+    unique().on(t.questionId, t.importHash),
     index("question_selection_idx").on(t.status, t.level, t.primaryTopicId),
     check("question_difficulty", sql`${t.difficulty} in ('easy','medium','hard')`),
+    check("question_kind", sql`${t.kind} in ('choice','error','order')`),
+    check(
+      "question_response_key",
+      sql`(${t.kind} = 'order' and ${t.answerChoiceId} is null and ${t.answerOrder} is not null and cardinality(${t.answerOrder}) >= 2 and jsonb_array_length(${t.orderItems}) = cardinality(${t.answerOrder})) or (${t.kind} in ('choice','error') and ${t.answerChoiceId} is not null and ${t.answerOrder} is null)`,
+    ),
+    check(
+      "question_supported_levels",
+      sql`${t.levels} is null or (cardinality(${t.levels}) between 1 and 2 and ${t.level} = any(${t.levels}) and (cardinality(${t.levels}) = 1 or ${t.levels}[1] <> ${t.levels}[2]))`,
+    ),
     check(
       "question_review_gate",
       sql`${t.status} not in ('published','reviewed') or (${t.reviewedBy} is not null and ${t.reviewedAt} is not null and length(trim(${t.explanation})) > 0)`,
@@ -240,6 +268,8 @@ export const choice = pgTable(
       .references(() => questionVersion.id),
     id: text().notNull(),
     text: text().notNull(),
+    label: text(),
+    media: jsonb().$type<{ src: string; alt: string; descriptionReviewed?: boolean }>(),
   },
   (t) => [primaryKey({ columns: [t.questionVersionId, t.id] })],
 );
@@ -254,6 +284,74 @@ export const questionTopic = pgTable(
       .references(() => topic.id),
   },
   (t) => [primaryKey({ columns: [t.questionVersionId, t.topicId] })],
+);
+
+const binary = customType<{ data: Buffer; driverData: Buffer }>({ dataType: () => "bytea" });
+export const contentAsset = pgTable(
+  "content_asset",
+  {
+    id: text().primaryKey(),
+    mime: text().notNull(),
+    data: binary("data").notNull(),
+    createdBy: text("created_by")
+      .notNull()
+      .references(() => user.id),
+    createdAt: created(),
+  },
+  (t) => [
+    check("content_asset_size", sql`octet_length(${t.data}) between 1 and 5242880`),
+    check(
+      "content_asset_mime",
+      sql`${t.mime} in ('image/png','image/jpeg','image/webp','image/gif')`,
+    ),
+    check("content_asset_hash", sql`encode(sha256(${t.data}), 'hex') = ${t.id}`),
+  ],
+);
+export const providerBank = pgTable(
+  "provider_bank",
+  {
+    id: id(),
+    provider: text().notNull(),
+    manifestHash: text("manifest_hash").notNull().unique(),
+    permissionHash: text("permission_hash").notNull(),
+    mode: text().notNull().default("api_sample"),
+    expectedIds: jsonb("expected_ids").$type<Record<string, string[]> | null>(),
+    report: jsonb().$type<Record<string, unknown>>().notNull(),
+    coverageVerified: boolean("coverage_verified").notNull().default(false),
+    createdBy: text("created_by")
+      .notNull()
+      .references(() => user.id),
+    createdAt: created(),
+  },
+  (t) => [
+    check(
+      "provider_verified_source",
+      sql`not ${t.coverageVerified} or (${t.mode} in ('export','feed') and ${t.expectedIds} is not null)`,
+    ),
+  ],
+);
+export const providerSnapshot = pgTable(
+  "provider_snapshot",
+  {
+    bankId: text("bank_id")
+      .notNull()
+      .references(() => providerBank.id),
+    sourceKey: text("source_key").notNull(),
+    providerQuestionId: text("provider_question_id").notNull(),
+    category: text().notNull(),
+    subcategory: text().notNull(),
+    levels: level("levels").array().notNull(),
+    topicId: text("topic_id").references(() => topic.id),
+    raw: jsonb().$type<Record<string, unknown>>().notNull(),
+    fingerprint: text().notNull(),
+    questionId: text("question_id").references(() => question.id),
+    heldReasons: text("held_reasons").array().notNull().default([]),
+  },
+  (t) => [
+    primaryKey({ columns: [t.bankId, t.sourceKey, t.category, t.subcategory] }),
+    index("provider_snapshot_topic_idx").on(t.bankId, t.category, t.subcategory),
+    index("provider_snapshot_question_idx").on(t.questionId),
+  ],
 );
 export const mockBlueprintVersion = pgTable(
   "mock_blueprint_version",
@@ -313,6 +411,7 @@ export const attemptItem = pgTable(
       .notNull()
       .references(() => questionVersion.id),
     choiceOrder: text("choice_order").array().notNull(),
+    itemOrder: text("item_order").array().notNull().default([]),
     flagged: boolean().notNull().default(false),
     firstExposure: boolean("first_exposure").notNull().default(false),
     committedAt: instant("committed_at"),
@@ -332,6 +431,7 @@ export const attemptAnswer = pgTable(
       .references(() => attemptItem.id, { onDelete: "cascade" }),
     questionVersionId: text("question_version_id").notNull(),
     selectedChoiceId: text("selected_choice_id"),
+    selectedOrder: text("selected_order").array(),
     revision: integer().notNull(),
     mutationId: text("mutation_id"),
     confidence: text(),
@@ -339,6 +439,10 @@ export const attemptAnswer = pgTable(
   },
   (t) => [
     check("answer_revision", sql`${t.revision} > 0`),
+    check(
+      "answer_single_representation",
+      sql`${t.selectedChoiceId} is null or ${t.selectedOrder} is null`,
+    ),
     foreignKey({
       columns: [t.attemptItemId, t.questionVersionId],
       foreignColumns: [attemptItem.id, attemptItem.questionVersionId],
@@ -443,6 +547,7 @@ export const reviewEvent = pgTable(
     studyDate: date("study_date").notNull(),
     versionId: text("version_id").references(() => questionVersion.id),
     selectedChoiceId: text("selected_choice_id"),
+    selectedOrder: text("selected_order").array(),
     attemptItemId: text("attempt_item_id").references(() => attemptItem.id, {
       onDelete: "set null",
     }),
