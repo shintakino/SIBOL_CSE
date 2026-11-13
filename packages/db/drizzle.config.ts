@@ -1,0 +1,11 @@
+import { defineConfig } from "drizzle-kit";
+
+export default defineConfig({
+  schema: "./src/schema/index.ts",
+  out: "./src/migrations",
+  dialect: "postgresql",
+  schemaFilter: ["public"],
+  dbCredentials: {
+    url: process.env.DATABASE_URL ?? "postgresql://sibol:sibol-local-only@localhost:55439/sibol",
+  },
+});
