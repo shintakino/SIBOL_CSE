@@ -1,0 +1,47 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "e2e0d879-4f79-4c61-beb4-0b659b0613e9",
+  "prevIds": [
+    "0af0628b-c5df-4fd6-bd26-38ead047ced3"
+  ],
+  "footprints": [
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "user_profile",
+        "assessment_revision"
+      ],
+      "writes": [
+        "s|col|public.user_profile.assessment_revision",
+        "n|col|public.user_profile.assessment_revision",
+        "e|col|public.user_profile.assessment_revision"
+      ],
+      "reads": [
+        "n|tbl|public.user_profile",
+        "n|sch|public"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "user_profile",
+        "name": "assessment_revision",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "0",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    }
+  ]
+}

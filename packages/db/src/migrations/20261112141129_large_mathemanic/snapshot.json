@@ -1,0 +1,516 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "7492a8b1-6cc5-42e1-863c-a207fe8ebcdc",
+  "prevIds": [
+    "3129bbd1-320c-44a6-8d8e-c510c23c1e73"
+  ],
+  "footprints": [
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "deletion_receipt"
+      ],
+      "writes": [
+        "s|tbl|public.deletion_receipt",
+        "n|tbl|public.deletion_receipt",
+        "e|tbl|public.deletion_receipt",
+        "n|rel|public.deletion_receipt",
+        "n|type|public.deletion_receipt",
+        "n|rel|public.deletion_receipt_pkey",
+        "n|rel|public.deletion_receipt_receipt_id_key"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "display_preferences"
+      ],
+      "writes": [
+        "s|tbl|public.display_preferences",
+        "n|tbl|public.display_preferences",
+        "e|tbl|public.display_preferences",
+        "n|rel|public.display_preferences",
+        "n|type|public.display_preferences",
+        "n|rel|public.display_preferences_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "private_note",
+        "revision"
+      ],
+      "writes": [
+        "s|col|public.private_note.revision",
+        "n|col|public.private_note.revision",
+        "e|col|public.private_note.revision"
+      ],
+      "reads": [
+        "n|tbl|public.private_note",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "private_note",
+        "mutation_id"
+      ],
+      "writes": [
+        "s|col|public.private_note.mutation_id",
+        "n|col|public.private_note.mutation_id",
+        "e|col|public.private_note.mutation_id"
+      ],
+      "reads": [
+        "n|tbl|public.private_note",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "private_note",
+        "deleted_at"
+      ],
+      "writes": [
+        "s|col|public.private_note.deleted_at",
+        "n|col|public.private_note.deleted_at",
+        "e|col|public.private_note.deleted_at"
+      ],
+      "reads": [
+        "n|tbl|public.private_note",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_unique",
+      "statementTarget": [
+        "table",
+        "public",
+        "private_note"
+      ],
+      "writes": [
+        "s|uq|public.private_note.private_note_user_id_lesson_id_unique",
+        "n|uq|public.private_note.private_note_user_id_lesson_id_unique",
+        "e|uq|public.private_note.private_note_user_id_lesson_id_unique",
+        "n|con|public.private_note.private_note_user_id_lesson_id_unique",
+        "n|rel|public.private_note_user_id_lesson_id_unique"
+      ],
+      "reads": [
+        "n|tbl|public.private_note",
+        "n|sch|public",
+        "n|col|public.private_note.user_id",
+        "n|col|public.private_note.lesson_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "display_preferences"
+      ],
+      "writes": [
+        "s|fk|public.display_preferences.display_preferences_user_id_user_id_fkey",
+        "n|fk|public.display_preferences.display_preferences_user_id_user_id_fkey",
+        "e|fk|public.display_preferences.display_preferences_user_id_user_id_fkey",
+        "n|con|public.display_preferences.display_preferences_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.display_preferences",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.display_preferences.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "add_check",
+      "statementTarget": [
+        "table",
+        "public",
+        "private_note"
+      ],
+      "writes": [
+        "s|ck|public.private_note.note_revision",
+        "n|ck|public.private_note.note_revision",
+        "e|ck|public.private_note.note_revision",
+        "n|con|public.private_note.note_revision"
+      ],
+      "reads": [
+        "n|tbl|public.private_note",
+        "n|sch|public",
+        "n|col|public.private_note.revision"
+      ]
+    },
+    {
+      "statementType": "alter_check",
+      "statementTarget": [
+        "table",
+        "public",
+        "private_note"
+      ],
+      "writes": [
+        "s|ck|public.private_note.note_length"
+      ],
+      "reads": [
+        "n|tbl|public.private_note",
+        "n|sch|public",
+        "n|col|public.private_note.deleted_at",
+        "n|col|public.private_note.body",
+        "e|col|public.private_note.body"
+      ],
+      "sqlHash": "69ce6c582cb47fac"
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "deletion_receipt",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "display_preferences",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "deletion_receipt",
+        "name": "user_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "deletion_receipt",
+        "name": "receipt_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "deletion_receipt",
+        "name": "deleted_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "display_preferences",
+        "name": "user_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "display_preferences",
+        "name": "theme",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "'light'",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "display_preferences",
+        "name": "motion",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "'system'",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "display_preferences",
+        "name": "in_app_reminders",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "true",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "display_preferences",
+        "name": "future_email_opt_in",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "false",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "display_preferences",
+        "name": "revision",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "1",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "display_preferences",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "private_note",
+        "name": "revision",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "1",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "private_note",
+        "name": "mutation_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "private_note",
+        "name": "deleted_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "display_preferences",
+        "name": "display_preferences_user_id_user_id_fkey",
+        "nameExplicit": false,
+        "columns": [
+          "user_id"
+        ],
+        "schemaTo": "public",
+        "tableTo": "user",
+        "columnsTo": [
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "deletion_receipt",
+        "name": "deletion_receipt_pkey",
+        "columns": [
+          "user_id"
+        ],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "display_preferences",
+        "name": "display_preferences_pkey",
+        "columns": [
+          "user_id"
+        ],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "private_note",
+        "name": "private_note_user_id_lesson_id_unique",
+        "nameExplicit": false,
+        "columns": [
+          "user_id",
+          "lesson_id"
+        ],
+        "nullsNotDistinct": false,
+        "entityType": "uniques"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "deletion_receipt",
+        "name": "deletion_receipt_receipt_id_key",
+        "nameExplicit": false,
+        "columns": [
+          "receipt_id"
+        ],
+        "nullsNotDistinct": false,
+        "entityType": "uniques"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "display_preferences",
+        "name": "display_values",
+        "value": "\"theme\" in ('light','dark') and \"motion\" in ('system','reduce') and \"revision\" > 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "private_note",
+        "name": "note_revision",
+        "value": "\"revision\" > 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "checks\u0000[\"public\",\"private_note\",\"note_length\"]",
+      "set": {
+        "value": "(\"deleted_at\" is null and length(\"body\") between 1 and 10000) or (\"deleted_at\" is not null and \"body\" = '')"
+      }
+    }
+  ]
+}

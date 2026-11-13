@@ -1,0 +1,177 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "3129bbd1-320c-44a6-8d8e-c510c23c1e73",
+  "prevIds": [
+    "23d73885-fdf2-45f5-8ca3-a955d8ab39dd"
+  ],
+  "footprints": [
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "attempt",
+        "attempt_owner_time_idx"
+      ],
+      "writes": [
+        "s|idx|public.attempt_owner_time_idx",
+        "n|idx|public.attempt_owner_time_idx",
+        "e|idx|public.attempt_owner_time_idx",
+        "n|rel|public.attempt_owner_time_idx"
+      ],
+      "reads": [
+        "n|tbl|public.attempt",
+        "n|sch|public",
+        "n|col|public.attempt.user_id",
+        "n|col|public.attempt.started_at"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "review_event",
+        "review_history_idx"
+      ],
+      "writes": [
+        "s|idx|public.review_history_idx",
+        "n|idx|public.review_history_idx",
+        "e|idx|public.review_history_idx",
+        "n|rel|public.review_history_idx"
+      ],
+      "reads": [
+        "n|tbl|public.review_event",
+        "n|sch|public",
+        "n|col|public.review_event.user_id",
+        "n|col|public.review_event.created_at"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "review_event",
+        "review_question_history_idx"
+      ],
+      "writes": [
+        "s|idx|public.review_question_history_idx",
+        "n|idx|public.review_question_history_idx",
+        "e|idx|public.review_question_history_idx",
+        "n|rel|public.review_question_history_idx"
+      ],
+      "reads": [
+        "n|tbl|public.review_event",
+        "n|sch|public",
+        "n|col|public.review_event.user_id",
+        "n|col|public.review_event.question_id",
+        "n|col|public.review_event.created_at"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "attempt",
+        "name": "attempt_owner_time_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "user_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "started_at",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "review_event",
+        "name": "review_history_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "user_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "created_at",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "review_event",
+        "name": "review_question_history_idx",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "user_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "question_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "created_at",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    }
+  ]
+}
