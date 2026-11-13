@@ -1,0 +1,29 @@
+{
+  "name": "@sibol-cse/db",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts",
+    "./schema": "./src/schema/index.ts"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "check-types": "tsc -b",
+    "db:push": "node --env-file-if-exists=../../.env node_modules/drizzle-kit/bin.cjs push",
+    "db:generate": "node --env-file-if-exists=../../.env node_modules/drizzle-kit/bin.cjs generate",
+    "db:migrate:deploy": "node --env-file-if-exists=../../.env node_modules/drizzle-kit/bin.cjs migrate",
+    "db:studio": "node --env-file-if-exists=../../.env node_modules/drizzle-kit/bin.cjs studio",
+    "db:migrate": "node --env-file-if-exists=../../.env node_modules/drizzle-kit/bin.cjs migrate"
+  },
+  "dependencies": {
+    "drizzle-orm": "catalog:",
+    "pg": "^8.23.0",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@sibol-cse/config": "workspace:*",
+    "@types/pg": "^8.23.1",
+    "drizzle-kit": "1.0.0-rc.5",
+    "typescript": "catalog:"
+  }
+}

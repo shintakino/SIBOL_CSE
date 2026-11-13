@@ -1,0 +1,26 @@
+{
+  "name": "@sibol-cse/api",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "check-types": "tsc -b"
+  },
+  "dependencies": {
+    "@orpc/client": "catalog:",
+    "@orpc/openapi": "catalog:",
+    "@orpc/server": "catalog:",
+    "@orpc/zod": "catalog:",
+    "@sibol-cse/auth": "workspace:*",
+    "@sibol-cse/db": "workspace:*",
+    "zod": "catalog:",
+    "drizzle-orm": "catalog:"
+  },
+  "devDependencies": {
+    "@sibol-cse/config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}

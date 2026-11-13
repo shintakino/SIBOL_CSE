@@ -1,0 +1,37 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/next.mjs dev --port 3001",
+    "build": "tsc -b ../../packages/api && node scripts/next.mjs build",
+    "check-types": "tsc -b ../../packages/api && node scripts/next.mjs typegen && tsc --noEmit",
+    "start": "node scripts/start.mjs"
+  },
+  "dependencies": {
+    "@orpc/client": "catalog:",
+    "@orpc/server": "catalog:",
+    "@sibol-cse/api": "workspace:*",
+    "@sibol-cse/ui": "workspace:*",
+    "@swc/helpers": "^0.5.23",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "better-auth": "catalog:",
+    "geist": "^1.9.2",
+    "lucide-react": "catalog:",
+    "next": "^16.3.4",
+    "next-themes": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "server-only": "^0.0.1",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@sibol-cse/config": "workspace:*",
+    "@tailwindcss/postcss": "catalog:",
+    "@types/node": "^26.4.1",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:"
+  }
+}

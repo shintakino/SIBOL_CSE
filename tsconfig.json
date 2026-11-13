@@ -1,0 +1,3 @@
+{
+  "extends": "@sibol-cse/config/tsconfig.base.json"
+}

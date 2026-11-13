@@ -1,0 +1,59 @@
+{
+  "name": "sibol-cse",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "check-types": "turbo run check-types && tsc -p tsconfig.tools.json",
+    "dev:web": "turbo run dev -F web --",
+    "dev:server": "turbo run dev -F server --",
+    "db:push": "pnpm --filter @sibol-cse/db db:push",
+    "db:studio": "pnpm --filter @sibol-cse/db db:studio",
+    "db:generate": "pnpm --filter @sibol-cse/db db:generate",
+    "db:migrate": "pnpm --filter @sibol-cse/db db:migrate",
+    "db:start": "docker compose -f docker-compose.yml -f docker-compose.dev.yml --profile dev up -d postgres mailpit",
+    "db:watch": "docker compose -f docker-compose.yml -f docker-compose.dev.yml up postgres",
+    "db:stop": "docker compose stop postgres",
+    "db:down": "docker compose down postgres",
+    "docker:build": "docker compose --profile app --profile tools build server web migrate",
+    "docker:up": "docker compose --profile app up -d --build",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "test": "bun test --timeout 15000 tests/policies.test.ts && bun test --timeout 15000 tests/integration.test.ts && bun test --timeout 15000 tests/learning.test.ts && bun test --timeout 20000 tests/study-loop.test.ts && bun test --timeout 20000 tests/library-account.test.ts && bun test --timeout 20000 tests/concurrency.test.ts",
+    "test:e2e": "playwright test",
+    "admin:bootstrap": "bun run scripts/bootstrap-admin.ts",
+    "check:boundaries": "bun scripts/check-boundaries.ts",
+    "ops:benchmark": "bun scripts/benchmark.ts",
+    "ops:backup": "docker compose -f docker-compose.yml -f docker-compose.ops.yml -f docker-compose.release.yml --profile ops run --rm --entrypoint /usr/local/bin/backup-once.sh backup",
+    "ops:ledger": "docker compose -f docker-compose.yml -f docker-compose.ops.yml -f docker-compose.release.yml --profile ops run --rm --entrypoint /usr/local/bin/ledger-once.sh backup",
+    "ops:rehearsal": "bun scripts/ops-rehearsal.ts"
+  },
+  "dependencies": {
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@sibol-cse/config": "workspace:*",
+    "@types/bun": "catalog:",
+    "turbo": "^2.11.7",
+    "typescript": "catalog:",
+    "@biomejs/biome": "^2.4.0",
+    "@playwright/test": "^1.58.0",
+    "@sibol-cse/auth": "workspace:*",
+    "@sibol-cse/db": "workspace:*",
+    "@sibol-cse/api": "workspace:*",
+    "better-auth": "catalog:",
+    "drizzle-orm": "catalog:",
+    "@orpc/server": "catalog:",
+    "@axe-core/playwright": "^4.11.0",
+    "@types/node": "^26.4.1",
+    "@orpc/client": "catalog:"
+  },
+  "packageManager": "pnpm@11.1.1"
+}
