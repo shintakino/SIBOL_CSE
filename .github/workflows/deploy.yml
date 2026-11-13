@@ -49,6 +49,7 @@ jobs:
       - run: pnpm test:e2e
       - run: pnpm check:boundaries
       - run: python3 deploy/check-compose.py
+      - run: python3 -m unittest discover -s deploy -p 'test_*.py'
   deploy:
     needs: validate
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && vars.SIBOL_DEPLOY_ENABLED == 'true'
