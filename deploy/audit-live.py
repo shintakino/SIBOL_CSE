@@ -80,7 +80,15 @@ def audit():
         health = json.load(response)
     if health != {"status": "ready", "release": revision}:
         raise RuntimeError("Public readiness differs from the running source revision")
-    print(json.dumps({"revision": revision, "services": len(seen), "internalDatabase": True, "restrictedCredentials": True, "preservedVolumes": True, "noPublishedPorts": True, "healthy": True}))
+    gateway = json.loads(docker("inspect", "sibol-deploy-gateway"))[0]
+    if not gateway["State"]["Running"] or gateway["HostConfig"].get("PortBindings"):
+        raise RuntimeError("Independent deployment gateway is not private and running")
+    app_networks = set().union(*(set(c["NetworkSettings"]["Networks"]) for c in containers))
+    if app_networks & set(gateway["NetworkSettings"]["Networks"]):
+        raise RuntimeError("Deployment gateway must not share application networks")
+    if gateway["Config"]["Labels"].get("com.docker.compose.project") == RESOURCE:
+        raise RuntimeError("Deployment gateway must have an independent Compose project")
+    print(json.dumps({"independentDeploymentGateway": True, "revision": revision, "services": len(seen), "internalDatabase": True, "restrictedCredentials": True, "preservedVolumes": True, "noPublishedPorts": True, "healthy": True}))
 
 
 if __name__ == "__main__":

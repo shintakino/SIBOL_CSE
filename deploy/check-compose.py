@@ -45,3 +45,15 @@ label_blocks = re.findall(r"^    labels:\n((?:      .+\n)+)", Path("docker-compo
 assert len(label_blocks) == len(services)
 assert all(all(line.startswith("      - ") for line in block.splitlines()) for block in label_blocks)
 print("Installed Coolify raw-parser label compatibility passed")
+
+# The CI control plane must survive replacement of every application container.
+gateway_env = dict(env, SIBOL_DEPLOY_TUNNEL_TOKEN="ci-placeholder-only")
+gateway = json.loads(subprocess.check_output(["docker", "compose", "--env-file", "/dev/null", "-f", "deploy/docker-compose.gateway.yml", "config", "--format", "json"], env=gateway_env, text=True))
+assert gateway["name"] == "sibol-deploy-gateway"
+assert set(gateway["services"]) == {"gateway"}
+gateway_service = gateway["services"]["gateway"]
+assert not gateway_service.get("ports")
+assert set(gateway_service["environment"]) == {"TUNNEL_TOKEN"}
+assert gateway_service["read_only"] and gateway_service["restart"] == "unless-stopped"
+assert set(gateway_service["networks"]) == {"default"}
+print("Independent deployment gateway isolation passed")

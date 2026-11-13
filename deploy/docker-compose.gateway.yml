@@ -1,0 +1,20 @@
+name: sibol-deploy-gateway
+services:
+  gateway:
+    image: cloudflare/cloudflared:2026.10.3
+    container_name: sibol-deploy-gateway
+    command: [tunnel, --config, /etc/cloudflared/config.yml, --no-autoupdate, run]
+    environment:
+      TUNNEL_TOKEN: ${SIBOL_DEPLOY_TUNNEL_TOKEN:?}
+    configs:
+      - source: ingress
+        target: /etc/cloudflared/config.yml
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    restart: unless-stopped
+configs:
+  ingress:
+    file: ./cloudflared-gateway.yml

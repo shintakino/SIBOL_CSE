@@ -2,16 +2,4 @@ tunnel: e4e4c621-3c60-4cf8-8797-4b3d7bfc099b
 ingress:
   - hostname: sibol.shintakino.qzz.io
     service: http://web:3001
-  - hostname: sibol-deploy.shintakino.qzz.io
-    path: ^/api/v1/applications/q52xajsad67xkcmtdwjto1uu$
-    service: http://host.docker.internal:8001
-  - hostname: sibol-deploy.shintakino.qzz.io
-    path: ^/api/v1/applications/q52xajsad67xkcmtdwjto1uu/envs/bulk$
-    service: http://host.docker.internal:8001
-  - hostname: sibol-deploy.shintakino.qzz.io
-    path: ^/api/v1/deploy$
-    service: http://host.docker.internal:8001
-  - hostname: sibol-deploy.shintakino.qzz.io
-    path: ^/api/v1/deployments/[a-zA-Z0-9-]+$
-    service: http://host.docker.internal:8001
   - service: http_status:404

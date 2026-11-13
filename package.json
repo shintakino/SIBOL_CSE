@@ -36,7 +36,8 @@
     "ops:rehearsal": "bun scripts/ops-rehearsal.ts",
     "deploy": "gh workflow run deploy.yml --ref main",
     "check:deployment": "python3 deploy/check-compose.py",
-    "deploy:audit": "python3 deploy/audit-live.py"
+    "deploy:audit": "python3 deploy/audit-live.py",
+    "deploy:gateway": "python3 deploy/install-gateway.py"
   },
   "dependencies": {
     "zod": "catalog:"
