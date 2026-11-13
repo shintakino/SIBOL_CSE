@@ -1,0 +1,764 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "23d73885-fdf2-45f5-8ca3-a955d8ab39dd",
+  "prevIds": [
+    "82c9a72c-783a-4019-a1b9-f28b90996343"
+  ],
+  "footprints": [
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "plan_build"
+      ],
+      "writes": [
+        "s|tbl|public.plan_build",
+        "n|tbl|public.plan_build",
+        "e|tbl|public.plan_build",
+        "n|rel|public.plan_build",
+        "n|type|public.plan_build",
+        "n|rel|public.plan_build_pkey",
+        "n|rel|public.plan_build_user_id_request_id_unique"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "attempt",
+        "set_kind"
+      ],
+      "writes": [
+        "s|col|public.attempt.set_kind",
+        "n|col|public.attempt.set_kind",
+        "e|col|public.attempt.set_kind"
+      ],
+      "reads": [
+        "n|tbl|public.attempt",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "attempt",
+        "time_multiplier"
+      ],
+      "writes": [
+        "s|col|public.attempt.time_multiplier",
+        "n|col|public.attempt.time_multiplier",
+        "e|col|public.attempt.time_multiplier"
+      ],
+      "reads": [
+        "n|tbl|public.attempt",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "review_event",
+        "version_id"
+      ],
+      "writes": [
+        "s|col|public.review_event.version_id",
+        "n|col|public.review_event.version_id",
+        "e|col|public.review_event.version_id"
+      ],
+      "reads": [
+        "n|tbl|public.review_event",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "review_event",
+        "selected_choice_id"
+      ],
+      "writes": [
+        "s|col|public.review_event.selected_choice_id",
+        "n|col|public.review_event.selected_choice_id",
+        "e|col|public.review_event.selected_choice_id"
+      ],
+      "reads": [
+        "n|tbl|public.review_event",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "review_event",
+        "attempt_item_id"
+      ],
+      "writes": [
+        "s|col|public.review_event.attempt_item_id",
+        "n|col|public.review_event.attempt_item_id",
+        "e|col|public.review_event.attempt_item_id"
+      ],
+      "reads": [
+        "n|tbl|public.review_event",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "study_plan",
+        "generated_on"
+      ],
+      "writes": [
+        "s|col|public.study_plan.generated_on",
+        "n|col|public.study_plan.generated_on",
+        "e|col|public.study_plan.generated_on"
+      ],
+      "reads": [
+        "n|tbl|public.study_plan",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "study_plan",
+        "allocation"
+      ],
+      "writes": [
+        "s|col|public.study_plan.allocation",
+        "n|col|public.study_plan.allocation",
+        "e|col|public.study_plan.allocation"
+      ],
+      "reads": [
+        "n|tbl|public.study_plan",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "study_task",
+        "kind"
+      ],
+      "writes": [
+        "s|col|public.study_task.kind",
+        "n|col|public.study_task.kind",
+        "e|col|public.study_task.kind"
+      ],
+      "reads": [
+        "n|tbl|public.study_task",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "study_task",
+        "reason"
+      ],
+      "writes": [
+        "s|col|public.study_task.reason",
+        "n|col|public.study_task.reason",
+        "e|col|public.study_task.reason"
+      ],
+      "reads": [
+        "n|tbl|public.study_task",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "study_task",
+        "href"
+      ],
+      "writes": [
+        "s|col|public.study_task.href",
+        "n|col|public.study_task.href",
+        "e|col|public.study_task.href"
+      ],
+      "reads": [
+        "n|tbl|public.study_task",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "study_task",
+        "carried_from_on"
+      ],
+      "writes": [
+        "s|col|public.study_task.carried_from_on",
+        "n|col|public.study_task.carried_from_on",
+        "e|col|public.study_task.carried_from_on"
+      ],
+      "reads": [
+        "n|tbl|public.study_task",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "study_task",
+        "archived_at"
+      ],
+      "writes": [
+        "s|col|public.study_task.archived_at",
+        "n|col|public.study_task.archived_at",
+        "e|col|public.study_task.archived_at"
+      ],
+      "reads": [
+        "n|tbl|public.study_task",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "user_profile",
+        "dedication"
+      ],
+      "writes": [
+        "s|col|public.user_profile.dedication",
+        "n|col|public.user_profile.dedication",
+        "e|col|public.user_profile.dedication"
+      ],
+      "reads": [
+        "n|tbl|public.user_profile",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "plan_build"
+      ],
+      "writes": [
+        "s|fk|public.plan_build.plan_build_user_id_user_id_fkey",
+        "n|fk|public.plan_build.plan_build_user_id_user_id_fkey",
+        "e|fk|public.plan_build.plan_build_user_id_user_id_fkey",
+        "n|con|public.plan_build.plan_build_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.plan_build",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.plan_build.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "plan_build"
+      ],
+      "writes": [
+        "s|fk|public.plan_build.plan_build_plan_id_study_plan_id_fkey",
+        "n|fk|public.plan_build.plan_build_plan_id_study_plan_id_fkey",
+        "e|fk|public.plan_build.plan_build_plan_id_study_plan_id_fkey",
+        "n|con|public.plan_build.plan_build_plan_id_study_plan_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.plan_build",
+        "n|sch|public",
+        "n|tbl|public.study_plan",
+        "n|sch|public",
+        "n|col|public.plan_build.plan_id",
+        "n|col|public.study_plan.id",
+        "e|uniqueness|public.study_plan.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "review_event"
+      ],
+      "writes": [
+        "s|fk|public.review_event.review_event_version_id_question_version_id_fkey",
+        "n|fk|public.review_event.review_event_version_id_question_version_id_fkey",
+        "e|fk|public.review_event.review_event_version_id_question_version_id_fkey",
+        "n|con|public.review_event.review_event_version_id_question_version_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.review_event",
+        "n|sch|public",
+        "n|tbl|public.question_version",
+        "n|sch|public",
+        "n|col|public.review_event.version_id",
+        "n|col|public.question_version.id",
+        "e|uniqueness|public.question_version.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "review_event"
+      ],
+      "writes": [
+        "s|fk|public.review_event.review_event_attempt_item_id_attempt_item_id_fkey",
+        "n|fk|public.review_event.review_event_attempt_item_id_attempt_item_id_fkey",
+        "e|fk|public.review_event.review_event_attempt_item_id_attempt_item_id_fkey",
+        "n|con|public.review_event.review_event_attempt_item_id_attempt_item_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.review_event",
+        "n|sch|public",
+        "n|tbl|public.attempt_item",
+        "n|sch|public",
+        "n|col|public.review_event.attempt_item_id",
+        "n|col|public.attempt_item.id",
+        "e|uniqueness|public.attempt_item.id"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "plan_build",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "attempt",
+        "name": "set_kind",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "attempt",
+        "name": "time_multiplier",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "100",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "plan_build",
+        "name": "id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "plan_build",
+        "name": "user_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "plan_build",
+        "name": "request_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "plan_build",
+        "name": "plan_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "plan_build",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "review_event",
+        "name": "version_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "review_event",
+        "name": "selected_choice_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "review_event",
+        "name": "attempt_item_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "study_plan",
+        "name": "generated_on",
+        "type": "date",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "study_plan",
+        "name": "allocation",
+        "type": "jsonb",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "'{\"review\":20,\"priority\":60,\"mixed\":20}'",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "study_task",
+        "name": "kind",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "'priority'",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "study_task",
+        "name": "reason",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "'A manageable next step.'",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "study_task",
+        "name": "href",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "'/practice'",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "study_task",
+        "name": "carried_from_on",
+        "type": "date",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "study_task",
+        "name": "archived_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "user_profile",
+        "name": "dedication",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "plan_build",
+        "name": "plan_build_user_id_user_id_fkey",
+        "nameExplicit": false,
+        "columns": [
+          "user_id"
+        ],
+        "schemaTo": "public",
+        "tableTo": "user",
+        "columnsTo": [
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "plan_build",
+        "name": "plan_build_plan_id_study_plan_id_fkey",
+        "nameExplicit": false,
+        "columns": [
+          "plan_id"
+        ],
+        "schemaTo": "public",
+        "tableTo": "study_plan",
+        "columnsTo": [
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "review_event",
+        "name": "review_event_version_id_question_version_id_fkey",
+        "nameExplicit": false,
+        "columns": [
+          "version_id"
+        ],
+        "schemaTo": "public",
+        "tableTo": "question_version",
+        "columnsTo": [
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "NO ACTION",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "review_event",
+        "name": "review_event_attempt_item_id_attempt_item_id_fkey",
+        "nameExplicit": false,
+        "columns": [
+          "attempt_item_id"
+        ],
+        "schemaTo": "public",
+        "tableTo": "attempt_item",
+        "columnsTo": [
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "SET NULL",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "plan_build",
+        "name": "plan_build_pkey",
+        "columns": [
+          "id"
+        ],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "plan_build",
+        "name": "plan_build_user_id_request_id_unique",
+        "nameExplicit": false,
+        "columns": [
+          "user_id",
+          "request_id"
+        ],
+        "nullsNotDistinct": false,
+        "entityType": "uniques"
+      }
+    }
+  ]
+}

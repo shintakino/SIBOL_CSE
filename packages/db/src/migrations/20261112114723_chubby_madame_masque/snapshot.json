@@ -1,0 +1,1884 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "82c9a72c-783a-4019-a1b9-f28b90996343",
+  "prevIds": [
+    "946fea89-4aef-42de-9add-0670c1e1f739"
+  ],
+  "footprints": [
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "level_launch"
+      ],
+      "writes": [
+        "s|tbl|public.level_launch",
+        "n|tbl|public.level_launch",
+        "e|tbl|public.level_launch",
+        "n|rel|public.level_launch",
+        "n|type|public.level_launch",
+        "n|rel|public.level_launch_pkey"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.exam_level"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "mock_form_item"
+      ],
+      "writes": [
+        "s|tbl|public.mock_form_item",
+        "n|tbl|public.mock_form_item",
+        "e|tbl|public.mock_form_item",
+        "n|rel|public.mock_form_item",
+        "n|type|public.mock_form_item",
+        "n|rel|public.mock_form_item_pkey",
+        "n|rel|public.mock_form_item_set_id_question_id_unique"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "mock_form_set"
+      ],
+      "writes": [
+        "s|tbl|public.mock_form_set",
+        "n|tbl|public.mock_form_set",
+        "e|tbl|public.mock_form_set",
+        "n|rel|public.mock_form_set",
+        "n|type|public.mock_form_set",
+        "n|rel|public.mock_form_set_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "question_exposure"
+      ],
+      "writes": [
+        "s|tbl|public.question_exposure",
+        "n|tbl|public.question_exposure",
+        "e|tbl|public.question_exposure",
+        "n|rel|public.question_exposure",
+        "n|type|public.question_exposure",
+        "n|rel|public.question_exposure_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "attempt",
+        "creation_key"
+      ],
+      "writes": [
+        "s|col|public.attempt.creation_key",
+        "n|col|public.attempt.creation_key",
+        "e|col|public.attempt.creation_key"
+      ],
+      "reads": [
+        "n|tbl|public.attempt",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "attempt_answer",
+        "mutation_id"
+      ],
+      "writes": [
+        "s|col|public.attempt_answer.mutation_id",
+        "n|col|public.attempt_answer.mutation_id",
+        "e|col|public.attempt_answer.mutation_id"
+      ],
+      "reads": [
+        "n|tbl|public.attempt_answer",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "attempt_answer",
+        "confidence"
+      ],
+      "writes": [
+        "s|col|public.attempt_answer.confidence",
+        "n|col|public.attempt_answer.confidence",
+        "e|col|public.attempt_answer.confidence"
+      ],
+      "reads": [
+        "n|tbl|public.attempt_answer",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "attempt_item",
+        "first_exposure"
+      ],
+      "writes": [
+        "s|col|public.attempt_item.first_exposure",
+        "n|col|public.attempt_item.first_exposure",
+        "e|col|public.attempt_item.first_exposure"
+      ],
+      "reads": [
+        "n|tbl|public.attempt_item",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "attempt_item",
+        "committed_at"
+      ],
+      "writes": [
+        "s|col|public.attempt_item.committed_at",
+        "n|col|public.attempt_item.committed_at",
+        "e|col|public.attempt_item.committed_at"
+      ],
+      "reads": [
+        "n|tbl|public.attempt_item",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "exam_profile_version",
+        "diagnostic_count"
+      ],
+      "writes": [
+        "s|col|public.exam_profile_version.diagnostic_count",
+        "n|col|public.exam_profile_version.diagnostic_count",
+        "e|col|public.exam_profile_version.diagnostic_count"
+      ],
+      "reads": [
+        "n|tbl|public.exam_profile_version",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "import_batch",
+        "rows"
+      ],
+      "writes": [
+        "s|col|public.import_batch.rows",
+        "n|col|public.import_batch.rows",
+        "e|col|public.import_batch.rows"
+      ],
+      "reads": [
+        "n|tbl|public.import_batch",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "lesson_progress",
+        "revision"
+      ],
+      "writes": [
+        "s|col|public.lesson_progress.revision",
+        "n|col|public.lesson_progress.revision",
+        "e|col|public.lesson_progress.revision"
+      ],
+      "reads": [
+        "n|tbl|public.lesson_progress",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "lesson_version",
+        "structure"
+      ],
+      "writes": [
+        "s|col|public.lesson_version.structure",
+        "n|col|public.lesson_version.structure",
+        "e|col|public.lesson_version.structure"
+      ],
+      "reads": [
+        "n|tbl|public.lesson_version",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "lesson_version",
+        "levels"
+      ],
+      "writes": [
+        "s|col|public.lesson_version.levels",
+        "n|col|public.lesson_version.levels",
+        "e|col|public.lesson_version.levels"
+      ],
+      "reads": [
+        "n|tbl|public.lesson_version",
+        "n|sch|public",
+        "n|enum|public.exam_level"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "lesson_version",
+        "source_id"
+      ],
+      "writes": [
+        "s|col|public.lesson_version.source_id",
+        "n|col|public.lesson_version.source_id",
+        "e|col|public.lesson_version.source_id"
+      ],
+      "reads": [
+        "n|tbl|public.lesson_version",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "lesson_version",
+        "review_checklist"
+      ],
+      "writes": [
+        "s|col|public.lesson_version.review_checklist",
+        "n|col|public.lesson_version.review_checklist",
+        "e|col|public.lesson_version.review_checklist"
+      ],
+      "reads": [
+        "n|tbl|public.lesson_version",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "lesson_version",
+        "published_at"
+      ],
+      "writes": [
+        "s|col|public.lesson_version.published_at",
+        "n|col|public.lesson_version.published_at",
+        "e|col|public.lesson_version.published_at"
+      ],
+      "reads": [
+        "n|tbl|public.lesson_version",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "lesson_version",
+        "erratum"
+      ],
+      "writes": [
+        "s|col|public.lesson_version.erratum",
+        "n|col|public.lesson_version.erratum",
+        "e|col|public.lesson_version.erratum"
+      ],
+      "reads": [
+        "n|tbl|public.lesson_version",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "question",
+        "blocked"
+      ],
+      "writes": [
+        "s|col|public.question.blocked",
+        "n|col|public.question.blocked",
+        "e|col|public.question.blocked"
+      ],
+      "reads": [
+        "n|tbl|public.question",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "question_issue",
+        "description"
+      ],
+      "writes": [
+        "s|col|public.question_issue.description",
+        "n|col|public.question_issue.description",
+        "e|col|public.question_issue.description"
+      ],
+      "reads": [
+        "n|tbl|public.question_issue",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "question_version",
+        "passage"
+      ],
+      "writes": [
+        "s|col|public.question_version.passage",
+        "n|col|public.question_version.passage",
+        "e|col|public.question_version.passage"
+      ],
+      "reads": [
+        "n|tbl|public.question_version",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "question_version",
+        "media"
+      ],
+      "writes": [
+        "s|col|public.question_version.media",
+        "n|col|public.question_version.media",
+        "e|col|public.question_version.media"
+      ],
+      "reads": [
+        "n|tbl|public.question_version",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "question_version",
+        "distractor_explanations"
+      ],
+      "writes": [
+        "s|col|public.question_version.distractor_explanations",
+        "n|col|public.question_version.distractor_explanations",
+        "e|col|public.question_version.distractor_explanations"
+      ],
+      "reads": [
+        "n|tbl|public.question_version",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "question_version",
+        "review_checklist"
+      ],
+      "writes": [
+        "s|col|public.question_version.review_checklist",
+        "n|col|public.question_version.review_checklist",
+        "e|col|public.question_version.review_checklist"
+      ],
+      "reads": [
+        "n|tbl|public.question_version",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "question_version",
+        "published_at"
+      ],
+      "writes": [
+        "s|col|public.question_version.published_at",
+        "n|col|public.question_version.published_at",
+        "e|col|public.question_version.published_at"
+      ],
+      "reads": [
+        "n|tbl|public.question_version",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "topic",
+        "area"
+      ],
+      "writes": [
+        "s|col|public.topic.area",
+        "n|col|public.topic.area",
+        "e|col|public.topic.area"
+      ],
+      "reads": [
+        "n|tbl|public.topic",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "topic",
+        "enabled"
+      ],
+      "writes": [
+        "s|col|public.topic.enabled",
+        "n|col|public.topic.enabled",
+        "e|col|public.topic.enabled"
+      ],
+      "reads": [
+        "n|tbl|public.topic",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "user_profile",
+        "diagnostic_decision"
+      ],
+      "writes": [
+        "s|col|public.user_profile.diagnostic_decision",
+        "n|col|public.user_profile.diagnostic_decision",
+        "e|col|public.user_profile.diagnostic_decision"
+      ],
+      "reads": [
+        "n|tbl|public.user_profile",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_unique",
+      "statementTarget": [
+        "table",
+        "public",
+        "attempt"
+      ],
+      "writes": [
+        "s|uq|public.attempt.attempt_user_id_creation_key_unique",
+        "n|uq|public.attempt.attempt_user_id_creation_key_unique",
+        "e|uq|public.attempt.attempt_user_id_creation_key_unique",
+        "n|con|public.attempt.attempt_user_id_creation_key_unique",
+        "n|rel|public.attempt_user_id_creation_key_unique"
+      ],
+      "reads": [
+        "n|tbl|public.attempt",
+        "n|sch|public",
+        "n|col|public.attempt.user_id",
+        "n|col|public.attempt.creation_key"
+      ]
+    },
+    {
+      "statementType": "add_unique",
+      "statementTarget": [
+        "table",
+        "public",
+        "private_note"
+      ],
+      "writes": [
+        "s|uq|public.private_note.private_note_user_id_question_id_unique",
+        "n|uq|public.private_note.private_note_user_id_question_id_unique",
+        "e|uq|public.private_note.private_note_user_id_question_id_unique",
+        "n|con|public.private_note.private_note_user_id_question_id_unique",
+        "n|rel|public.private_note_user_id_question_id_unique"
+      ],
+      "reads": [
+        "n|tbl|public.private_note",
+        "n|sch|public",
+        "n|col|public.private_note.user_id",
+        "n|col|public.private_note.question_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "lesson_version"
+      ],
+      "writes": [
+        "s|fk|public.lesson_version.lesson_version_source_id_content_source_id_fkey",
+        "n|fk|public.lesson_version.lesson_version_source_id_content_source_id_fkey",
+        "e|fk|public.lesson_version.lesson_version_source_id_content_source_id_fkey",
+        "n|con|public.lesson_version.lesson_version_source_id_content_source_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.lesson_version",
+        "n|sch|public",
+        "n|tbl|public.content_source",
+        "n|sch|public",
+        "n|col|public.lesson_version.source_id",
+        "n|col|public.content_source.id",
+        "e|uniqueness|public.content_source.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "level_launch"
+      ],
+      "writes": [
+        "s|fk|public.level_launch.level_launch_profile_id_exam_profile_version_id_fkey",
+        "n|fk|public.level_launch.level_launch_profile_id_exam_profile_version_id_fkey",
+        "e|fk|public.level_launch.level_launch_profile_id_exam_profile_version_id_fkey",
+        "n|con|public.level_launch.level_launch_profile_id_exam_profile_version_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.level_launch",
+        "n|sch|public",
+        "n|tbl|public.exam_profile_version",
+        "n|sch|public",
+        "n|col|public.level_launch.profile_id",
+        "n|col|public.exam_profile_version.id",
+        "e|uniqueness|public.exam_profile_version.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "level_launch"
+      ],
+      "writes": [
+        "s|fk|public.level_launch.level_launch_form_set_id_mock_form_set_id_fkey",
+        "n|fk|public.level_launch.level_launch_form_set_id_mock_form_set_id_fkey",
+        "e|fk|public.level_launch.level_launch_form_set_id_mock_form_set_id_fkey",
+        "n|con|public.level_launch.level_launch_form_set_id_mock_form_set_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.level_launch",
+        "n|sch|public",
+        "n|tbl|public.mock_form_set",
+        "n|sch|public",
+        "n|col|public.level_launch.form_set_id",
+        "n|col|public.mock_form_set.id",
+        "e|uniqueness|public.mock_form_set.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "level_launch"
+      ],
+      "writes": [
+        "s|fk|public.level_launch.level_launch_launched_by_user_id_fkey",
+        "n|fk|public.level_launch.level_launch_launched_by_user_id_fkey",
+        "e|fk|public.level_launch.level_launch_launched_by_user_id_fkey",
+        "n|con|public.level_launch.level_launch_launched_by_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.level_launch",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.level_launch.launched_by",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "mock_form_item"
+      ],
+      "writes": [
+        "s|fk|public.mock_form_item.mock_form_item_set_id_mock_form_set_id_fkey",
+        "n|fk|public.mock_form_item.mock_form_item_set_id_mock_form_set_id_fkey",
+        "e|fk|public.mock_form_item.mock_form_item_set_id_mock_form_set_id_fkey",
+        "n|con|public.mock_form_item.mock_form_item_set_id_mock_form_set_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.mock_form_item",
+        "n|sch|public",
+        "n|tbl|public.mock_form_set",
+        "n|sch|public",
+        "n|col|public.mock_form_item.set_id",
+        "n|col|public.mock_form_set.id",
+        "e|uniqueness|public.mock_form_set.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "mock_form_item"
+      ],
+      "writes": [
+        "s|fk|public.mock_form_item.mock_form_item_question_version_id_question_version_id_fkey",
+        "n|fk|public.mock_form_item.mock_form_item_question_version_id_question_version_id_fkey",
+        "e|fk|public.mock_form_item.mock_form_item_question_version_id_question_version_id_fkey",
+        "n|con|public.mock_form_item.mock_form_item_question_version_id_question_version_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.mock_form_item",
+        "n|sch|public",
+        "n|tbl|public.question_version",
+        "n|sch|public",
+        "n|col|public.mock_form_item.question_version_id",
+        "n|col|public.question_version.id",
+        "e|uniqueness|public.question_version.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "mock_form_item"
+      ],
+      "writes": [
+        "s|fk|public.mock_form_item.mock_form_item_question_id_question_id_fkey",
+        "n|fk|public.mock_form_item.mock_form_item_question_id_question_id_fkey",
+        "e|fk|public.mock_form_item.mock_form_item_question_id_question_id_fkey",
+        "n|con|public.mock_form_item.mock_form_item_question_id_question_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.mock_form_item",
+        "n|sch|public",
+        "n|tbl|public.question",
+        "n|sch|public",
+        "n|col|public.mock_form_item.question_id",
+        "n|col|public.question.id",
+        "e|uniqueness|public.question.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "mock_form_set"
+      ],
+      "writes": [
+        "s|fk|public.mock_form_set.mock_form_set_blueprint_id_mock_blueprint_version_id_fkey",
+        "n|fk|public.mock_form_set.mock_form_set_blueprint_id_mock_blueprint_version_id_fkey",
+        "e|fk|public.mock_form_set.mock_form_set_blueprint_id_mock_blueprint_version_id_fkey",
+        "n|con|public.mock_form_set.mock_form_set_blueprint_id_mock_blueprint_version_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.mock_form_set",
+        "n|sch|public",
+        "n|tbl|public.mock_blueprint_version",
+        "n|sch|public",
+        "n|col|public.mock_form_set.blueprint_id",
+        "n|col|public.mock_blueprint_version.id",
+        "e|uniqueness|public.mock_blueprint_version.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "mock_form_set"
+      ],
+      "writes": [
+        "s|fk|public.mock_form_set.mock_form_set_created_by_user_id_fkey",
+        "n|fk|public.mock_form_set.mock_form_set_created_by_user_id_fkey",
+        "e|fk|public.mock_form_set.mock_form_set_created_by_user_id_fkey",
+        "n|con|public.mock_form_set.mock_form_set_created_by_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.mock_form_set",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.mock_form_set.created_by",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "question_exposure"
+      ],
+      "writes": [
+        "s|fk|public.question_exposure.question_exposure_user_id_user_id_fkey",
+        "n|fk|public.question_exposure.question_exposure_user_id_user_id_fkey",
+        "e|fk|public.question_exposure.question_exposure_user_id_user_id_fkey",
+        "n|con|public.question_exposure.question_exposure_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.question_exposure",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.question_exposure.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "question_exposure"
+      ],
+      "writes": [
+        "s|fk|public.question_exposure.question_exposure_question_id_question_id_fkey",
+        "n|fk|public.question_exposure.question_exposure_question_id_question_id_fkey",
+        "e|fk|public.question_exposure.question_exposure_question_id_question_id_fkey",
+        "n|con|public.question_exposure.question_exposure_question_id_question_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.question_exposure",
+        "n|sch|public",
+        "n|tbl|public.question",
+        "n|sch|public",
+        "n|col|public.question_exposure.question_id",
+        "n|col|public.question.id",
+        "e|uniqueness|public.question.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "question_exposure"
+      ],
+      "writes": [
+        "s|fk|public.question_exposure.question_exposure_first_item_id_attempt_item_id_fkey",
+        "n|fk|public.question_exposure.question_exposure_first_item_id_attempt_item_id_fkey",
+        "e|fk|public.question_exposure.question_exposure_first_item_id_attempt_item_id_fkey",
+        "n|con|public.question_exposure.question_exposure_first_item_id_attempt_item_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.question_exposure",
+        "n|sch|public",
+        "n|tbl|public.attempt_item",
+        "n|sch|public",
+        "n|col|public.question_exposure.first_item_id",
+        "n|col|public.attempt_item.id",
+        "e|uniqueness|public.attempt_item.id"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "level_launch",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "mock_form_item",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "mock_form_set",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "question_exposure",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "attempt",
+        "name": "creation_key",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "attempt_answer",
+        "name": "mutation_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "attempt_answer",
+        "name": "confidence",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "attempt_item",
+        "name": "first_exposure",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "false",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "attempt_item",
+        "name": "committed_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "exam_profile_version",
+        "name": "diagnostic_count",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "30",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "import_batch",
+        "name": "rows",
+        "type": "jsonb",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "lesson_progress",
+        "name": "revision",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "1",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "lesson_version",
+        "name": "structure",
+        "type": "jsonb",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "lesson_version",
+        "name": "levels",
+        "type": "exam_level",
+        "typeSchema": "public",
+        "notNull": true,
+        "dimensions": 1,
+        "default": "'{professional,subprofessional}'",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "lesson_version",
+        "name": "source_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "lesson_version",
+        "name": "review_checklist",
+        "type": "jsonb",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "lesson_version",
+        "name": "published_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "lesson_version",
+        "name": "erratum",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "level_launch",
+        "name": "level",
+        "type": "exam_level",
+        "typeSchema": "public",
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "level_launch",
+        "name": "profile_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "level_launch",
+        "name": "form_set_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "level_launch",
+        "name": "launched_by",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "level_launch",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "mock_form_item",
+        "name": "set_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "mock_form_item",
+        "name": "form",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "mock_form_item",
+        "name": "position",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "mock_form_item",
+        "name": "question_version_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "mock_form_item",
+        "name": "question_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "mock_form_set",
+        "name": "id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "mock_form_set",
+        "name": "blueprint_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "mock_form_set",
+        "name": "created_by",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "mock_form_set",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "now()",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "question",
+        "name": "blocked",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "false",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "question_exposure",
+        "name": "user_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "question_exposure",
+        "name": "question_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "question_exposure",
+        "name": "first_item_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "question_issue",
+        "name": "description",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "''",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "question_version",
+        "name": "passage",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "question_version",
+        "name": "media",
+        "type": "jsonb",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "question_version",
+        "name": "distractor_explanations",
+        "type": "jsonb",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "question_version",
+        "name": "review_checklist",
+        "type": "jsonb",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "question_version",
+        "name": "published_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "topic",
+        "name": "area",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "topic",
+        "name": "enabled",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "true",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "user_profile",
+        "name": "diagnostic_decision",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "'pending'",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "lesson_version",
+        "name": "lesson_version_source_id_content_source_id_fkey",
+        "nameExplicit": false,
+        "columns": [
+          "source_id"
+        ],
+        "schemaTo": "public",
+        "tableTo": "content_source",
+        "columnsTo": [
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "NO ACTION",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "level_launch",
+        "name": "level_launch_profile_id_exam_profile_version_id_fkey",
+        "nameExplicit": false,
+        "columns": [
+          "profile_id"
+        ],
+        "schemaTo": "public",
+        "tableTo": "exam_profile_version",
+        "columnsTo": [
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "NO ACTION",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "level_launch",
+        "name": "level_launch_form_set_id_mock_form_set_id_fkey",
+        "nameExplicit": false,
+        "columns": [
+          "form_set_id"
+        ],
+        "schemaTo": "public",
+        "tableTo": "mock_form_set",
+        "columnsTo": [
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "NO ACTION",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "level_launch",
+        "name": "level_launch_launched_by_user_id_fkey",
+        "nameExplicit": false,
+        "columns": [
+          "launched_by"
+        ],
+        "schemaTo": "public",
+        "tableTo": "user",
+        "columnsTo": [
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "NO ACTION",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "mock_form_item",
+        "name": "mock_form_item_set_id_mock_form_set_id_fkey",
+        "nameExplicit": false,
+        "columns": [
+          "set_id"
+        ],
+        "schemaTo": "public",
+        "tableTo": "mock_form_set",
+        "columnsTo": [
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "NO ACTION",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "mock_form_item",
+        "name": "mock_form_item_question_version_id_question_version_id_fkey",
+        "nameExplicit": false,
+        "columns": [
+          "question_version_id"
+        ],
+        "schemaTo": "public",
+        "tableTo": "question_version",
+        "columnsTo": [
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "NO ACTION",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "mock_form_item",
+        "name": "mock_form_item_question_id_question_id_fkey",
+        "nameExplicit": false,
+        "columns": [
+          "question_id"
+        ],
+        "schemaTo": "public",
+        "tableTo": "question",
+        "columnsTo": [
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "NO ACTION",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "mock_form_set",
+        "name": "mock_form_set_blueprint_id_mock_blueprint_version_id_fkey",
+        "nameExplicit": false,
+        "columns": [
+          "blueprint_id"
+        ],
+        "schemaTo": "public",
+        "tableTo": "mock_blueprint_version",
+        "columnsTo": [
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "NO ACTION",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "mock_form_set",
+        "name": "mock_form_set_created_by_user_id_fkey",
+        "nameExplicit": false,
+        "columns": [
+          "created_by"
+        ],
+        "schemaTo": "public",
+        "tableTo": "user",
+        "columnsTo": [
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "NO ACTION",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "question_exposure",
+        "name": "question_exposure_user_id_user_id_fkey",
+        "nameExplicit": false,
+        "columns": [
+          "user_id"
+        ],
+        "schemaTo": "public",
+        "tableTo": "user",
+        "columnsTo": [
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "question_exposure",
+        "name": "question_exposure_question_id_question_id_fkey",
+        "nameExplicit": false,
+        "columns": [
+          "question_id"
+        ],
+        "schemaTo": "public",
+        "tableTo": "question",
+        "columnsTo": [
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "NO ACTION",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "question_exposure",
+        "name": "question_exposure_first_item_id_attempt_item_id_fkey",
+        "nameExplicit": false,
+        "columns": [
+          "first_item_id"
+        ],
+        "schemaTo": "public",
+        "tableTo": "attempt_item",
+        "columnsTo": [
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "CASCADE",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "mock_form_item",
+        "name": "mock_form_item_pkey",
+        "columns": [
+          "set_id",
+          "form",
+          "position"
+        ],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "question_exposure",
+        "name": "question_exposure_pkey",
+        "columns": [
+          "user_id",
+          "question_id"
+        ],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "level_launch",
+        "name": "level_launch_pkey",
+        "columns": [
+          "level"
+        ],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "mock_form_set",
+        "name": "mock_form_set_pkey",
+        "columns": [
+          "id"
+        ],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "attempt",
+        "name": "attempt_user_id_creation_key_unique",
+        "nameExplicit": false,
+        "columns": [
+          "user_id",
+          "creation_key"
+        ],
+        "nullsNotDistinct": false,
+        "entityType": "uniques"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "mock_form_item",
+        "name": "mock_form_item_set_id_question_id_unique",
+        "nameExplicit": false,
+        "columns": [
+          "set_id",
+          "question_id"
+        ],
+        "nullsNotDistinct": false,
+        "entityType": "uniques"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "private_note",
+        "name": "private_note_user_id_question_id_unique",
+        "nameExplicit": false,
+        "columns": [
+          "user_id",
+          "question_id"
+        ],
+        "nullsNotDistinct": false,
+        "entityType": "uniques"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "mock_form_item",
+        "name": "form_number",
+        "value": "\"form\" in (1,2)",
+        "entityType": "checks"
+      }
+    }
+  ]
+}
