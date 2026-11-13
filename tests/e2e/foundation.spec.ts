@@ -75,6 +75,7 @@ async function noOverflow(page: Page) {
   }).toPass({ timeout: 5000 });
 }
 async function noAccessibilityViolations(page: Page) {
+  await expect(page).toHaveTitle(/Sibol/);
   const scan = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
     .analyze();

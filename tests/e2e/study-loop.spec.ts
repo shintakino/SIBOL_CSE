@@ -82,6 +82,7 @@ async function signIn(page: Page) {
   await expect(page).toHaveURL(/dashboard/);
 }
 async function scan(page: Page) {
+  await expect(page).toHaveTitle(/Sibol/);
   const r = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
     .analyze();
