@@ -1,6 +1,6 @@
 # Practice engine and shared attempt persistence
 
-Status: specified; not implemented.
+Status: implemented and locally verified on 12 November 2026. See [progress tracker](../progress-tracker.md) for evidence and remaining content/release gates.
 Source: [Sibol CSE PRD](../../Sibol-CSE-PRD.md), FR-05; PRD §§13–15.
 
 ## Scope and acceptance

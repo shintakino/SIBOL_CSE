@@ -1,6 +1,6 @@
 # Feature specifications
 
-Source of truth: [Sibol-CSE-PRD.md](../../Sibol-CSE-PRD.md). All specs are planned, not implemented. Read the six context files in AGENTS.md order first. Numeric filenames organize the documents; dependencies and [delivery phases](../ai-workflow-rules.md) determine implementation order.
+Source of truth: [Sibol-CSE-PRD.md](../../Sibol-CSE-PRD.md). Specs 00–13 are implemented and locally verified. Spec 14 has operational tooling and local recovery/container/performance verification, with performance and external/manual/content/pilot acceptance still pending. Real reviewed content and verified official-source profiles remain launch requirements. Read the six context files in AGENTS.md order first. Numeric filenames organize the documents; dependencies and [delivery phases](../ai-workflow-rules.md) determine implementation order.
 
 | Spec | PRD coverage |
 |---|---|

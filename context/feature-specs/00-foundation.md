@@ -1,6 +1,6 @@
 # Foundation and workspace
 
-Status: specified; not implemented.
+Status: implemented and locally verified on 12 November 2026. See [progress tracker](../progress-tracker.md) and [setup/runbook](../../README.md) for evidence and release follow-ups.
 Source: [Sibol CSE PRD](../../Sibol-CSE-PRD.md), PRD §§11–16; phase 1.
 
 ## Scope and acceptance

@@ -1,6 +1,6 @@
 # Lesson library and learning progress
 
-Status: specified; not implemented.
+Status: implemented and locally verified on 12 November 2026. See [progress tracker](../progress-tracker.md) for evidence and remaining content/release gates.
 Source: [Sibol CSE PRD](../../Sibol-CSE-PRD.md), FR-04.
 
 ## Scope and acceptance

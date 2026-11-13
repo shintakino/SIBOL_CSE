@@ -1,6 +1,6 @@
 # Results and learning analytics
 
-Status: specified; not implemented.
+Status: implemented and locally verified on 12 November 2026. See [progress tracker](../progress-tracker.md) for evidence and remaining content/release gates.
 Source: [Sibol CSE PRD](../../Sibol-CSE-PRD.md), FR-09.
 
 ## Scope and acceptance
@@ -18,3 +18,7 @@ Acceptance:
 - Deleting an attempt recalculates derived metrics.
 - Content corrections retain original scores and show errata; optional rescore is explicit/audited.
 - Results and trends are owner-private, including against routine admin browsing.
+
+## Implemented evidence threshold
+
+An enabled topic is uncovered until it has five distinct answered questions in finalized work outside reviews/full mocks. Consistency requires 85% in each of the last three strict short timed sets, 30 distinct questions across those sets and no uncovered enabled topic. Extended-time practice and full mocks keep separate trends. Terminal-attempt deletion removes its answers/result and recalculates metrics; notebook snapshots retain historical outcomes.

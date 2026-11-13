@@ -1,6 +1,6 @@
 # Accounts and onboarding
 
-Status: specified; not implemented.
+Status: implemented and locally verified on 12 November 2026. See [progress tracker](../progress-tracker.md) and [setup/runbook](../../README.md) for evidence and release follow-ups.
 Source: [Sibol CSE PRD](../../Sibol-CSE-PRD.md), FR-01; PRD §§3, 5, 12.
 
 ## Scope and acceptance

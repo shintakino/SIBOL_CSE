@@ -1,6 +1,6 @@
 # Mistake notebook and spaced review
 
-Status: specified; not implemented.
+Status: implemented and locally verified on 13 November 2026. See [progress tracker](../progress-tracker.md) for evidence and remaining content/release gates.
 Source: [Sibol CSE PRD](../../Sibol-CSE-PRD.md), FR-06.
 
 ## Scope and acceptance
@@ -16,3 +16,7 @@ Acceptance:
 - Later success does not erase historical mistakes.
 - Retired/disputed questions leave future queues.
 - Review is owner-scoped, refresh-safe, and tested across calendar-day boundaries.
+
+## Concurrency hardening
+
+Manual tomorrow actions hold a shared live-owner lock before reading history or waiting for the review advisory lock. Account deletion therefore either waits for the action and purges its records, or completes first and the action fails. A missing owner can never receive a new review event. Notebook history/filtering/choices are read in one read-committed transaction under the same shared owner lock, serializing feedback with strict-mock/diagnostic creation. PostgreSQL regression tests cover both ordering directions and post-deletion absence.
