@@ -104,10 +104,13 @@ def main():
         raise ReleaseError("Deployment did not become ready with the expected source revision")
     if not finished:
         raise ReleaseError("Missing successful Coolify deployment receipt")
-    req = urllib.request.Request(ORIGIN + "/sign-in", headers={"Cache-Control": "no-cache"})
-    with OPENER.open(req, timeout=30) as response:
-        if response.status != 200:
-            raise ReleaseError("Public sign-in verification failed")
+    req = urllib.request.Request(ORIGIN + "/sign-in", headers={"Cache-Control": "no-cache", "User-Agent": "Sibol-release"})
+    try:
+        with OPENER.open(req, timeout=30) as response:
+            if response.status != 200:
+                raise ReleaseError("Public sign-in verification failed")
+    except (urllib.error.URLError, TimeoutError):
+        raise ReleaseError("Public sign-in verification failed") from None
     receipt = {"revision": revision, "deployment": deployment, "origin": ORIGIN, "ready": True, "verifiedAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
     Path("deployment-receipt.json").write_text(json.dumps(receipt, indent=2) + "\n")
     print(f"Verified {ORIGIN} at {revision[:12]}")

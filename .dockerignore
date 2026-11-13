@@ -44,3 +44,14 @@ playwright-report
 !**/.env.example
 !**/.env.schema
 **/__pycache__
+
+# Planning, test and CI/operator files are not application build inputs.
+context
+.github
+tests
+README.md
+AGENTS.md
+Sibol-CSE-PRD.md
+deploy/*.py
+deploy/README.md
+ops/README.md
