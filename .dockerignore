@@ -38,3 +38,9 @@ playwright-report
 
 # Local toolchains, backup ciphertext and offline rehearsal keys never enter images.
 .cache
+
+# Coolify also generates hyphenated environment files.
+**/.env*
+!**/.env.example
+!**/.env.schema
+**/__pycache__

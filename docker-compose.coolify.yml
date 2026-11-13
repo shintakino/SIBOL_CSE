@@ -1,0 +1,143 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: sibol
+      POSTGRES_DB: sibol
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
+    volumes:
+      - sibol_data:/var/lib/postgresql/data
+    networks: [database]
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U sibol -d sibol']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+  backup-init:
+    build:
+      context: .
+      dockerfile: ops/backup/Dockerfile
+    entrypoint: [/usr/local/bin/backup-once.sh]
+    environment: &backup-environment
+      PGHOST: postgres
+      PGPORT: '5432'
+      PGUSER: sibol
+      PGDATABASE: sibol
+      PGPASSWORD: ${POSTGRES_PASSWORD:?}
+      BACKUP_AGE_RECIPIENT: ${BACKUP_AGE_RECIPIENT:?}
+    volumes:
+      - sibol_backups:/backups
+    networks: [database]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: 'no'
+  migrate:
+    build:
+      context: .
+      dockerfile: apps/server/Dockerfile
+      target: builder
+    command: [pnpm, db:migrate]
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?}
+    networks: [database]
+    depends_on:
+      backup-init:
+        condition: service_completed_successfully
+    restart: 'no'
+  server:
+    build:
+      context: .
+      dockerfile: apps/server/Dockerfile
+    environment:
+      NODE_ENV: production
+      PORT: '3000'
+      DATABASE_URL: ${DATABASE_URL:?}
+      DB_POOL_MAX: '10'
+      BETTER_AUTH_URL: https://sibol.shintakino.qzz.io
+      CORS_ORIGIN: https://sibol.shintakino.qzz.io
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?}
+      SMTP_URL: ${SMTP_URL:-smtp://mailpit:1025}
+      EMAIL_FROM: ${EMAIL_FROM:-Sibol <no-reply@shintakino.qzz.io>}
+      SIBOL_RELEASE_SHA: ${SOURCE_COMMIT:-development}
+    networks: [application, database]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      mailpit:
+        condition: service_started
+    healthcheck:
+      test: [CMD, bun, -e, "fetch('http://localhost:3000/health/ready').then(r=>process.exit(r.ok?0:1))"]
+      interval: 10s
+      timeout: 5s
+      start_period: 20s
+      retries: 15
+    restart: unless-stopped
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        API_INTERNAL_URL: http://server:3000
+    environment:
+      NODE_ENV: production
+      PORT: '3001'
+      HOSTNAME: 0.0.0.0
+      API_INTERNAL_URL: http://server:3000
+      CORS_ORIGIN: https://sibol.shintakino.qzz.io
+    networks: [application, edge]
+    depends_on:
+      server:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://localhost:3001/sign-in').then(r=>process.exit(r.ok?0:1))"]
+      interval: 10s
+      timeout: 5s
+      start_period: 20s
+      retries: 15
+    restart: unless-stopped
+  backup:
+    build:
+      context: .
+      dockerfile: ops/backup/Dockerfile
+    environment: *backup-environment
+    volumes:
+      - sibol_backups:/backups
+    networks: [database]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: [CMD, /usr/local/bin/health.sh]
+      interval: 15s
+      timeout: 5s
+      start_period: 30s
+      retries: 3
+    restart: unless-stopped
+  mailpit:
+    image: axllent/mailpit:v1.27
+    networks: [application]
+    restart: unless-stopped
+  tunnel:
+    build:
+      context: .
+      dockerfile: deploy/tunnel.Dockerfile
+    command: [tunnel, --config, /etc/cloudflared/config.yml, --no-autoupdate, run]
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN:?}
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    networks: [edge]
+    depends_on:
+      web:
+        condition: service_healthy
+    restart: unless-stopped
+networks:
+  database:
+    internal: true
+  application: {}
+  edge: {}
+volumes:
+  sibol_data:
+  sibol_backups:

@@ -60,3 +60,11 @@ temp
 # Browser test artifacts
 playwright-report/
 test-results/
+
+# Deployment configuration and Python runtime artifacts
+.env*
+!**/.env.example
+!**/.env.schema
+__pycache__/
+*.pyc
+deployment-receipt.json
