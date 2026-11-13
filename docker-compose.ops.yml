@@ -1,0 +1,58 @@
+services:
+  backup:
+    build:
+      context: .
+      dockerfile: ops/backup/Dockerfile
+    profiles: [ops]
+    user: "${BACKUP_UID:-1000}:${BACKUP_GID:-1000}"
+    environment: &backup-environment
+      PGHOST: postgres
+      PGPORT: 5432
+      PGUSER: ${POSTGRES_USER:-sibol}
+      PGPASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+      PGDATABASE: ${BACKUP_DATABASE:-${POSTGRES_DB:-sibol}}
+      BACKUP_AGE_RECIPIENT: ${BACKUP_AGE_RECIPIENT:-}
+    volumes:
+      - ${BACKUP_DIRECTORY:-./.cache/backups}:/backups
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, /usr/local/bin/health.sh]
+      interval: 60s
+      timeout: 5s
+      start_period: 60s
+      retries: 3
+    restart: unless-stopped
+  restore:
+    build:
+      context: .
+      dockerfile: ops/backup/Dockerfile
+    profiles: [tools]
+    user: "${BACKUP_UID:-1000}:${BACKUP_GID:-1000}"
+    environment:
+      <<: *backup-environment
+      RESTORE_DATABASE: ${RESTORE_DATABASE:-sibol_restore}
+      BACKUP_FILE: ${BACKUP_FILE:-}
+    volumes:
+      - ${BACKUP_DIRECTORY:-./.cache/backups}:/backups:ro
+      - ${BACKUP_IDENTITY_FILE:-./.cache/backup-identity}:/run/secrets/backup-key:ro
+    entrypoint: [/usr/local/bin/restore-new.sh]
+    depends_on:
+      postgres:
+        condition: service_healthy
+  reconcile:
+    build:
+      context: .
+      dockerfile: apps/server/Dockerfile
+    profiles: [tools]
+    environment:
+      PGHOST: postgres
+      PGPORT: 5432
+      PGUSER: ${POSTGRES_USER:-sibol}
+      PGPASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+      RESTORE_DATABASE: ${RESTORE_DATABASE:-sibol_restore}
+    command: [bun, dist/reconcile-deletions.mjs]
+    depends_on:
+      postgres:
+        condition: service_healthy
