@@ -1,6 +1,6 @@
 # Sibol on Coolify
 
-Site: **https://sibol.shintakino.qzz.io**. Coolify owns the isolated **Sibol CSE** project/application. Cloudflare Tunnel carries traffic to the private web container; PostgreSQL/API/mail capture have no published ports. Other server applications are separate.
+Site: **https://sibol.shintakino.qzz.io**. Coolify owns the isolated **Sibol CSE** project/application. Cloudflare Tunnel carries traffic to the private web container; PostgreSQL/API/mail capture have no published ports. Other server applications are separate. This application requires **raw Compose mode**: Coolify's normal parser adds its default network and injects the full env file into every service. The checked-in definition supplies explicit Coolify ownership labels and a fixed project name so its network and credential boundaries remain intact.
 
 Push to `main` to run GitHub Actions checks. A deployment runs only after lint, type checks, PostgreSQL unit/integration/concurrency tests, production API/web builds, all Chromium flows, browser import checks and production Compose validation pass. Pull requests validate on GitHub-hosted runners and cannot deploy. The GitHub `production` environment permits only `main`.
 
@@ -15,6 +15,8 @@ pnpm run deploy
 # Follow the selected workflow run:
 gh run list --workflow deploy.yml --limit 5
 gh run watch
+# On the Docker host after rollout:
+pnpm deploy:audit
 ```
 
 The manual command dispatches the same validated deployment workflow for `main`. It does not bypass tests. The Coolify Deploy button uses the last configured pinned revision; use the workflow for a new release.
@@ -31,7 +33,7 @@ To read captured invitations/recovery links, obtain the private container addres
 
 ```bash
 docker ps --filter name=mailpit-q52xajsad67xkcmtdwjto1uu --format '{{.Names}}'
-# Use that timestamped container name:
+# Use that container name:
 docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' MAILPIT_CONTAINER
 ```
 
@@ -39,7 +41,7 @@ From your own computer, run `ssh -N -L 8026:MAILPIT_IP:8025 YOUR_SERVER`, substi
 
 ## Data and release safety
 
-Keep the service names and the `sibol_data` / `sibol_backups` / `sibol_mail` volume identities. `pnpm check:deployment` validates these boundaries without production credentials. Never run development tests/seeds or `down --volumes` against this application. PostgreSQL persists across deployments.
+Keep the service names, fixed Compose project `q52xajsad67xkcmtdwjto1uu`, raw Compose mode and the three external volumes: `q52xajsad67xkcmtdwjto1uu_sibol-data`, `q52xajsad67xkcmtdwjto1uu_sibol-backups`, `q52xajsad67xkcmtdwjto1uu_sibol-mail`. These attach the existing data; missing volumes fail deployment instead of creating empty replacements. The start command includes `--project-name q52xajsad67xkcmtdwjto1uu`. `pnpm check:deployment` validates these boundaries without production credentials. Never run development tests/seeds or `down --volumes` against this application. PostgreSQL persists across deployments. `pnpm deploy:audit` inspects actual container network membership, credential **keys** (never values), health, successful prerequisite jobs, external volume mounts, unpublished ports and the public source revision.
 
 Each deployment takes an encrypted pre-migration dump, then runs one migration job before the API starts. Application replicas never run migrations. Daily encrypted backups retain 30 days; the deletion journal is refreshed hourly. See [recovery instructions](../ops/README.md) before restoring. Backups currently remain on this server; off-host replication, key escrow and alerts still require operator setup. A failed/incompatible migration requires operator review; no destructive down migration or automatic database rollback runs. Revert application code only when it remains schema-compatible.
 

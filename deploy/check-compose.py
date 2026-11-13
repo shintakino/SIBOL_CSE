@@ -19,3 +19,20 @@ assert services["mailpit"]["environment"]["MP_DATABASE"] == "/data/mailpit.db"
 assert services["mailpit"]["volumes"][0]["source"] == "sibol_mail"
 assert "profiles" not in services["migrate"], "Release migrations must be an explicit single prerequisite job"
 print("Production Compose storage, migration, backup and network boundaries passed")
+
+resource = "q52xajsad67xkcmtdwjto1uu"
+assert config["name"] == resource
+for key, suffix in [("sibol_data", "sibol-data"), ("sibol_backups", "sibol-backups"), ("sibol_mail", "sibol-mail")]:
+    volume = config["volumes"][key]
+    assert volume.get("external") and volume["name"] == f"{resource}_{suffix}", "Existing production volumes must be attached by their exact external name"
+expected_networks = {
+    "postgres": {"database"}, "backup-init": {"database"}, "migrate": {"database"},
+    "server": {"application", "database"}, "web": {"application", "edge"},
+    "backup": {"database"}, "mailpit": {"application"}, "tunnel": {"edge"},
+}
+for name, service in services.items():
+    assert set(service["networks"]) == expected_networks[name]
+    assert not service.get("env_file"), "No service may receive the full runtime env file"
+    assert service["labels"]["coolify.applicationUuid"] == resource
+    assert service["container_name"] == f"{name}-{resource}"
+print("Raw Compose ownership, exact external volumes and per-service networks passed")

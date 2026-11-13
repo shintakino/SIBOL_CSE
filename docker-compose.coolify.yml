@@ -1,5 +1,19 @@
+name: q52xajsad67xkcmtdwjto1uu
+x-coolify-labels: &coolify-labels
+  coolify.managed: "true"
+  coolify.applicationUuid: q52xajsad67xkcmtdwjto1uu
+  coolify.type: application
+  coolify.resourceName: sibol-cse
+  coolify.projectName: sibol-cse
+  coolify.environmentName: production
+  coolify.pullRequestId: "0"
 services:
   postgres:
+    container_name: postgres-q52xajsad67xkcmtdwjto1uu
+    labels:
+      <<: *coolify-labels
+      coolify.name: postgres-q52xajsad67xkcmtdwjto1uu
+      coolify.serviceName: postgres
     image: postgres:17-alpine
     environment:
       POSTGRES_USER: sibol
@@ -15,6 +29,12 @@ services:
       retries: 20
     restart: unless-stopped
   backup-init:
+    container_name: backup-init-q52xajsad67xkcmtdwjto1uu
+    labels:
+      <<: *coolify-labels
+      coolify.name: backup-init-q52xajsad67xkcmtdwjto1uu
+      coolify.serviceName: backup-init
+    image: local/sibol-backup-init:${SIBOL_RELEASE_SHA:?}
     build:
       context: .
       dockerfile: ops/backup/Dockerfile
@@ -34,6 +54,12 @@ services:
         condition: service_healthy
     restart: "no"
   migrate:
+    container_name: migrate-q52xajsad67xkcmtdwjto1uu
+    labels:
+      <<: *coolify-labels
+      coolify.name: migrate-q52xajsad67xkcmtdwjto1uu
+      coolify.serviceName: migrate
+    image: local/sibol-migrate:${SIBOL_RELEASE_SHA:?}
     build:
       context: .
       dockerfile: apps/server/Dockerfile
@@ -47,6 +73,12 @@ services:
         condition: service_completed_successfully
     restart: "no"
   server:
+    container_name: server-q52xajsad67xkcmtdwjto1uu
+    labels:
+      <<: *coolify-labels
+      coolify.name: server-q52xajsad67xkcmtdwjto1uu
+      coolify.serviceName: server
+    image: local/sibol-server:${SIBOL_RELEASE_SHA:?}
     build:
       context: .
       dockerfile: apps/server/Dockerfile
@@ -81,6 +113,12 @@ services:
       retries: 15
     restart: unless-stopped
   web:
+    container_name: web-q52xajsad67xkcmtdwjto1uu
+    labels:
+      <<: *coolify-labels
+      coolify.name: web-q52xajsad67xkcmtdwjto1uu
+      coolify.serviceName: web
+    image: local/sibol-web:${SIBOL_RELEASE_SHA:?}
     build:
       context: .
       dockerfile: apps/web/Dockerfile
@@ -105,6 +143,12 @@ services:
       retries: 15
     restart: unless-stopped
   backup:
+    container_name: backup-q52xajsad67xkcmtdwjto1uu
+    labels:
+      <<: *coolify-labels
+      coolify.name: backup-q52xajsad67xkcmtdwjto1uu
+      coolify.serviceName: backup
+    image: local/sibol-backup:${SIBOL_RELEASE_SHA:?}
     build:
       context: .
       dockerfile: ops/backup/Dockerfile
@@ -123,6 +167,11 @@ services:
       retries: 3
     restart: unless-stopped
   mailpit:
+    container_name: mailpit-q52xajsad67xkcmtdwjto1uu
+    labels:
+      <<: *coolify-labels
+      coolify.name: mailpit-q52xajsad67xkcmtdwjto1uu
+      coolify.serviceName: mailpit
     image: axllent/mailpit:v1.27
     environment:
       MP_DATABASE: /data/mailpit.db
@@ -139,6 +188,12 @@ services:
     networks: [application]
     restart: unless-stopped
   tunnel:
+    container_name: tunnel-q52xajsad67xkcmtdwjto1uu
+    labels:
+      <<: *coolify-labels
+      coolify.name: tunnel-q52xajsad67xkcmtdwjto1uu
+      coolify.serviceName: tunnel
+    image: local/sibol-tunnel:${SIBOL_RELEASE_SHA:?}
     build:
       context: .
       dockerfile: deploy/tunnel.Dockerfile
@@ -159,5 +214,11 @@ networks:
   edge: {}
 volumes:
   sibol_data:
+    external: true
+    name: q52xajsad67xkcmtdwjto1uu_sibol-data
   sibol_backups:
+    external: true
+    name: q52xajsad67xkcmtdwjto1uu_sibol-backups
   sibol_mail:
+    external: true
+    name: q52xajsad67xkcmtdwjto1uu_sibol-mail

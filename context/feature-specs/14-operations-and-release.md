@@ -1,6 +1,6 @@
 # Operations and release acceptance
 
-Status: operational tooling implemented; local rehearsals verified. Release acceptance remains open (performance and external/manual/content/pilot gates).
+Status: operational tooling implemented; local rehearsals and invitation-only public HTTPS installation verified. Release acceptance remains open (performance and external/manual/content/pilot gates).
 Source: [Sibol CSE PRD](../../Sibol-CSE-PRD.md), PRD §§8, 15–18.
 
 ## Scope and acceptance
@@ -22,12 +22,14 @@ Acceptance:
 
 ## Delivered tooling and evidence
 
-See the [operations runbook](../../ops/README.md) for controlled image/migration rollout, secret handling, release network isolation, Caddy HTTPS, backup and restore commands, rollback limits and the operator checklist. The release overlay keeps PostgreSQL on an internal network with no published port; app images run as Node/Bun users. Startup does not migrate automatically.
+See the [operations runbook](../../ops/README.md) for controlled image/migration rollout, secret handling, release network isolation, Caddy HTTPS, backup and restore commands, rollback limits and the operator checklist. The release overlay keeps PostgreSQL on an internal network with no published port; app images run as Node/Bun users. Application processes never migrate on startup; the Coolify release orchestrates a single backup/migration prerequisite job.
 
 Daily PostgreSQL custom dumps stream into age encryption, retain ciphertext/manifests for 30 days and expose backup/journal freshness health. Restore requires a new `_restore` target, valid checksum, archive age and deletion journal. Offline reconciliation reapplies opaque deletion receipts and revokes sessions/reset tokens before cutover. The runbook explicitly addresses the hourly journal durability window: missing recent receipts must be accounted for before traffic resumes. Off-host storage, replication and alert activation require deployment configuration.
 
-Local evidence includes isolated Compose migrations, HTTPS through a trusted Caddy local CA, secure cookie flags, non-root users, database port isolation, health and restart persistence, and encrypted restore with post-backup deletion reconciliation. Local TLS does not verify real public ACME/DNS or transactional provider delivery. Automated backend tests cover the specified privacy/timing/scoring/retry/publication/planner invariants; all 14 production Chromium flows passed, including onboarding/practice/review, strict expiry/results and account data controls.
+Local evidence includes isolated Compose migrations, HTTPS through a trusted Caddy local CA, secure cookie flags, non-root users, database port isolation, health and restart persistence, and encrypted restore with post-backup deletion reconciliation. The subsequent Coolify installation verifies public Cloudflare DNS/HTTPS, HSTS, secure cookies, sign-in and captured recovery links at sibol.shintakino.qzz.io; it does not claim transactional provider delivery. Automated backend tests cover the specified privacy/timing/scoring/retry/publication/planner invariants; all 14 production Chromium flows passed, including onboarding/practice/review, strict expiry/results and account data controls.
 
 The reproducible `ops:benchmark` uses real loopback HTTP, 20 simultaneous owners, full 150-item strict mocks and roughly 309 KB safe payloads. It records 300 reads/300 saves, warmup, p50/p95 and hardware/runtime. It intentionally exits unsuccessfully when the 500 ms target is missed. Final results and any unmet gates are recorded in the [progress tracker](../progress-tracker.md), without treating shipped tooling as performance acceptance.
 
-Remaining release gates: measured performance on the intended deployment topology; production domain/email and off-host backup/alerts; selected-level reviewed content/source/inventory/forms; actual phone/keyboard/Filipino/screen-reader/cross-browser checks; and a usable week-long pilot. No release date or external deployment is claimed.
+See the [Coolify deployment runbook](../../deploy/README.md) for the isolated Compose application, pinned-source GitHub CI/CD, manual command, private mail access and runtime configuration. Public readiness reports the source revision; GitHub verifies it after deployment.
+
+Remaining release gates: measured performance on the intended deployment topology; real-provider email and off-host backup/alerts; selected-level reviewed content/source/inventory/forms; actual phone/keyboard/Filipino/screen-reader/cross-browser checks; and a usable week-long pilot. The external installation remains pre-launch; no full release acceptance or release date is claimed.

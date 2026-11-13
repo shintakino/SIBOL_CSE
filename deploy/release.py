@@ -64,6 +64,10 @@ def main():
     app = request(f"{base}/applications/{resource}", token=token)
     if app.get("uuid") != resource or app.get("build_pack") != "dockercompose" or app.get("git_branch") != "main":
         raise ReleaseError("Coolify resource differs from the expected application")
+    if not app.get("settings", {}).get("is_raw_compose_deployment_enabled"):
+        raise ReleaseError("Raw Compose mode is required to preserve network and credential isolation")
+    if "--project-name " + resource not in app.get("docker_compose_custom_start_command", ""):
+        raise ReleaseError("A stable isolated Compose project name is required")
     source = app.get("git_repository", "").removesuffix(".git").rstrip("/")
     if source not in [f"https://github.com/{REPOSITORY}", REPOSITORY]:
         raise ReleaseError("Coolify source repository differs from Sibol")
