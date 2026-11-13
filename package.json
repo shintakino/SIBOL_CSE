@@ -33,7 +33,9 @@
     "ops:benchmark": "bun scripts/benchmark.ts",
     "ops:backup": "docker compose -f docker-compose.yml -f docker-compose.ops.yml -f docker-compose.release.yml --profile ops run --rm --entrypoint /usr/local/bin/backup-once.sh backup",
     "ops:ledger": "docker compose -f docker-compose.yml -f docker-compose.ops.yml -f docker-compose.release.yml --profile ops run --rm --entrypoint /usr/local/bin/ledger-once.sh backup",
-    "ops:rehearsal": "bun scripts/ops-rehearsal.ts"
+    "ops:rehearsal": "bun scripts/ops-rehearsal.ts",
+    "deploy": "gh workflow run deploy.yml --ref main",
+    "check:deployment": "python3 deploy/check-compose.py"
   },
   "dependencies": {
     "zod": "catalog:"
