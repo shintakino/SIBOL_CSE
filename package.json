@@ -26,7 +26,7 @@
     "docker:logs": "docker compose logs -f",
     "lint": "biome check .",
     "format": "biome format --write .",
-    "test": "bun test --timeout 15000 tests/policies.test.ts && bun test --timeout 15000 tests/integration.test.ts && bun test --timeout 15000 tests/learning.test.ts && bun test --timeout 20000 tests/study-loop.test.ts && bun test --timeout 20000 tests/library-account.test.ts && bun test --timeout 20000 tests/concurrency.test.ts",
+    "test": "bun test --timeout 15000 tests/topnotcher.test.ts && bun test --timeout 15000 tests/policies.test.ts && bun test --timeout 15000 tests/integration.test.ts && bun test --timeout 15000 tests/learning.test.ts && bun test --timeout 20000 tests/study-loop.test.ts && bun test --timeout 20000 tests/library-account.test.ts && bun test --timeout 20000 tests/concurrency.test.ts",
     "test:e2e": "playwright test",
     "admin:bootstrap": "bun run scripts/bootstrap-admin.ts",
     "check:boundaries": "bun scripts/check-boundaries.ts",
@@ -37,7 +37,9 @@
     "deploy": "gh workflow run deploy.yml --ref main",
     "check:deployment": "python3 deploy/check-compose.py",
     "deploy:audit": "python3 deploy/audit-live.py",
-    "deploy:gateway": "python3 deploy/install-gateway.py"
+    "deploy:gateway": "python3 deploy/install-gateway.py",
+    "content:topnotcher": "bun scripts/topnotcher-content.ts",
+    "content:import": "bun scripts/import-content-drafts.ts"
   },
   "dependencies": {
     "zod": "catalog:"
