@@ -53,6 +53,8 @@ Use shadcn/ui components with a refined light theme: warm ivory, white surfaces,
 
 Offline AI-assisted original content drafting is authorized for the Professional starter pack. Drafts require human editorial review before publication; this does not add a runtime AI feature or dependency.
 
+User-confirmed permitted external content may also be collected offline into private staging and native administrator drafts. Topnotcher collection/import is an operator workflow, with source attribution, bounded retrieval and explicit review holds; it does not replace Sibol's scoring or add a runtime provider dependency. Images stay private until separately reviewed and deployed through supported local media. Random quiz sampling cannot certify a complete provider bank.
+
 ## Content and release gates
 
 - At least one concise lesson and worked example for each enabled topic.
