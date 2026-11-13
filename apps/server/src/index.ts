@@ -3,6 +3,7 @@ import { ORPCError } from "@orpc/server";
 import { RPCHandler } from "@orpc/server/fetch";
 import { appRouter } from "@sibol-cse/api/routers/index";
 import { exportAccount, prepareExport } from "@sibol-cse/api/services/account-data";
+import { readContentAsset } from "@sibol-cse/api/services/content-media";
 import { requestLimit } from "@sibol-cse/db/schema";
 import { sql } from "drizzle-orm";
 import { Hono } from "hono";
@@ -26,9 +27,11 @@ app.use(secureHeaders({ referrerPolicy: "no-referrer" }));
 app.use("/api/*", (c, next) =>
   bodyLimit({
     maxSize:
-      c.req.path.startsWith("/api/rpc/content/") || c.req.path === "/api/rpc/imports/validate"
-        ? 1024 * 1024
-        : 64 * 1024,
+      c.req.path === "/api/rpc/content/putAsset"
+        ? 8 * 1024 * 1024
+        : c.req.path.startsWith("/api/rpc/content/") || c.req.path === "/api/rpc/imports/validate"
+          ? 1024 * 1024
+          : 64 * 1024,
     onError: (ctx) => ctx.json({ error: "Request body exceeds the permitted size." }, 413),
   })(c, next),
 );
@@ -130,6 +133,21 @@ app.use("/api/*", async (c, next) => {
   await next();
 });
 app.on(["POST", "GET"], "/api/auth/*", (c) => auth.handler(c.req.raw));
+app.get("/api/content-media/:filename", async (c) => {
+  const session = await requestSession(c.req.raw);
+  if (!session?.user) return c.json({ error: "Sign in to view study media." }, 401);
+  try {
+    const asset = await readContentAsset(db, session.user.id, c.req.param("filename"));
+    c.header("Cache-Control", "private, no-store");
+    c.header("Content-Type", asset.mime);
+    if (asset.archivalOnly) c.header("Content-Disposition", "attachment");
+    return c.body(asset.bytes);
+  } catch (error) {
+    if (error instanceof ORPCError && ["NOT_FOUND", "FORBIDDEN"].includes(error.code))
+      return c.json({ error: "Study media is unavailable." }, 404);
+    throw error;
+  }
+});
 app.post("/api/account/export", async (c) => {
   const context = await createContext({ context: c });
   if (!context.session?.user) return c.json({ error: "Sign in to export your own data." }, 401);

@@ -22,6 +22,7 @@ import {
   questionInput,
   type SourceInput,
 } from "../learning-contracts";
+import { assertMediaReviewed, validateMediaReferences } from "./content-media";
 import {
   assertAdmin,
   assertFeedbackAllowed,
@@ -61,9 +62,11 @@ export async function createQuestionDraft(
   actorId: string,
   input: QuestionInput,
   correctionId?: string,
+  importHash?: string,
 ) {
   await tx.execute(sql`select pg_advisory_xact_lock(hashtext(${`question:${input.externalId}`}))`);
-  await validateTopic(tx, input.topicId, [input.level]);
+  await validateTopic(tx, input.topicId, input.levels ?? [input.level]);
+  await validateMediaReferences(tx, [input.media, ...input.choices.map((c) => c.media)]);
   const [old] = await tx
     .select()
     .from(question)
@@ -91,7 +94,15 @@ export async function createQuestionDraft(
     .values({
       questionId: stableId,
       version: (last?.version ?? 0) + 1,
+      importHash: importHash ?? null,
       level: input.level,
+      levels: input.levels ?? null,
+      kind: input.kind,
+      instruction: input.instruction,
+      highlight: input.highlight,
+      orderItems: input.orderItems,
+      answerOrder: input.answerOrder,
+      provider: input.provider,
       language: input.language,
       difficulty: input.difficulty,
       prompt: input.prompt,
@@ -105,9 +116,10 @@ export async function createQuestionDraft(
     })
     .returning();
   if (!version) throw new Error("Version insert failed");
-  await tx
-    .insert(choice)
-    .values(input.choices.map((c) => ({ ...c, questionVersionId: version.id })));
+  if (input.choices.length)
+    await tx
+      .insert(choice)
+      .values(input.choices.map((c) => ({ ...c, questionVersionId: version.id })));
   await tx
     .insert(auditEvent)
     .values({ actorId, action: "question.draft.created", targetId: version.id });
@@ -175,6 +187,14 @@ export async function reviewContent(
     const [v] = await tx.select().from(table).where(eq(table.id, versionId)).for("update");
     if (!v) return missing();
     if (v.status !== "draft") fail("Only a draft can be reviewed.");
+    if (kind === "question") {
+      const current = v as typeof questionVersion.$inferSelect;
+      const options = await tx.select().from(choice).where(eq(choice.questionVersionId, versionId));
+      assertMediaReviewed([
+        current.media as import("../learning-contracts").QuestionMedia | null,
+        ...options.map((c) => c.media),
+      ]);
+    }
     if (kind === "question")
       await assertFeedbackAllowed(tx, actorId, [
         (v as typeof questionVersion.$inferSelect).questionId,
@@ -221,7 +241,7 @@ export async function publishContent(
       if (fresh?.status !== "reviewed")
         fail("Review the draft and its checklist before publishing.");
       await assertFeedbackAllowed(tx, actorId, [stable.id]);
-      await validateTopic(tx, v.primaryTopicId, [v.level]);
+      await validateTopic(tx, v.primaryTopicId, v.levels ?? [v.level]);
       const history = await tx
         .select()
         .from(questionVersion)
@@ -390,7 +410,7 @@ export async function questionDetails(db: Database, actorId: string, versionId: 
     ...v,
     externalId: stable?.externalId,
     choices: await db
-      .select({ id: choice.id, text: choice.text })
+      .select({ id: choice.id, text: choice.text, label: choice.label, media: choice.media })
       .from(choice)
       .where(eq(choice.questionVersionId, v.id)),
     source,
@@ -433,11 +453,21 @@ export function parseCsv(text: string): Record<string, unknown>[] {
     try {
       header.forEach((h, i) => {
         const v = cells[i] ?? "";
-        obj[h] = ["choices", "source", "media", "distractorExplanations"].includes(h)
+        if (!v && ["levels", "orderItems"].includes(h)) return;
+        obj[h] = [
+          "choices",
+          "source",
+          "media",
+          "distractorExplanations",
+          "levels",
+          "orderItems",
+          "answerOrder",
+          "provider",
+        ].includes(h)
           ? v
             ? JSON.parse(v)
             : null
-          : v === "" && h === "passage"
+          : v === "" && ["passage", "instruction", "highlight", "answerChoiceId"].includes(h)
             ? null
             : v;
       });
@@ -499,7 +529,7 @@ export async function validateImport(
       continue;
     }
     try {
-      await validateTopic(db, input.topicId, [input.level]);
+      await validateTopic(db, input.topicId, input.levels ?? [input.level]);
       valid.push(input);
     } catch {
       errors.push({ row: i + 1, message: "Unsupported or disabled topic for this level." });

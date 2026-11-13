@@ -10,6 +10,7 @@ import {
 import { and, eq, sql } from "drizzle-orm";
 import { reviewTransition, studyDate } from "./learning-policy";
 import { fail, missing, type Store, type Tx } from "./learning-shared";
+import { hasResponse, isCorrectResponse } from "./question-response";
 export async function serverClock(db: Store) {
   const result = await db.execute<{ now: Date | string }>(sql`select clock_timestamp() as now`);
   const row = result.rows[0];
@@ -35,17 +36,18 @@ export async function applyReviewOutcome(
     .select()
     .from(attemptAnswer)
     .where(eq(attemptAnswer.attemptItemId, item.id));
-  const outcome = !answer?.selectedChoiceId
+  const outcome = !hasResponse(answer)
     ? "skipped"
-    : answer.selectedChoiceId !== version.answerChoiceId
+    : !isCorrectResponse(version, answer)
       ? "incorrect"
-      : answer.confidence === "guessed"
+      : answer?.confidence === "guessed"
         ? "guessed"
         : "correct";
   if (mode !== "review" && outcome === "correct") return;
   await transition(tx, userId, version.questionId, eventKey, outcome, {
     versionId: version.id,
     selectedChoiceId: answer?.selectedChoiceId ?? null,
+    selectedOrder: answer?.selectedOrder ?? null,
     attemptItemId: item.id,
   });
 }
@@ -58,6 +60,7 @@ export async function transition(
   snapshot: {
     versionId: string | null;
     selectedChoiceId: string | null;
+    selectedOrder?: string[] | null;
     attemptItemId: string | null;
   },
 ) {

@@ -273,6 +273,7 @@ export async function exportAccount(
               .select({
                 attemptItemId: attemptAnswer.attemptItemId,
                 selectedChoiceId: attemptAnswer.selectedChoiceId,
+                selectedOrder: attemptAnswer.selectedOrder,
                 confidence: attemptAnswer.confidence,
                 revision: attemptAnswer.revision,
                 savedAt: attemptAnswer.savedAt,
@@ -323,6 +324,7 @@ export async function exportAccount(
                 studyDate: reviewEvent.studyDate,
                 versionId: reviewEvent.versionId,
                 selectedChoiceId: reviewEvent.selectedChoiceId,
+                selectedOrder: reviewEvent.selectedOrder,
                 createdAt: reviewEvent.createdAt,
               })
               .from(reviewEvent)

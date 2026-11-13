@@ -19,12 +19,60 @@ import {
 import * as attempts from "../services/attempts";
 import * as catalog from "../services/catalog";
 import * as content from "../services/content";
+import { assetInput, putContentAsset } from "../services/content-media";
 import * as lessons from "../services/lessons";
+import {
+  providerCoverage,
+  providerSourceRecord,
+  providerSources,
+} from "../services/provider-content";
+import { studyCatalog } from "../services/study-catalog";
 
 const idInput = z.object({ id: entityId }).strict();
 export const learningRouter = {
-  topics: { list: learner.handler(({ context: c }) => content.topicList(c.db)) },
+  topics: {
+    list: learner.handler(({ context: c }) => content.topicList(c.db)),
+    catalog: learner.handler(({ context: c }) => studyCatalog(c.db, c.session.user.id)),
+  },
   content: {
+    sourceRecord: admin
+      .input(
+        z
+          .object({
+            bankId: entityId,
+            sourceKey: z.string().regex(/^[a-f0-9]{48}$/),
+            subcategory: z.string().min(1).max(100),
+          })
+          .strict(),
+      )
+      .handler(({ context: c, input }) =>
+        providerSourceRecord(
+          c.db,
+          c.session.user.id,
+          input.bankId,
+          input.sourceKey,
+          input.subcategory,
+        ),
+      ),
+    coverage: admin
+      .input(z.object({ level: examLevel }).strict())
+      .handler(({ context: c, input }) => providerCoverage(c.db, c.session.user.id, input.level)),
+    sources: admin
+      .input(
+        z
+          .object({
+            bankId: entityId,
+            subcategory: z.string().min(1).max(100),
+            page: z.number().int().min(0).max(1000).default(0),
+          })
+          .strict(),
+      )
+      .handler(({ context: c, input }) =>
+        providerSources(c.db, c.session.user.id, input.bankId, input.subcategory, input.page),
+      ),
+    putAsset: admin
+      .input(assetInput)
+      .handler(({ context: c, input }) => putContentAsset(c.db, c.session.user.id, input)),
     list: admin
       .input(
         z

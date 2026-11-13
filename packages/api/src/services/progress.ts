@@ -51,8 +51,8 @@ export async function evidence(db: Store, userId: string) {
       questionId: questionVersion.questionId,
       topicId: questionVersion.primaryTopicId,
       firstExposure: attemptItem.firstExposure,
-      answered: sql<boolean>`${attemptAnswer.selectedChoiceId} is not null`,
-      correct: sql<boolean>`coalesce(${attemptAnswer.selectedChoiceId} = ${questionVersion.answerChoiceId}, false)`,
+      answered: sql<boolean>`(${attemptAnswer.selectedChoiceId} is not null or cardinality(${attemptAnswer.selectedOrder}) > 0) is true`,
+      correct: sql<boolean>`coalesce(case when ${questionVersion.kind} = 'order' then ${attemptAnswer.selectedOrder} = ${questionVersion.answerOrder} else ${attemptAnswer.selectedChoiceId} = ${questionVersion.answerChoiceId} end, false)`,
     })
     .from(attempt)
     .innerJoin(examProfileVersion, eq(examProfileVersion.id, attempt.profileVersionId))

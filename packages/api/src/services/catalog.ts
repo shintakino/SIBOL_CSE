@@ -21,6 +21,8 @@ export const areasFor = (level: string) => [
   "general",
   level === "professional" ? "analytical" : "clerical",
 ];
+export const supportsLevel = (level: "professional" | "subprofessional") =>
+  sql`${level} = any(coalesce(${questionVersion.levels}, array[${questionVersion.level}]))`;
 export async function candidates(db: Store, level: "professional" | "subprofessional") {
   return db
     .select({
@@ -29,6 +31,7 @@ export async function candidates(db: Store, level: "professional" | "subprofessi
       topicId: questionVersion.primaryTopicId,
       difficulty: questionVersion.difficulty,
       area: topic.area,
+      providerSubcategory: sql<string | null>`${questionVersion.provider}->>'subcategory'`,
     })
     .from(questionVersion)
     .innerJoin(question, eq(question.id, questionVersion.questionId))
@@ -36,7 +39,7 @@ export async function candidates(db: Store, level: "professional" | "subprofessi
     .where(
       and(
         eq(questionVersion.status, "published"),
-        eq(questionVersion.level, level),
+        supportsLevel(level),
         eq(question.blocked, false),
         eq(topic.enabled, true),
         sql`${level} = any(${topic.levels})`,

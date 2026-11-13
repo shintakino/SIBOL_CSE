@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { protectedProcedure as learner } from "../index";
-import { entityId, plain } from "../learning-contracts";
-import { allocationInput, mockInput, pageInput, taskIdInput } from "../loop-contracts";
+import { entityId, plain, studyFilterInput } from "../learning-contracts";
+import { allocationInput, mockInput, reviewQueryInput, taskIdInput } from "../loop-contracts";
 import { dashboardGet, setDedication } from "../services/dashboard";
 import { mockOptions, startMock } from "../services/mocks";
 import { completeTask, generatePlan, planGet } from "../services/planner";
@@ -10,16 +10,28 @@ import { reviewNotebook, reviewTomorrow, startReview } from "../services/reviews
 export const studyLoopRouter = {
   review: {
     listDue: learner
-      .input(pageInput)
-      .handler(({ context: c, input: i }) => reviewNotebook(c.db, c.session.user.id, i.page)),
+      .input(reviewQueryInput)
+      .handler(({ context: c, input: { page, ...filters } }) =>
+        reviewNotebook(c.db, c.session.user.id, page, filters),
+      ),
     start: learner
       .input(
         z
-          .object({ requestId: z.uuid(), count: z.number().int().min(1).max(20).default(10) })
+          .object({
+            requestId: z.uuid(),
+            count: z.number().int().min(1).max(20).default(10),
+            area: studyFilterInput.shape.area.optional(),
+            topicId: entityId.optional(),
+            providerSubcategory: studyFilterInput.shape.providerSubcategory.optional(),
+          })
           .strict(),
       )
       .handler(({ context: c, input: i }) =>
-        startReview(c.db, c.session.user.id, i.requestId, i.count),
+        startReview(c.db, c.session.user.id, i.requestId, i.count, {
+          area: i.area,
+          topicId: i.topicId,
+          providerSubcategory: i.providerSubcategory,
+        }),
       ),
     tomorrow: learner
       .input(z.object({ questionId: entityId, requestId: z.uuid() }).strict())

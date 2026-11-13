@@ -13,6 +13,7 @@ import { and, desc, eq, ilike, sql } from "drizzle-orm";
 import type { z } from "zod";
 import type { libraryQuery, Target } from "../library-contracts";
 import { reconcileExpired } from "./attempts";
+import { supportsLevel } from "./catalog";
 import { missing, preferences, type Store, type Tx } from "./learning-shared";
 import { lockPersonalOwner, readNote, writeBookmark, writeNote } from "./note-store";
 import { assessmentActive } from "./progress";
@@ -112,7 +113,7 @@ async function queryQuestions(
     .where(
       and(
         permitted(userId),
-        eq(questionVersion.level, prefs.level),
+        supportsLevel(prefs.level),
         eq(topic.enabled, true),
         id ? eq(questionVersion.questionId, id) : undefined,
         input.topicId ? eq(topic.id, input.topicId) : undefined,
@@ -248,16 +249,10 @@ export async function getQuestionReview(db: Database, userId: string, versionId:
     const [v] = await tx
       .select()
       .from(questionVersion)
-      .where(
-        and(
-          eq(questionVersion.id, versionId),
-          eq(questionVersion.level, prefs.level),
-          permitted(userId),
-        ),
-      );
+      .where(and(eq(questionVersion.id, versionId), supportsLevel(prefs.level), permitted(userId)));
     if (!v) return missing();
     const choices = await tx
-      .select({ id: choice.id, text: choice.text })
+      .select({ id: choice.id, text: choice.text, label: choice.label, media: choice.media })
       .from(choice)
       .where(eq(choice.questionVersionId, v.id));
     return {
@@ -266,6 +261,12 @@ export async function getQuestionReview(db: Database, userId: string, versionId:
       version: v.version,
       prompt: v.prompt,
       passage: v.passage,
+      kind: v.kind,
+      media: v.media as import("../learning-contracts").QuestionMedia | null,
+      instruction: v.instruction,
+      highlight: v.highlight,
+      orderItems: v.orderItems,
+      answerOrder: v.answerOrder,
       choices,
       answerChoiceId: v.answerChoiceId,
       explanation: v.explanation,

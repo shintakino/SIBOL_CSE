@@ -1,11 +1,13 @@
 import type { Database } from "@sibol-cse/db";
 import { mockBlueprintVersion, mockFormSet } from "@sibol-cse/db/schema";
 import { and, eq, sql } from "drizzle-orm";
+import type { StudyFilter } from "../learning-contracts";
 import { pinSelected, reconcileExpired, shuffled } from "./attempts";
 import { activeProfile, candidates, inventory } from "./catalog";
 import { fail, preferences } from "./learning-shared";
+import { matchesStudyFilter, resolveStudyFilter } from "./study-catalog";
 import { lockStudyOwner, seenQuestions } from "./study-session";
-export type MockInput = {
+export type MockInput = Partial<StudyFilter> & {
   requestId: string;
   kind: "short" | "full";
   mode: "strict_mock" | "timed_practice";
@@ -47,6 +49,18 @@ export async function startMock(db: Database, userId: string, input: MockInput) 
     await tx.execute(sql`select pg_advisory_xact_lock(712031)`);
     const prefs = await preferences(tx, userId),
       profile = await activeProfile(tx, prefs.level);
+    const filter = await resolveStudyFilter(tx, prefs.level, {
+      area: input.area,
+      topicId: input.topicId,
+      providerSubcategory: input.providerSubcategory,
+    });
+    if (
+      input.kind === "full" &&
+      (filter.area !== "all" || filter.topicId !== "mixed" || filter.providerSubcategory)
+    )
+      fail(
+        "Full mocks use the complete reviewed blueprint. Choose a short timed set to focus on a category.",
+      );
     if (input.mode === "strict_mock" && input.multiplier !== 100)
       fail("Extended time must use the separately labeled practice mode.");
     if (input.kind === "full" && input.mode !== "strict_mock")
@@ -92,11 +106,12 @@ export async function startMock(db: Database, userId: string, input: MockInput) 
         fail("The full mock must match its profile's scored item count.");
       selected = shuffled(selected);
     } else {
-      if (pool.length < input.count)
+      const filtered = pool.filter((q) => matchesStudyFilter(q, filter));
+      if (filtered.length < input.count)
         fail(
-          `Not enough reviewed inventory: ${pool.length}/${input.count}. No shortened set was created.`,
+          `Not enough reviewed inventory: ${filtered.length}/${input.count}. No shortened set was created.`,
         );
-      selected = order(pool).slice(0, input.count);
+      selected = order(filtered).slice(0, input.count);
     }
     const minutes =
       input.kind === "full"

@@ -18,7 +18,7 @@ import {
   userProfile,
 } from "@sibol-cse/db/schema";
 import { and, desc, eq, inArray, sql } from "drizzle-orm";
-import type { AnswerInput, PracticeInput } from "../learning-contracts";
+import type { AnswerInput, PracticeInput, QuestionMedia } from "../learning-contracts";
 import { activeProfile, areasFor, candidates } from "./catalog";
 import {
   assertFeedbackAllowed,
@@ -31,7 +31,9 @@ import {
   type Tx,
 } from "./learning-shared";
 import { readNote, writeBookmark, writeNote } from "./note-store";
+import { hasResponse, isCorrectResponse, sameOrder, validOrder } from "./question-response";
 import { applyReviewOutcome, serverClock } from "./review-schedule";
+import { matchesStudyFilter, resolveStudyFilter } from "./study-catalog";
 
 export function shuffled<T>(values: T[]): T[] {
   const result = [...values];
@@ -155,12 +157,14 @@ export async function createAttempt(
     };
     if (mode === "practice") {
       const config = input as PracticeInput;
-      const [t] = await tx.select().from(topic).where(eq(topic.id, config.topicId));
-      if (config.topicId !== "mixed" && (!t?.enabled || !t.levels.includes(prefs.level)))
-        fail("Choose an enabled topic for your selected level.");
+      const filter = await resolveStudyFilter(tx, prefs.level, {
+        area: config.area,
+        topicId: config.topicId,
+        providerSubcategory: config.providerSubcategory,
+      });
       const found = pool.filter(
         (q) =>
-          (config.topicId === "mixed" || q.topicId === config.topicId) &&
+          matchesStudyFilter(q, filter) &&
           (config.difficulty === "any" || q.difficulty === config.difficulty),
       );
       if (found.length < config.count)
@@ -220,7 +224,12 @@ export async function pinSelected(
     )
     .for("share");
   const locked = await tx
-    .select({ id: questionVersion.id, status: questionVersion.status })
+    .select({
+      id: questionVersion.id,
+      status: questionVersion.status,
+      kind: questionVersion.kind,
+      orderItems: questionVersion.orderItems,
+    })
     .from(questionVersion)
     .where(
       inArray(
@@ -245,17 +254,26 @@ export async function pinSelected(
     .returning();
   if (!a) throw new Error("Attempt insert failed");
   for (const [position, q] of selected.entries()) {
+    const version = locked.find((v) => v.id === q.id);
+    if (!version) return missing();
     const choices = await tx
-      .select({ id: choice.id })
+      .select({ id: choice.id, label: choice.label })
       .from(choice)
       .where(eq(choice.questionVersionId, q.id));
+    choices.sort((a, b) =>
+      version.kind === "error"
+        ? (a.label ?? a.id).localeCompare(b.label ?? b.id)
+        : a.id.localeCompare(b.id),
+    );
     const [item] = await tx
       .insert(attemptItem)
       .values({
         attemptId: a.id,
         position,
         questionVersionId: q.id,
-        choiceOrder: shuffled(choices.map((c) => c.id)),
+        choiceOrder:
+          version.kind === "error" ? choices.map((c) => c.id) : shuffled(choices.map((c) => c.id)),
+        itemOrder: shuffled(version.orderItems.map((i) => i.id)),
         firstExposure: !seen.has(q.questionId),
       })
       .returning();
@@ -324,9 +342,10 @@ async function feedback(db: Store, userId: string, item: typeof attemptItem.$inf
     .where(eq(attemptAnswer.attemptItemId, item.id));
   return {
     answerChoiceId: v.answerChoiceId,
+    answerOrder: v.answerOrder,
     explanation: v.explanation,
     distractorExplanations: v.distractorExplanations ?? {},
-    correct: answer?.selectedChoiceId === v.answerChoiceId,
+    correct: isCorrectResponse(v, answer),
     erratum: v.erratum,
     status: v.status,
   };
@@ -341,7 +360,11 @@ export async function saveAnswer(db: Database, userId: string, input: AnswerInpu
       .from(attemptAnswer)
       .where(eq(attemptAnswer.attemptItemId, item.id));
     if (old?.mutationId === input.mutationId) {
-      if (old.selectedChoiceId !== input.selectedChoiceId || old.confidence !== input.confidence)
+      if (
+        old.selectedChoiceId !== input.selectedChoiceId ||
+        !sameOrder(old.selectedOrder, input.selectedOrder) ||
+        old.confidence !== input.confidence
+      )
         fail("A save ID cannot be reused with different content.");
       return { revision: old.revision, savedAt: old.savedAt };
     }
@@ -353,8 +376,17 @@ export async function saveAnswer(db: Database, userId: string, input: AnswerInpu
       });
     if (input.selectedChoiceId !== null && !item.choiceOrder.includes(input.selectedChoiceId))
       fail("This choice does not belong to the pinned question.");
+    if (item.itemOrder.length) {
+      if (
+        input.selectedChoiceId !== null ||
+        (input.selectedOrder != null && !validOrder(input.selectedOrder, item.itemOrder))
+      )
+        fail("Submit every pinned ordering item exactly once, or clear the response.");
+    } else if (input.selectedOrder != null)
+      fail("This question accepts one choice, not an ordered sequence.");
     const values = {
       selectedChoiceId: input.selectedChoiceId,
+      selectedOrder: input.selectedOrder ?? null,
       confidence: input.confidence,
       revision: input.expectedRevision + 1,
       mutationId: input.mutationId,
@@ -411,7 +443,7 @@ async function finalize(tx: Tx, userId: string, a: typeof attempt.$inferSelect) 
   if (a.status !== "in_progress")
     throw new ORPCError("CONFLICT", { message: "The attempt has no available final result." });
   const rows = await tx
-    .select({ item: attemptItem, answer: attemptAnswer, key: questionVersion.answerChoiceId })
+    .select({ item: attemptItem, answer: attemptAnswer, version: questionVersion })
     .from(attemptItem)
     .innerJoin(questionVersion, eq(questionVersion.id, attemptItem.questionVersionId))
     .leftJoin(attemptAnswer, eq(attemptAnswer.attemptItemId, attemptItem.id))
@@ -420,8 +452,8 @@ async function finalize(tx: Tx, userId: string, a: typeof attempt.$inferSelect) 
     incorrect = 0,
     unanswered = 0;
   for (const row of rows) {
-    if (!row.answer?.selectedChoiceId) unanswered++;
-    else if (row.answer.selectedChoiceId === row.key) correct++;
+    if (!hasResponse(row.answer ?? undefined)) unanswered++;
+    else if (isCorrectResponse(row.version, row.answer ?? undefined)) correct++;
     else incorrect++;
     if (["practice", "review"].includes(a.mode))
       await applyReviewOutcome(tx, userId, row.item, a.mode);
@@ -482,6 +514,7 @@ export async function getAttempt(db: Database, userId: string, id: string) {
         answer: attemptAnswer,
         blocked: question.blocked,
         topic: topic.title,
+        area: topic.area,
       })
       .from(attemptItem)
       .innerJoin(questionVersion, eq(questionVersion.id, attemptItem.questionVersionId))
@@ -493,7 +526,13 @@ export async function getAttempt(db: Database, userId: string, id: string) {
     const strict = await strictQuestions(tx, userId);
     const allChoices = rows.length
       ? await tx
-          .select({ versionId: choice.questionVersionId, id: choice.id, text: choice.text })
+          .select({
+            versionId: choice.questionVersionId,
+            id: choice.id,
+            text: choice.text,
+            label: choice.label,
+            media: choice.media,
+          })
           .from(choice)
           .where(
             inArray(
@@ -502,14 +541,20 @@ export async function getAttempt(db: Database, userId: string, id: string) {
             ),
           )
       : [];
-    const choicesByVersion = new Map<string, { id: string; text: string }[]>();
+    type PlayerChoice = {
+      id: string;
+      text: string;
+      label: string | null;
+      media: QuestionMedia | null;
+    };
+    const choicesByVersion = new Map<string, PlayerChoice[]>();
     for (const c of allChoices) {
       const group = choicesByVersion.get(c.versionId) ?? [];
-      group.push({ id: c.id, text: c.text });
+      group.push({ id: c.id, text: c.text, label: c.label, media: c.media });
       choicesByVersion.set(c.versionId, group);
     }
     const items = [];
-    for (const { item, version, answer, blocked, topic } of rows) {
+    for (const { item, version, answer, blocked, topic, area } of rows) {
       const choices = choicesByVersion.get(version.id) ?? [];
       const canReveal =
         (a.status !== "in_progress" ||
@@ -523,13 +568,24 @@ export async function getAttempt(db: Database, userId: string, id: string) {
         version: version.version,
         topicId: version.primaryTopicId,
         topic,
+        area,
+        kind: version.kind,
+        instruction: version.instruction,
+        highlight: version.highlight,
+        provider: version.provider
+          ? { category: version.provider.category, subcategory: version.provider.subcategory }
+          : null,
         prompt: version.prompt,
         passage: version.passage,
-        media: version.media as { src: string; alt: string } | null,
+        media: version.media as QuestionMedia | null,
+        orderItems: item.itemOrder
+          .map((id) => version.orderItems.find((i) => i.id === id))
+          .filter((i): i is { id: string; text: string } => !!i),
         choices: item.choiceOrder
           .map((id) => choices.find((c) => c.id === id))
-          .filter((c): c is { id: string; text: string } => !!c),
+          .filter((c): c is PlayerChoice => !!c),
         selectedChoiceId: answer?.selectedChoiceId ?? null,
+        selectedOrder: answer?.selectedOrder ?? null,
         revision: answer?.revision ?? 0,
         confidence: answer?.confidence ?? null,
         savedAt: answer?.savedAt ?? null,
@@ -545,9 +601,10 @@ export async function getAttempt(db: Database, userId: string, id: string) {
         feedback: canReveal
           ? {
               answerChoiceId: version.answerChoiceId,
+              answerOrder: version.answerOrder,
               explanation: version.explanation,
               distractorExplanations: version.distractorExplanations ?? {},
-              correct: answer?.selectedChoiceId === version.answerChoiceId,
+              correct: isCorrectResponse(version, answer ?? undefined),
               erratum: version.erratum,
               status: version.status,
             }
@@ -582,7 +639,7 @@ export async function results(db: Database, userId: string, id: string) {
   );
   const topics = [...new Set(detail.items.map((i) => i.topicId))].map((topicId) => {
     const items = detail.items.filter((i) => i.topicId === topicId);
-    const first = items.filter((i) => i.firstExposure && i.selectedChoiceId !== null);
+    const first = items.filter((i) => i.firstExposure && hasResponse(i));
     const correct = items.filter((i) => i.feedback?.correct).length;
     return {
       topicId,
