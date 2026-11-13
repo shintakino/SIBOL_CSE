@@ -4,6 +4,9 @@ export const ENV = z
   .object({
     NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
     PORT: z.coerce.number().int().min(1).max(65535).default(3000),
+    SIBOL_RELEASE_SHA: z
+      .union([z.literal("development"), z.string().regex(/^[a-f0-9]{40}$/)])
+      .default("development"),
     DB_POOL_MAX: z.coerce.number().int().min(2).max(50).default(10),
     DATABASE_URL: z
       .string()

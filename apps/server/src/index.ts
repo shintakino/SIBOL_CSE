@@ -45,6 +45,15 @@ app.get("/health/ready", async (c) => {
     return c.json({ status: "unavailable" }, 503);
   }
 });
+app.get("/api/health/ready", async (c) => {
+  c.header("Cache-Control", "no-store");
+  try {
+    await db.execute(sql`select 1 from user_profile limit 1`);
+    return c.json({ status: "ready", release: ENV.SIBOL_RELEASE_SHA });
+  } catch {
+    return c.json({ status: "unavailable" }, 503);
+  }
+});
 app.use("/api/*", async (c, next) => {
   c.header("Cache-Control", "no-store");
   if (c.req.method !== "GET" && c.req.method !== "HEAD") {
