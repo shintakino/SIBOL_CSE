@@ -15,5 +15,7 @@ export function proxy(request: NextRequest) {
   }
   const response = NextResponse.next();
   response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  if (request.headers.get("host") === "sibol.shintakino.qzz.io")
+    response.headers.set("Strict-Transport-Security", "max-age=15552000");
   return response;
 }

@@ -124,6 +124,18 @@ services:
     restart: unless-stopped
   mailpit:
     image: axllent/mailpit:v1.27
+    environment:
+      MP_DATABASE: /data/mailpit.db
+      MP_MAX_MESSAGES: "500"
+      MP_MAX_AGE: 7d
+      MP_DISABLE_VERSION_CHECK: "true"
+    volumes:
+      - sibol_mail:/data
+    healthcheck:
+      test: [CMD, /mailpit, readyz]
+      interval: 15s
+      timeout: 5s
+      retries: 5
     networks: [application]
     restart: unless-stopped
   tunnel:
@@ -148,3 +160,4 @@ networks:
 volumes:
   sibol_data:
   sibol_backups:
+  sibol_mail:

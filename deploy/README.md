@@ -11,7 +11,7 @@ CI pins Coolify to the exact tested Git SHA, starts a source deployment, waits f
 From an authenticated checkout:
 
 ```bash
-pnpm deploy
+pnpm run deploy
 # Follow the selected workflow run:
 gh run list --workflow deploy.yml --limit 5
 gh run watch
@@ -25,11 +25,19 @@ The `production` environment contains the application-scoped `COOLIFY_TOKEN` sec
 
 Production database/auth/tunnel secrets and the public age backup recipient are runtime variables in Coolify. Build argument injection is disabled, and environment/cache files are excluded from Docker contexts. Operator-only local copies and the offline backup identity are under `.cache/deploy-private/`, mode 0700/0600, outside Git/build contexts. Escrow the backup identity independently from this host.
 
-The initial administrator is `admin@shintakino.qzz.io`. Its generated password is stored only in `.cache/deploy-private/admin.txt` after bootstrap. Public signup remains disabled. **Internal mail capture was selected explicitly:** invitations and recovery mail remain inside the private Mailpit container; no external SMTP delivery is claimed. Configure `SMTP_URL` and `EMAIL_FROM` as Coolify runtime variables and redeploy when a provider is available. Do not publish the Mailpit interface.
+The initial administrator is `admin@shintakino.qzz.io`. Its generated password is stored only in `.cache/deploy-private/admin.txt` after bootstrap. Public signup remains disabled. **Internal mail capture was selected explicitly:** invitations and recovery mail remain inside the private Mailpit container; no external SMTP delivery is claimed. Configure `SMTP_URL` and `EMAIL_FROM` as Coolify runtime variables and redeploy when a provider is available. Do not publish the Mailpit interface. Its dedicated volume retains messages across deployments, capped at 500 messages/seven days ([Mailpit persistence options](https://mailpit.axllent.org/docs/configuration/runtime-options/)).
+
+To read captured invitations/recovery links, obtain the private container address on the server:
+
+```bash
+docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mailpit-q52xajsad67xkcmtdwjto1uu
+```
+
+From your own computer, run `ssh -N -L 8026:MAILPIT_IP:8025 YOUR_SERVER`, substituting that private address and your SSH host. Open `http://localhost:8026` while the SSH session remains connected. No inbox port or hostname is published.
 
 ## Data and release safety
 
-Keep the service names and the `sibol_data` / `sibol_backups` volume identities. `pnpm check:deployment` validates these boundaries without production credentials. Never run development tests/seeds or `down --volumes` against this application. PostgreSQL persists across deployments.
+Keep the service names and the `sibol_data` / `sibol_backups` / `sibol_mail` volume identities. `pnpm check:deployment` validates these boundaries without production credentials. Never run development tests/seeds or `down --volumes` against this application. PostgreSQL persists across deployments.
 
 Each deployment takes an encrypted pre-migration dump, then runs one migration job before the API starts. Application replicas never run migrations. Daily encrypted backups retain 30 days; the deletion journal is refreshed hourly. See [recovery instructions](../ops/README.md) before restoring. Backups currently remain on this server; off-host replication, key escrow and alerts still require operator setup. A failed/incompatible migration requires operator review; no destructive down migration or automatic database rollback runs. Revert application code only when it remains schema-compatible.
 

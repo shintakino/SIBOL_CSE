@@ -116,7 +116,7 @@ The suites cover invitation/recovery races and replay, role and ownership bounda
 
 ## Coolify deployment and push automation
 
-The server deployment uses [the Coolify runbook](deploy/README.md) and `docker-compose.coolify.yml` at `https://sibol.shintakino.qzz.io`. GitHub validates `main` pushes before Coolify builds/deploys the exact tested revision. `pnpm deploy` manually dispatches the same workflow. Internal mail capture is configured; external SMTP remains deferred.
+The server deployment uses [the Coolify runbook](deploy/README.md) and `docker-compose.coolify.yml` at `https://sibol.shintakino.qzz.io`. GitHub validates `main` pushes before Coolify builds/deploys the exact tested revision. `pnpm run deploy` manually dispatches the same workflow. Internal mail capture is configured; external SMTP remains deferred.
 
 ## Containers and release configuration
 
