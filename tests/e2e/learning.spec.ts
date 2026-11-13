@@ -5,6 +5,7 @@ import { account, studyPreferences, user, userProfile } from "@sibol-cse/db/sche
 import { hashPassword } from "better-auth/crypto";
 import { sql } from "drizzle-orm";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
+import { resetBrowserRateLimits } from "../fixtures/browser-limits";
 import { questionDraft, seedLearning } from "../fixtures/learning";
 
 const url = process.env.TEST_DATABASE_URL;
@@ -17,6 +18,10 @@ const adminEmail = `content-admin-${stamp}@example.test`,
   learnerEmail = `content-learner-${stamp}@example.test`,
   diagnosticEmail = `diagnostic-${stamp}@example.test`;
 test.describe.configure({ mode: "serial" });
+test.beforeEach(async () => {
+  await resetBrowserRateLimits(db);
+});
+
 test.beforeAll(async () => {
   test.setTimeout(60000);
   await migrate(db, { migrationsFolder: "packages/db/src/migrations" });

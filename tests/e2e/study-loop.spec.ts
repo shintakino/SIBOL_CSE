@@ -17,6 +17,7 @@ import {
 import { hashPassword } from "better-auth/crypto";
 import { and, eq, sql } from "drizzle-orm";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
+import { resetBrowserRateLimits } from "../fixtures/browser-limits";
 import { seedLearning } from "../fixtures/learning";
 
 const url = process.env.TEST_DATABASE_URL;
@@ -30,6 +31,10 @@ let learnerId = "",
   adminId = "",
   profileId = "";
 test.describe.configure({ mode: "serial" });
+test.beforeEach(async () => {
+  await resetBrowserRateLimits(db);
+});
+
 test.beforeAll(async () => {
   test.setTimeout(60000);
   await migrate(db, { migrationsFolder: "packages/db/src/migrations" });

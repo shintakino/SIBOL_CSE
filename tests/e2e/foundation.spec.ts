@@ -5,6 +5,7 @@ import { createDb } from "@sibol-cse/db";
 import { account, user, userProfile } from "@sibol-cse/db/schema";
 import { hashPassword } from "better-auth/crypto";
 import { eq } from "drizzle-orm";
+import { resetBrowserRateLimits } from "../fixtures/browser-limits";
 
 const db = createDb({ DATABASE_URL: process.env.TEST_DATABASE_URL ?? "" });
 const password = "an-e2e-test-passphrase-only";
@@ -13,6 +14,10 @@ const adminEmail = `e2e-admin-${stamp}@example.test`;
 const recoveryEmail = `e2e-recovery-${stamp}@example.test`;
 const learnerEmail = `e2e-learner-${stamp}@example.test`;
 let invitationToken = "";
+
+test.beforeEach(async () => {
+  await resetBrowserRateLimits(db);
+});
 
 test.beforeAll(async () => {
   const id = crypto.randomUUID();

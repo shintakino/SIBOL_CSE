@@ -16,7 +16,7 @@ The review reproduced three races despite the 70-test baseline: manual schedulin
 
 ## Coolify deployment in progress
 
-The user authorized Docker deployment and push-to-deploy automation on the existing server, using `sibol.shintakino.qzz.io`. Existing work was split into 21 focused commits and pushed to GitHub. An isolated Coolify project/application and dedicated Cloudflare tunnel are created. CI, pinned source deployment, private secrets, bootstrap and public verification are in progress. Internal mail capture was explicitly selected; real SMTP remains deferred. No reviewed content is being fabricated or activated for deployment.
+The user authorized Docker deployment and push-to-deploy automation on the existing server, using `sibol.shintakino.qzz.io`. Existing work was split into 21 focused commits and pushed to GitHub. An isolated Coolify project/application and dedicated Cloudflare tunnel are created. CI, pinned source deployment, private secrets, bootstrap and public verification are in progress. The first GitHub browser run exposed shared sign-in rate-limit state on faster runners; each scenario now clears only the dedicated test database rate-limit fixtures, retaining production limits. CI is being rerun. Internal mail capture was explicitly selected; real SMTP remains deferred. No reviewed content is being fabricated or activated for deployment.
 
 ## Completed
 
