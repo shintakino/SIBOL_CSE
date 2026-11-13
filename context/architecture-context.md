@@ -108,3 +108,11 @@ Operational requirements are in [14-operations-and-release.md](feature-specs/14-
 - Deterministic PostgreSQL regression tests exercise both ordering directions, deletion versus scheduling, strict/diagnostic startup versus feedback/export, snapshot consistency, and lock cleanup on failed/parallel exports. Release performance/content/provider/manual/pilot gates are unchanged.
 
 The snapshot behavior follows [PostgreSQL 17 row-lock and isolation semantics](https://www.postgresql.org/docs/17/explicit-locking.html): locking alone does not invalidate an unchanged row in an older snapshot; changing the owner revision makes stale repeatable-read locking fail safely.
+
+## User-authorized Coolify deployment (13 November 2026)
+
+Deploy an isolated Git-based Docker Compose application in the existing Coolify server at `sibol.shintakino.qzz.io`, through a dedicated Cloudflare tunnel. Existing applications/networks/volumes are preserved. GitHub-hosted Actions run checks on pull requests and main pushes; only a passing main commit may update Coolify's pinned source SHA and queue production deployment. Coolify builds the Dockerfiles from that exact revision, avoiding shared registry credentials or an untrusted self-hosted runner. Manual deployment dispatches the same workflow.
+
+Production PostgreSQL uses a separate persistent volume/internal network with no host port. A one-shot encrypted backup precedes the one-shot migration service; API replicas never run migrations. A background backup service retains encrypted archives for 30 days. The tunnel exposes the web app and only the deployment API paths; the CI token is scoped to this application. Public readiness includes the deployed source revision so CI can check the running version. Domain requests redirect HTTP to HTTPS, and the app remains invitation-only/noindex. Secrets and backup identity stay outside Git/build context.
+
+The user explicitly chose internal mail capture for now; external SMTP delivery/recovery remains unavailable until configured. The first admin uses `admin@shintakino.qzz.io`, with credentials held in an operator-only local file. Deployment is a private pre-launch installation and does not satisfy the remaining reviewed-content, performance, manual accessibility or week-long pilot gates.

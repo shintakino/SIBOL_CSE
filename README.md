@@ -114,6 +114,10 @@ Nine additional PostgreSQL concurrency regressions force both deletion/schedulin
 
 The suites cover invitation/recovery races and replay, role and ownership boundaries, publication/corrections, import validation, inventory/forms, lesson history, save revisions and retry, commit/finalization races, shuffled keys/blanks, expiry, quarantine and balanced diagnostics for both levels, deterministic review schedules, planner carryover/rebuilds, mock quotas/expiry and derived analytics/deletion. Browser flows exercise editorial publication/import, lesson resume/completion, failed-save recovery, private tools, diagnostic skip/completion, mobile planning/review, strict reconnect/device-clock changes/automatic expiry, full-mock deletion, theme persistence, keyboard dialogs, responsive layouts, text resizing and axe accessibility checks. Actual assistive-technology and cross-browser release checks remain in spec 14.
 
+## Coolify deployment and push automation
+
+The server deployment uses [the Coolify runbook](deploy/README.md) and `docker-compose.coolify.yml` at `https://sibol.shintakino.qzz.io`. GitHub validates `main` pushes before Coolify builds/deploys the exact tested revision. `pnpm deploy` manually dispatches the same workflow. Internal mail capture is configured; external SMTP remains deferred.
+
 ## Containers and release configuration
 
 ```bash

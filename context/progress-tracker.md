@@ -14,6 +14,10 @@ Specs 12–13 are implemented with owner-only libraries/search, checked private 
 
 The review reproduced three races despite the 70-test baseline: manual scheduling could recreate data after deletion; notebook reads could return feedback after an overlapping assessment started; and a repeatable-read export could miss an assessment committed while it waited for the owner lock. Owner-lock serialization, an assessment revision trigger and bounded pre-stream export retry are implemented. Nine new PostgreSQL concurrency tests pass, including the six cases that failed before the fix. The full backend suite now passes 79 tests / 502 assertions. The ninth migration is applied locally and in the test database; schema generation reports no drift. Typechecking, lint, production web/API builds, all 14 browser flows and browser import-boundary checks pass. The migration-9 encrypted restore/deletion reconciliation rehearsal also passes; the restored assessment trigger is present. Retained container/performance evidence below is labeled separately.
 
+## Coolify deployment in progress
+
+The user authorized Docker deployment and push-to-deploy automation on the existing server, using `sibol.shintakino.qzz.io`. Existing work was split into 21 focused commits and pushed to GitHub. An isolated Coolify project/application and dedicated Cloudflare tunnel are created. CI, pinned source deployment, private secrets, bootstrap and public verification are in progress. Internal mail capture was explicitly selected; real SMTP remains deferred. No reviewed content is being fabricated or activated for deployment.
+
 ## Completed
 
 - Generated Better T Stack 3.49.0 after checking supported flags, preserving the existing documents and Git history. The workspace uses Next.js, Hono/oRPC, Bun, Better Auth, PostgreSQL/Drizzle, pnpm/Turborepo and Docker; `pnpm-lock.yaml` records resolved dependencies.
