@@ -1,0 +1,6930 @@
+{
+  "type": "base",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "fd938a45-684f-42ee-aa1c-33b395197e05",
+  "prevIds": [
+    "00000000-0000-0000-0000-000000000000"
+  ],
+  "footprints": [
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "attempt_status"
+      ],
+      "writes": [
+        "s|enum|public.attempt_status",
+        "n|enum|public.attempt_status",
+        "e|enum|public.attempt_status",
+        "n|type|public.attempt_status"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "explanation_language"
+      ],
+      "writes": [
+        "s|enum|public.explanation_language",
+        "n|enum|public.explanation_language",
+        "e|enum|public.explanation_language",
+        "n|type|public.explanation_language"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "exam_level"
+      ],
+      "writes": [
+        "s|enum|public.exam_level",
+        "n|enum|public.exam_level",
+        "e|enum|public.exam_level",
+        "n|type|public.exam_level"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "publication_status"
+      ],
+      "writes": [
+        "s|enum|public.publication_status",
+        "n|enum|public.publication_status",
+        "e|enum|public.publication_status",
+        "n|type|public.publication_status"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "role"
+      ],
+      "writes": [
+        "s|enum|public.role",
+        "n|enum|public.role",
+        "e|enum|public.role",
+        "n|type|public.role"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "account"
+      ],
+      "writes": [
+        "s|tbl|public.account",
+        "n|tbl|public.account",
+        "e|tbl|public.account",
+        "n|rel|public.account",
+        "n|type|public.account",
+        "n|rel|public.account_pkey",
+        "n|rel|public.account_provider_id_account_id_unique"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "rate_limit"
+      ],
+      "writes": [
+        "s|tbl|public.rate_limit",
+        "n|tbl|public.rate_limit",
+        "e|tbl|public.rate_limit",
+        "n|rel|public.rate_limit",
+        "n|type|public.rate_limit",
+        "n|rel|public.rate_limit_pkey",
+        "n|rel|public.rate_limit_key_key"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "session"
+      ],
+      "writes": [
+        "s|tbl|public.session",
+        "n|tbl|public.session",
+        "e|tbl|public.session",
+        "n|rel|public.session",
+        "n|type|public.session",
+        "n|rel|public.session_pkey",
+        "n|rel|public.session_token_key"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "user"
+      ],
+      "writes": [
+        "s|tbl|public.user",
+        "n|tbl|public.user",
+        "e|tbl|public.user",
+        "n|rel|public.user",
+        "n|type|public.user",
+        "n|rel|public.user_pkey",
+        "n|rel|public.user_email_key"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "verification"
+      ],
+      "writes": [
+        "s|tbl|public.verification",
+        "n|tbl|public.verification",
+        "e|tbl|public.verification",
+        "n|rel|public.verification",
+        "n|type|public.verification",
+        "n|rel|public.verification_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "attempt"
+      ],
+      "writes": [
+        "s|tbl|public.attempt",
+        "n|tbl|public.attempt",
+        "e|tbl|public.attempt",
+        "n|rel|public.attempt",
+        "n|type|public.attempt",
+        "n|rel|public.attempt_pkey"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.attempt_status"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "attempt_answer"
+      ],
+      "writes": [
+        "s|tbl|public.attempt_answer",
+        "n|tbl|public.attempt_answer",
+        "e|tbl|public.attempt_answer",
+        "n|rel|public.attempt_answer",
+        "n|type|public.attempt_answer",
+        "n|rel|public.attempt_answer_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "attempt_item"
+      ],
+      "writes": [
+        "s|tbl|public.attempt_item",
+        "n|tbl|public.attempt_item",
+        "e|tbl|public.attempt_item",
+        "n|rel|public.attempt_item",
+        "n|type|public.attempt_item",
+        "n|rel|public.attempt_item_pkey",
+        "n|rel|public.attempt_item_attempt_id_position_unique",
+        "n|rel|public.attempt_item_attempt_id_question_version_id_unique",
+        "n|rel|public.attempt_item_id_question_version_id_unique"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "attempt_result"
+      ],
+      "writes": [
+        "s|tbl|public.attempt_result",
+        "n|tbl|public.attempt_result",
+        "e|tbl|public.attempt_result",
+        "n|rel|public.attempt_result",
+        "n|type|public.attempt_result",
+        "n|rel|public.attempt_result_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "audit_event"
+      ],
+      "writes": [
+        "s|tbl|public.audit_event",
+        "n|tbl|public.audit_event",
+        "e|tbl|public.audit_event",
+        "n|rel|public.audit_event",
+        "n|type|public.audit_event",
+        "n|rel|public.audit_event_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "bookmark"
+      ],
+      "writes": [
+        "s|tbl|public.bookmark",
+        "n|tbl|public.bookmark",
+        "e|tbl|public.bookmark",
+        "n|rel|public.bookmark",
+        "n|type|public.bookmark",
+        "n|rel|public.bookmark_pkey",
+        "n|rel|public.bookmark_user_id_lesson_id_unique",
+        "n|rel|public.bookmark_user_id_question_id_unique"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "choice"
+      ],
+      "writes": [
+        "s|tbl|public.choice",
+        "n|tbl|public.choice",
+        "e|tbl|public.choice",
+        "n|rel|public.choice",
+        "n|type|public.choice",
+        "n|rel|public.choice_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "content_source"
+      ],
+      "writes": [
+        "s|tbl|public.content_source",
+        "n|tbl|public.content_source",
+        "e|tbl|public.content_source",
+        "n|rel|public.content_source",
+        "n|type|public.content_source",
+        "n|rel|public.content_source_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "exam_profile_version"
+      ],
+      "writes": [
+        "s|tbl|public.exam_profile_version",
+        "n|tbl|public.exam_profile_version",
+        "e|tbl|public.exam_profile_version",
+        "n|rel|public.exam_profile_version",
+        "n|type|public.exam_profile_version",
+        "n|rel|public.exam_profile_version_pkey",
+        "n|rel|public.exam_profile_version_level_version_unique"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.exam_level"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "import_batch"
+      ],
+      "writes": [
+        "s|tbl|public.import_batch",
+        "n|tbl|public.import_batch",
+        "e|tbl|public.import_batch",
+        "n|rel|public.import_batch",
+        "n|type|public.import_batch",
+        "n|rel|public.import_batch_pkey",
+        "n|rel|public.import_batch_file_hash_operator_id_unique"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "invitation"
+      ],
+      "writes": [
+        "s|tbl|public.invitation",
+        "n|tbl|public.invitation",
+        "e|tbl|public.invitation",
+        "n|rel|public.invitation",
+        "n|type|public.invitation",
+        "n|rel|public.invitation_pkey",
+        "n|rel|public.invitation_token_hash_key"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "lesson"
+      ],
+      "writes": [
+        "s|tbl|public.lesson",
+        "n|tbl|public.lesson",
+        "e|tbl|public.lesson",
+        "n|rel|public.lesson",
+        "n|type|public.lesson",
+        "n|rel|public.lesson_pkey",
+        "n|rel|public.lesson_slug_key"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "lesson_progress"
+      ],
+      "writes": [
+        "s|tbl|public.lesson_progress",
+        "n|tbl|public.lesson_progress",
+        "e|tbl|public.lesson_progress",
+        "n|rel|public.lesson_progress",
+        "n|type|public.lesson_progress",
+        "n|rel|public.lesson_progress_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "lesson_version"
+      ],
+      "writes": [
+        "s|tbl|public.lesson_version",
+        "n|tbl|public.lesson_version",
+        "e|tbl|public.lesson_version",
+        "n|rel|public.lesson_version",
+        "n|type|public.lesson_version",
+        "n|rel|public.lesson_version_pkey",
+        "n|rel|public.lesson_version_lesson_id_version_unique"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.publication_status"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "mock_blueprint_version"
+      ],
+      "writes": [
+        "s|tbl|public.mock_blueprint_version",
+        "n|tbl|public.mock_blueprint_version",
+        "e|tbl|public.mock_blueprint_version",
+        "n|rel|public.mock_blueprint_version",
+        "n|type|public.mock_blueprint_version",
+        "n|rel|public.mock_blueprint_version_pkey",
+        "n|rel|public.mock_blueprint_version_profile_version_id_version_unique"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "private_note"
+      ],
+      "writes": [
+        "s|tbl|public.private_note",
+        "n|tbl|public.private_note",
+        "e|tbl|public.private_note",
+        "n|rel|public.private_note",
+        "n|type|public.private_note",
+        "n|rel|public.private_note_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "question"
+      ],
+      "writes": [
+        "s|tbl|public.question",
+        "n|tbl|public.question",
+        "e|tbl|public.question",
+        "n|rel|public.question",
+        "n|type|public.question",
+        "n|rel|public.question_pkey",
+        "n|rel|public.question_external_id_key"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "question_issue"
+      ],
+      "writes": [
+        "s|tbl|public.question_issue",
+        "n|tbl|public.question_issue",
+        "e|tbl|public.question_issue",
+        "n|rel|public.question_issue",
+        "n|type|public.question_issue",
+        "n|rel|public.question_issue_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "question_topic"
+      ],
+      "writes": [
+        "s|tbl|public.question_topic",
+        "n|tbl|public.question_topic",
+        "e|tbl|public.question_topic",
+        "n|rel|public.question_topic",
+        "n|type|public.question_topic",
+        "n|rel|public.question_topic_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "question_version"
+      ],
+      "writes": [
+        "s|tbl|public.question_version",
+        "n|tbl|public.question_version",
+        "e|tbl|public.question_version",
+        "n|rel|public.question_version",
+        "n|type|public.question_version",
+        "n|rel|public.question_version_pkey",
+        "n|rel|public.question_version_question_id_version_unique"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.publication_status",
+        "n|enum|public.exam_level",
+        "n|enum|public.explanation_language"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "request_limit"
+      ],
+      "writes": [
+        "s|tbl|public.request_limit",
+        "n|tbl|public.request_limit",
+        "e|tbl|public.request_limit",
+        "n|rel|public.request_limit",
+        "n|type|public.request_limit",
+        "n|rel|public.request_limit_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "review_event"
+      ],
+      "writes": [
+        "s|tbl|public.review_event",
+        "n|tbl|public.review_event",
+        "e|tbl|public.review_event",
+        "n|rel|public.review_event",
+        "n|type|public.review_event",
+        "n|rel|public.review_event_pkey",
+        "n|rel|public.review_event_event_key_key"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "review_state"
+      ],
+      "writes": [
+        "s|tbl|public.review_state",
+        "n|tbl|public.review_state",
+        "e|tbl|public.review_state",
+        "n|rel|public.review_state",
+        "n|type|public.review_state",
+        "n|rel|public.review_state_pkey",
+        "n|rel|public.review_state_user_id_question_id_unique"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "study_plan"
+      ],
+      "writes": [
+        "s|tbl|public.study_plan",
+        "n|tbl|public.study_plan",
+        "e|tbl|public.study_plan",
+        "n|rel|public.study_plan",
+        "n|type|public.study_plan",
+        "n|rel|public.study_plan_pkey",
+        "n|rel|public.study_plan_user_id_preferences_revision_unique"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.exam_level"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "study_preferences"
+      ],
+      "writes": [
+        "s|tbl|public.study_preferences",
+        "n|tbl|public.study_preferences",
+        "e|tbl|public.study_preferences",
+        "n|rel|public.study_preferences",
+        "n|type|public.study_preferences",
+        "n|rel|public.study_preferences_pkey"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.exam_level"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "study_task"
+      ],
+      "writes": [
+        "s|tbl|public.study_task",
+        "n|tbl|public.study_task",
+        "e|tbl|public.study_task",
+        "n|rel|public.study_task",
+        "n|type|public.study_task",
+        "n|rel|public.study_task_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "topic"
+      ],
+      "writes": [
+        "s|tbl|public.topic",
+        "n|tbl|public.topic",
+        "e|tbl|public.topic",
+        "n|rel|public.topic",
+        "n|type|public.topic",
+        "n|rel|public.topic_pkey",
+        "n|rel|public.topic_slug_key"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.exam_level"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "user_profile"
+      ],
+      "writes": [
+        "s|tbl|public.user_profile",
+        "n|tbl|public.user_profile",
+        "e|tbl|public.user_profile",
+        "n|rel|public.user_profile",
+        "n|type|public.user_profile",
+        "n|rel|public.user_profile_pkey"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.role",
+        "n|enum|public.explanation_language"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "account",
+        "account_userId_idx"
+      ],
+      "writes": [
+        "s|idx|public.account_userId_idx",
+        "n|idx|public.account_userId_idx",
+        "e|idx|public.account_userId_idx",
+        "n|rel|public.account_userId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.account",
+        "n|sch|public",
+        "n|col|public.account.user_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "session",
+        "session_userId_idx"
+      ],
+      "writes": [
+        "s|idx|public.session_userId_idx",
+        "n|idx|public.session_userId_idx",
+        "e|idx|public.session_userId_idx",
+        "n|rel|public.session_userId_idx"
+      ],
+      "reads": [
+        "n|tbl|public.session",
+        "n|sch|public",
+        "n|col|public.session.user_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "verification",
+        "verification_identifier_idx"
+      ],
+      "writes": [
+        "s|idx|public.verification_identifier_idx",
+        "n|idx|public.verification_identifier_idx",
+        "e|idx|public.verification_identifier_idx",
+        "n|rel|public.verification_identifier_idx"
+      ],
+      "reads": [
+        "n|tbl|public.verification",
+        "n|sch|public",
+        "n|col|public.verification.identifier"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "attempt",
+        "attempt_owner_status_idx"
+      ],
+      "writes": [
+        "s|idx|public.attempt_owner_status_idx",
+        "n|idx|public.attempt_owner_status_idx",
+        "e|idx|public.attempt_owner_status_idx",
+        "n|rel|public.attempt_owner_status_idx"
+      ],
+      "reads": [
+        "n|tbl|public.attempt",
+        "n|sch|public",
+        "n|col|public.attempt.user_id",
+        "n|col|public.attempt.status"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "exam_profile_version",
+        "one_active_profile_per_level"
+      ],
+      "writes": [
+        "s|idx|public.one_active_profile_per_level",
+        "n|idx|public.one_active_profile_per_level",
+        "e|idx|public.one_active_profile_per_level",
+        "n|rel|public.one_active_profile_per_level"
+      ],
+      "reads": [
+        "n|tbl|public.exam_profile_version",
+        "n|sch|public",
+        "n|col|public.exam_profile_version.level"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "invitation",
+        "invitation_email_idx"
+      ],
+      "writes": [
+        "s|idx|public.invitation_email_idx",
+        "n|idx|public.invitation_email_idx",
+        "e|idx|public.invitation_email_idx",
+        "n|rel|public.invitation_email_idx"
+      ],
+      "reads": [
+        "n|tbl|public.invitation",
+        "n|sch|public",
+        "n|col|public.invitation.email"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "private_note",
+        "note_owner_idx"
+      ],
+      "writes": [
+        "s|idx|public.note_owner_idx",
+        "n|idx|public.note_owner_idx",
+        "e|idx|public.note_owner_idx",
+        "n|rel|public.note_owner_idx"
+      ],
+      "reads": [
+        "n|tbl|public.private_note",
+        "n|sch|public",
+        "n|col|public.private_note.user_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "question_version",
+        "question_selection_idx"
+      ],
+      "writes": [
+        "s|idx|public.question_selection_idx",
+        "n|idx|public.question_selection_idx",
+        "e|idx|public.question_selection_idx",
+        "n|rel|public.question_selection_idx"
+      ],
+      "reads": [
+        "n|tbl|public.question_version",
+        "n|sch|public",
+        "n|col|public.question_version.status",
+        "n|col|public.question_version.level",
+        "n|col|public.question_version.primary_topic_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "review_state",
+        "review_due_idx"
+      ],
+      "writes": [
+        "s|idx|public.review_due_idx",
+        "n|idx|public.review_due_idx",
+        "e|idx|public.review_due_idx",
+        "n|rel|public.review_due_idx"
+      ],
+      "reads": [
+        "n|tbl|public.review_state",
+        "n|sch|public",
+        "n|col|public.review_state.user_id",
+        "n|col|public.review_state.due_at"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "study_plan",
+        "one_active_plan_per_user"
+      ],
+      "writes": [
+        "s|idx|public.one_active_plan_per_user",
+        "n|idx|public.one_active_plan_per_user",
+        "e|idx|public.one_active_plan_per_user",
+        "n|rel|public.one_active_plan_per_user"
+      ],
+      "reads": [
+        "n|tbl|public.study_plan",
+        "n|sch|public",
+        "n|col|public.study_plan.user_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "study_task",
+        "study_task_date_idx"
+      ],
+      "writes": [
+        "s|idx|public.study_task_date_idx",
+        "n|idx|public.study_task_date_idx",
+        "e|idx|public.study_task_date_idx",
+        "n|rel|public.study_task_date_idx"
+      ],
+      "reads": [
+        "n|tbl|public.study_task",
+        "n|sch|public",
+        "n|col|public.study_task.plan_id",
+        "n|col|public.study_task.scheduled_on"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "account"
+      ],
+      "writes": [
+        "s|fk|public.account.account_user_id_user_id_fkey",
+        "n|fk|public.account.account_user_id_user_id_fkey",
+        "e|fk|public.account.account_user_id_user_id_fkey",
+        "n|con|public.account.account_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.account",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.account.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "session"
+      ],
+      "writes": [
+        "s|fk|public.session.session_user_id_user_id_fkey",
+        "n|fk|public.session.session_user_id_user_id_fkey",
+        "e|fk|public.session.session_user_id_user_id_fkey",
+        "n|con|public.session.session_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.session",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.session.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "attempt"
+      ],
+      "writes": [
+        "s|fk|public.attempt.attempt_user_id_user_id_fkey",
+        "n|fk|public.attempt.attempt_user_id_user_id_fkey",
+        "e|fk|public.attempt.attempt_user_id_user_id_fkey",
+        "n|con|public.attempt.attempt_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.attempt",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.attempt.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "attempt"
+      ],
+      "writes": [
+        "s|fk|public.attempt.attempt_profile_version_id_exam_profile_version_id_fkey",
+        "n|fk|public.attempt.attempt_profile_version_id_exam_profile_version_id_fkey",
+        "e|fk|public.attempt.attempt_profile_version_id_exam_profile_version_id_fkey",
+        "n|con|public.attempt.attempt_profile_version_id_exam_profile_version_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.attempt",
+        "n|sch|public",
+        "n|tbl|public.exam_profile_version",
+        "n|sch|public",
+        "n|col|public.attempt.profile_version_id",
+        "n|col|public.exam_profile_version.id",
+        "e|uniqueness|public.exam_profile_version.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "attempt"
+      ],
+      "writes": [
+        "s|fk|public.attempt.attempt_blueprint_version_id_mock_blueprint_version_id_fkey",
+        "n|fk|public.attempt.attempt_blueprint_version_id_mock_blueprint_version_id_fkey",
+        "e|fk|public.attempt.attempt_blueprint_version_id_mock_blueprint_version_id_fkey",
+        "n|con|public.attempt.attempt_blueprint_version_id_mock_blueprint_version_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.attempt",
+        "n|sch|public",
+        "n|tbl|public.mock_blueprint_version",
+        "n|sch|public",
+        "n|col|public.attempt.blueprint_version_id",
+        "n|col|public.mock_blueprint_version.id",
+        "e|uniqueness|public.mock_blueprint_version.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "attempt_answer"
+      ],
+      "writes": [
+        "s|fk|public.attempt_answer.attempt_answer_attempt_item_id_attempt_item_id_fkey",
+        "n|fk|public.attempt_answer.attempt_answer_attempt_item_id_attempt_item_id_fkey",
+        "e|fk|public.attempt_answer.attempt_answer_attempt_item_id_attempt_item_id_fkey",
+        "n|con|public.attempt_answer.attempt_answer_attempt_item_id_attempt_item_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.attempt_answer",
+        "n|sch|public",
+        "n|tbl|public.attempt_item",
+        "n|sch|public",
+        "n|col|public.attempt_answer.attempt_item_id",
+        "n|col|public.attempt_item.id",
+        "e|uniqueness|public.attempt_item.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "attempt_answer"
+      ],
+      "writes": [
+        "s|fk|public.attempt_answer.attempt_answer_PVPTEMcoGKrW_fkey",
+        "n|fk|public.attempt_answer.attempt_answer_PVPTEMcoGKrW_fkey",
+        "e|fk|public.attempt_answer.attempt_answer_PVPTEMcoGKrW_fkey",
+        "n|con|public.attempt_answer.attempt_answer_PVPTEMcoGKrW_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.attempt_answer",
+        "n|sch|public",
+        "n|tbl|public.attempt_item",
+        "n|sch|public",
+        "n|col|public.attempt_answer.attempt_item_id",
+        "n|col|public.attempt_answer.question_version_id",
+        "n|col|public.attempt_item.id",
+        "n|col|public.attempt_item.question_version_id",
+        "e|uniqueness|public.attempt_item.id.question_version_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "attempt_answer"
+      ],
+      "writes": [
+        "s|fk|public.attempt_answer.attempt_answer_Zvxl5sPJvipe_fkey",
+        "n|fk|public.attempt_answer.attempt_answer_Zvxl5sPJvipe_fkey",
+        "e|fk|public.attempt_answer.attempt_answer_Zvxl5sPJvipe_fkey",
+        "n|con|public.attempt_answer.attempt_answer_Zvxl5sPJvipe_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.attempt_answer",
+        "n|sch|public",
+        "n|tbl|public.choice",
+        "n|sch|public",
+        "n|col|public.attempt_answer.question_version_id",
+        "n|col|public.attempt_answer.selected_choice_id",
+        "n|col|public.choice.question_version_id",
+        "n|col|public.choice.id",
+        "e|uniqueness|public.choice.id.question_version_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "attempt_item"
+      ],
+      "writes": [
+        "s|fk|public.attempt_item.attempt_item_attempt_id_attempt_id_fkey",
+        "n|fk|public.attempt_item.attempt_item_attempt_id_attempt_id_fkey",
+        "e|fk|public.attempt_item.attempt_item_attempt_id_attempt_id_fkey",
+        "n|con|public.attempt_item.attempt_item_attempt_id_attempt_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.attempt_item",
+        "n|sch|public",
+        "n|tbl|public.attempt",
+        "n|sch|public",
+        "n|col|public.attempt_item.attempt_id",
+        "n|col|public.attempt.id",
+        "e|uniqueness|public.attempt.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "attempt_item"
+      ],
+      "writes": [
+        "s|fk|public.attempt_item.attempt_item_question_version_id_question_version_id_fkey",
+        "n|fk|public.attempt_item.attempt_item_question_version_id_question_version_id_fkey",
+        "e|fk|public.attempt_item.attempt_item_question_version_id_question_version_id_fkey",
+        "n|con|public.attempt_item.attempt_item_question_version_id_question_version_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.attempt_item",
+        "n|sch|public",
+        "n|tbl|public.question_version",
+        "n|sch|public",
+        "n|col|public.attempt_item.question_version_id",
+        "n|col|public.question_version.id",
+        "e|uniqueness|public.question_version.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "attempt_result"
+      ],
+      "writes": [
+        "s|fk|public.attempt_result.attempt_result_attempt_id_attempt_id_fkey",
+        "n|fk|public.attempt_result.attempt_result_attempt_id_attempt_id_fkey",
+        "e|fk|public.attempt_result.attempt_result_attempt_id_attempt_id_fkey",
+        "n|con|public.attempt_result.attempt_result_attempt_id_attempt_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.attempt_result",
+        "n|sch|public",
+        "n|tbl|public.attempt",
+        "n|sch|public",
+        "n|col|public.attempt_result.attempt_id",
+        "n|col|public.attempt.id",
+        "e|uniqueness|public.attempt.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "audit_event"
+      ],
+      "writes": [
+        "s|fk|public.audit_event.audit_event_actor_id_user_id_fkey",
+        "n|fk|public.audit_event.audit_event_actor_id_user_id_fkey",
+        "e|fk|public.audit_event.audit_event_actor_id_user_id_fkey",
+        "n|con|public.audit_event.audit_event_actor_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.audit_event",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.audit_event.actor_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "bookmark"
+      ],
+      "writes": [
+        "s|fk|public.bookmark.bookmark_user_id_user_id_fkey",
+        "n|fk|public.bookmark.bookmark_user_id_user_id_fkey",
+        "e|fk|public.bookmark.bookmark_user_id_user_id_fkey",
+        "n|con|public.bookmark.bookmark_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.bookmark",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.bookmark.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "bookmark"
+      ],
+      "writes": [
+        "s|fk|public.bookmark.bookmark_lesson_id_lesson_id_fkey",
+        "n|fk|public.bookmark.bookmark_lesson_id_lesson_id_fkey",
+        "e|fk|public.bookmark.bookmark_lesson_id_lesson_id_fkey",
+        "n|con|public.bookmark.bookmark_lesson_id_lesson_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.bookmark",
+        "n|sch|public",
+        "n|tbl|public.lesson",
+        "n|sch|public",
+        "n|col|public.bookmark.lesson_id",
+        "n|col|public.lesson.id",
+        "e|uniqueness|public.lesson.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "bookmark"
+      ],
+      "writes": [
+        "s|fk|public.bookmark.bookmark_question_id_question_id_fkey",
+        "n|fk|public.bookmark.bookmark_question_id_question_id_fkey",
+        "e|fk|public.bookmark.bookmark_question_id_question_id_fkey",
+        "n|con|public.bookmark.bookmark_question_id_question_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.bookmark",
+        "n|sch|public",
+        "n|tbl|public.question",
+        "n|sch|public",
+        "n|col|public.bookmark.question_id",
+        "n|col|public.question.id",
+        "e|uniqueness|public.question.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "choice"
+      ],
+      "writes": [
+        "s|fk|public.choice.choice_question_version_id_question_version_id_fkey",
+        "n|fk|public.choice.choice_question_version_id_question_version_id_fkey",
+        "e|fk|public.choice.choice_question_version_id_question_version_id_fkey",
+        "n|con|public.choice.choice_question_version_id_question_version_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.choice",
+        "n|sch|public",
+        "n|tbl|public.question_version",
+        "n|sch|public",
+        "n|col|public.choice.question_version_id",
+        "n|col|public.question_version.id",
+        "e|uniqueness|public.question_version.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "content_source"
+      ],
+      "writes": [
+        "s|fk|public.content_source.content_source_reviewer_id_user_id_fkey",
+        "n|fk|public.content_source.content_source_reviewer_id_user_id_fkey",
+        "e|fk|public.content_source.content_source_reviewer_id_user_id_fkey",
+        "n|con|public.content_source.content_source_reviewer_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.content_source",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.content_source.reviewer_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "exam_profile_version"
+      ],
+      "writes": [
+        "s|fk|public.exam_profile_version.exam_profile_version_reviewer_id_user_id_fkey",
+        "n|fk|public.exam_profile_version.exam_profile_version_reviewer_id_user_id_fkey",
+        "e|fk|public.exam_profile_version.exam_profile_version_reviewer_id_user_id_fkey",
+        "n|con|public.exam_profile_version.exam_profile_version_reviewer_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.exam_profile_version",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.exam_profile_version.reviewer_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "import_batch"
+      ],
+      "writes": [
+        "s|fk|public.import_batch.import_batch_operator_id_user_id_fkey",
+        "n|fk|public.import_batch.import_batch_operator_id_user_id_fkey",
+        "e|fk|public.import_batch.import_batch_operator_id_user_id_fkey",
+        "n|con|public.import_batch.import_batch_operator_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.import_batch",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.import_batch.operator_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "invitation"
+      ],
+      "writes": [
+        "s|fk|public.invitation.invitation_invited_by_user_id_fkey",
+        "n|fk|public.invitation.invitation_invited_by_user_id_fkey",
+        "e|fk|public.invitation.invitation_invited_by_user_id_fkey",
+        "n|con|public.invitation.invitation_invited_by_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.invitation",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.invitation.invited_by",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "lesson_progress"
+      ],
+      "writes": [
+        "s|fk|public.lesson_progress.lesson_progress_user_id_user_id_fkey",
+        "n|fk|public.lesson_progress.lesson_progress_user_id_user_id_fkey",
+        "e|fk|public.lesson_progress.lesson_progress_user_id_user_id_fkey",
+        "n|con|public.lesson_progress.lesson_progress_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.lesson_progress",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.lesson_progress.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "lesson_progress"
+      ],
+      "writes": [
+        "s|fk|public.lesson_progress.lesson_progress_lesson_id_lesson_id_fkey",
+        "n|fk|public.lesson_progress.lesson_progress_lesson_id_lesson_id_fkey",
+        "e|fk|public.lesson_progress.lesson_progress_lesson_id_lesson_id_fkey",
+        "n|con|public.lesson_progress.lesson_progress_lesson_id_lesson_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.lesson_progress",
+        "n|sch|public",
+        "n|tbl|public.lesson",
+        "n|sch|public",
+        "n|col|public.lesson_progress.lesson_id",
+        "n|col|public.lesson.id",
+        "e|uniqueness|public.lesson.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "lesson_progress"
+      ],
+      "writes": [
+        "s|fk|public.lesson_progress.lesson_progress_version_id_lesson_version_id_fkey",
+        "n|fk|public.lesson_progress.lesson_progress_version_id_lesson_version_id_fkey",
+        "e|fk|public.lesson_progress.lesson_progress_version_id_lesson_version_id_fkey",
+        "n|con|public.lesson_progress.lesson_progress_version_id_lesson_version_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.lesson_progress",
+        "n|sch|public",
+        "n|tbl|public.lesson_version",
+        "n|sch|public",
+        "n|col|public.lesson_progress.version_id",
+        "n|col|public.lesson_version.id",
+        "e|uniqueness|public.lesson_version.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "lesson_version"
+      ],
+      "writes": [
+        "s|fk|public.lesson_version.lesson_version_lesson_id_lesson_id_fkey",
+        "n|fk|public.lesson_version.lesson_version_lesson_id_lesson_id_fkey",
+        "e|fk|public.lesson_version.lesson_version_lesson_id_lesson_id_fkey",
+        "n|con|public.lesson_version.lesson_version_lesson_id_lesson_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.lesson_version",
+        "n|sch|public",
+        "n|tbl|public.lesson",
+        "n|sch|public",
+        "n|col|public.lesson_version.lesson_id",
+        "n|col|public.lesson.id",
+        "e|uniqueness|public.lesson.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "lesson_version"
+      ],
+      "writes": [
+        "s|fk|public.lesson_version.lesson_version_topic_id_topic_id_fkey",
+        "n|fk|public.lesson_version.lesson_version_topic_id_topic_id_fkey",
+        "e|fk|public.lesson_version.lesson_version_topic_id_topic_id_fkey",
+        "n|con|public.lesson_version.lesson_version_topic_id_topic_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.lesson_version",
+        "n|sch|public",
+        "n|tbl|public.topic",
+        "n|sch|public",
+        "n|col|public.lesson_version.topic_id",
+        "n|col|public.topic.id",
+        "e|uniqueness|public.topic.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "lesson_version"
+      ],
+      "writes": [
+        "s|fk|public.lesson_version.lesson_version_reviewed_by_user_id_fkey",
+        "n|fk|public.lesson_version.lesson_version_reviewed_by_user_id_fkey",
+        "e|fk|public.lesson_version.lesson_version_reviewed_by_user_id_fkey",
+        "n|con|public.lesson_version.lesson_version_reviewed_by_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.lesson_version",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.lesson_version.reviewed_by",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "mock_blueprint_version"
+      ],
+      "writes": [
+        "s|fk|public.mock_blueprint_version.mock_blueprint_version_xv9rWClS5U8l_fkey",
+        "n|fk|public.mock_blueprint_version.mock_blueprint_version_xv9rWClS5U8l_fkey",
+        "e|fk|public.mock_blueprint_version.mock_blueprint_version_xv9rWClS5U8l_fkey",
+        "n|con|public.mock_blueprint_version.mock_blueprint_version_xv9rWClS5U8l_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.mock_blueprint_version",
+        "n|sch|public",
+        "n|tbl|public.exam_profile_version",
+        "n|sch|public",
+        "n|col|public.mock_blueprint_version.profile_version_id",
+        "n|col|public.exam_profile_version.id",
+        "e|uniqueness|public.exam_profile_version.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "private_note"
+      ],
+      "writes": [
+        "s|fk|public.private_note.private_note_user_id_user_id_fkey",
+        "n|fk|public.private_note.private_note_user_id_user_id_fkey",
+        "e|fk|public.private_note.private_note_user_id_user_id_fkey",
+        "n|con|public.private_note.private_note_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.private_note",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.private_note.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "private_note"
+      ],
+      "writes": [
+        "s|fk|public.private_note.private_note_lesson_id_lesson_id_fkey",
+        "n|fk|public.private_note.private_note_lesson_id_lesson_id_fkey",
+        "e|fk|public.private_note.private_note_lesson_id_lesson_id_fkey",
+        "n|con|public.private_note.private_note_lesson_id_lesson_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.private_note",
+        "n|sch|public",
+        "n|tbl|public.lesson",
+        "n|sch|public",
+        "n|col|public.private_note.lesson_id",
+        "n|col|public.lesson.id",
+        "e|uniqueness|public.lesson.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "private_note"
+      ],
+      "writes": [
+        "s|fk|public.private_note.private_note_question_id_question_id_fkey",
+        "n|fk|public.private_note.private_note_question_id_question_id_fkey",
+        "e|fk|public.private_note.private_note_question_id_question_id_fkey",
+        "n|con|public.private_note.private_note_question_id_question_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.private_note",
+        "n|sch|public",
+        "n|tbl|public.question",
+        "n|sch|public",
+        "n|col|public.private_note.question_id",
+        "n|col|public.question.id",
+        "e|uniqueness|public.question.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "question_issue"
+      ],
+      "writes": [
+        "s|fk|public.question_issue.question_issue_reporter_id_user_id_fkey",
+        "n|fk|public.question_issue.question_issue_reporter_id_user_id_fkey",
+        "e|fk|public.question_issue.question_issue_reporter_id_user_id_fkey",
+        "n|con|public.question_issue.question_issue_reporter_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.question_issue",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.question_issue.reporter_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "question_issue"
+      ],
+      "writes": [
+        "s|fk|public.question_issue.question_issue_question_version_id_question_version_id_fkey",
+        "n|fk|public.question_issue.question_issue_question_version_id_question_version_id_fkey",
+        "e|fk|public.question_issue.question_issue_question_version_id_question_version_id_fkey",
+        "n|con|public.question_issue.question_issue_question_version_id_question_version_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.question_issue",
+        "n|sch|public",
+        "n|tbl|public.question_version",
+        "n|sch|public",
+        "n|col|public.question_issue.question_version_id",
+        "n|col|public.question_version.id",
+        "e|uniqueness|public.question_version.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "question_topic"
+      ],
+      "writes": [
+        "s|fk|public.question_topic.question_topic_question_version_id_question_version_id_fkey",
+        "n|fk|public.question_topic.question_topic_question_version_id_question_version_id_fkey",
+        "e|fk|public.question_topic.question_topic_question_version_id_question_version_id_fkey",
+        "n|con|public.question_topic.question_topic_question_version_id_question_version_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.question_topic",
+        "n|sch|public",
+        "n|tbl|public.question_version",
+        "n|sch|public",
+        "n|col|public.question_topic.question_version_id",
+        "n|col|public.question_version.id",
+        "e|uniqueness|public.question_version.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "question_topic"
+      ],
+      "writes": [
+        "s|fk|public.question_topic.question_topic_topic_id_topic_id_fkey",
+        "n|fk|public.question_topic.question_topic_topic_id_topic_id_fkey",
+        "e|fk|public.question_topic.question_topic_topic_id_topic_id_fkey",
+        "n|con|public.question_topic.question_topic_topic_id_topic_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.question_topic",
+        "n|sch|public",
+        "n|tbl|public.topic",
+        "n|sch|public",
+        "n|col|public.question_topic.topic_id",
+        "n|col|public.topic.id",
+        "e|uniqueness|public.topic.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "question_version"
+      ],
+      "writes": [
+        "s|fk|public.question_version.question_version_question_id_question_id_fkey",
+        "n|fk|public.question_version.question_version_question_id_question_id_fkey",
+        "e|fk|public.question_version.question_version_question_id_question_id_fkey",
+        "n|con|public.question_version.question_version_question_id_question_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.question_version",
+        "n|sch|public",
+        "n|tbl|public.question",
+        "n|sch|public",
+        "n|col|public.question_version.question_id",
+        "n|col|public.question.id",
+        "e|uniqueness|public.question.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "question_version"
+      ],
+      "writes": [
+        "s|fk|public.question_version.question_version_primary_topic_id_topic_id_fkey",
+        "n|fk|public.question_version.question_version_primary_topic_id_topic_id_fkey",
+        "e|fk|public.question_version.question_version_primary_topic_id_topic_id_fkey",
+        "n|con|public.question_version.question_version_primary_topic_id_topic_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.question_version",
+        "n|sch|public",
+        "n|tbl|public.topic",
+        "n|sch|public",
+        "n|col|public.question_version.primary_topic_id",
+        "n|col|public.topic.id",
+        "e|uniqueness|public.topic.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "question_version"
+      ],
+      "writes": [
+        "s|fk|public.question_version.question_version_source_id_content_source_id_fkey",
+        "n|fk|public.question_version.question_version_source_id_content_source_id_fkey",
+        "e|fk|public.question_version.question_version_source_id_content_source_id_fkey",
+        "n|con|public.question_version.question_version_source_id_content_source_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.question_version",
+        "n|sch|public",
+        "n|tbl|public.content_source",
+        "n|sch|public",
+        "n|col|public.question_version.source_id",
+        "n|col|public.content_source.id",
+        "e|uniqueness|public.content_source.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "question_version"
+      ],
+      "writes": [
+        "s|fk|public.question_version.question_version_reviewed_by_user_id_fkey",
+        "n|fk|public.question_version.question_version_reviewed_by_user_id_fkey",
+        "e|fk|public.question_version.question_version_reviewed_by_user_id_fkey",
+        "n|con|public.question_version.question_version_reviewed_by_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.question_version",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.question_version.reviewed_by",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "review_event"
+      ],
+      "writes": [
+        "s|fk|public.review_event.review_event_user_id_user_id_fkey",
+        "n|fk|public.review_event.review_event_user_id_user_id_fkey",
+        "e|fk|public.review_event.review_event_user_id_user_id_fkey",
+        "n|con|public.review_event.review_event_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.review_event",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.review_event.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "review_event"
+      ],
+      "writes": [
+        "s|fk|public.review_event.review_event_question_id_question_id_fkey",
+        "n|fk|public.review_event.review_event_question_id_question_id_fkey",
+        "e|fk|public.review_event.review_event_question_id_question_id_fkey",
+        "n|con|public.review_event.review_event_question_id_question_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.review_event",
+        "n|sch|public",
+        "n|tbl|public.question",
+        "n|sch|public",
+        "n|col|public.review_event.question_id",
+        "n|col|public.question.id",
+        "e|uniqueness|public.question.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "review_state"
+      ],
+      "writes": [
+        "s|fk|public.review_state.review_state_user_id_user_id_fkey",
+        "n|fk|public.review_state.review_state_user_id_user_id_fkey",
+        "e|fk|public.review_state.review_state_user_id_user_id_fkey",
+        "n|con|public.review_state.review_state_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.review_state",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.review_state.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "review_state"
+      ],
+      "writes": [
+        "s|fk|public.review_state.review_state_question_id_question_id_fkey",
+        "n|fk|public.review_state.review_state_question_id_question_id_fkey",
+        "e|fk|public.review_state.review_state_question_id_question_id_fkey",
+        "n|con|public.review_state.review_state_question_id_question_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.review_state",
+        "n|sch|public",
+        "n|tbl|public.question",
+        "n|sch|public",
+        "n|col|public.review_state.question_id",
+        "n|col|public.question.id",
+        "e|uniqueness|public.question.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "review_state"
+      ],
+      "writes": [
+        "s|fk|public.review_state.review_state_last_version_id_question_version_id_fkey",
+        "n|fk|public.review_state.review_state_last_version_id_question_version_id_fkey",
+        "e|fk|public.review_state.review_state_last_version_id_question_version_id_fkey",
+        "n|con|public.review_state.review_state_last_version_id_question_version_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.review_state",
+        "n|sch|public",
+        "n|tbl|public.question_version",
+        "n|sch|public",
+        "n|col|public.review_state.last_version_id",
+        "n|col|public.question_version.id",
+        "e|uniqueness|public.question_version.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "study_plan"
+      ],
+      "writes": [
+        "s|fk|public.study_plan.study_plan_user_id_user_id_fkey",
+        "n|fk|public.study_plan.study_plan_user_id_user_id_fkey",
+        "e|fk|public.study_plan.study_plan_user_id_user_id_fkey",
+        "n|con|public.study_plan.study_plan_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.study_plan",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.study_plan.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "study_preferences"
+      ],
+      "writes": [
+        "s|fk|public.study_preferences.study_preferences_user_id_user_id_fkey",
+        "n|fk|public.study_preferences.study_preferences_user_id_user_id_fkey",
+        "e|fk|public.study_preferences.study_preferences_user_id_user_id_fkey",
+        "n|con|public.study_preferences.study_preferences_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.study_preferences",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.study_preferences.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "study_task"
+      ],
+      "writes": [
+        "s|fk|public.study_task.study_task_plan_id_study_plan_id_fkey",
+        "n|fk|public.study_task.study_task_plan_id_study_plan_id_fkey",
+        "e|fk|public.study_task.study_task_plan_id_study_plan_id_fkey",
+        "n|con|public.study_task.study_task_plan_id_study_plan_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.study_task",
+        "n|sch|public",
+        "n|tbl|public.study_plan",
+        "n|sch|public",
+        "n|col|public.study_task.plan_id",
+        "n|col|public.study_plan.id",
+        "e|uniqueness|public.study_plan.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "study_task"
+      ],
+      "writes": [
+        "s|fk|public.study_task.study_task_topic_id_topic_id_fkey",
+        "n|fk|public.study_task.study_task_topic_id_topic_id_fkey",
+        "e|fk|public.study_task.study_task_topic_id_topic_id_fkey",
+        "n|con|public.study_task.study_task_topic_id_topic_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.study_task",
+        "n|sch|public",
+        "n|tbl|public.topic",
+        "n|sch|public",
+        "n|col|public.study_task.topic_id",
+        "n|col|public.topic.id",
+        "e|uniqueness|public.topic.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "topic"
+      ],
+      "writes": [
+        "s|fk|public.topic.topic_parent_id_topic_id_fkey",
+        "n|fk|public.topic.topic_parent_id_topic_id_fkey",
+        "e|fk|public.topic.topic_parent_id_topic_id_fkey",
+        "n|con|public.topic.topic_parent_id_topic_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.topic",
+        "n|sch|public",
+        "n|tbl|public.topic",
+        "n|sch|public",
+        "n|col|public.topic.parent_id",
+        "n|col|public.topic.id",
+        "e|uniqueness|public.topic.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "user_profile"
+      ],
+      "writes": [
+        "s|fk|public.user_profile.user_profile_user_id_user_id_fkey",
+        "n|fk|public.user_profile.user_profile_user_id_user_id_fkey",
+        "e|fk|public.user_profile.user_profile_user_id_user_id_fkey",
+        "n|con|public.user_profile.user_profile_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.user_profile",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.user_profile.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    }
+  ],
+  "ddl": [
+    {
+      "schema": "public",
+      "name": "account",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "rate_limit",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "session",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "user",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "verification",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "attempt",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "attempt_answer",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "attempt_item",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "attempt_result",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "audit_event",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "bookmark",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "choice",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "content_source",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "exam_profile_version",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "import_batch",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "invitation",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "lesson",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "lesson_progress",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "lesson_version",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "mock_blueprint_version",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "private_note",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "question",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "question_issue",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "question_topic",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "question_version",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "request_limit",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "review_event",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "review_state",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "study_plan",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "study_preferences",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "study_task",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "topic",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "user_profile",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "attempt_status",
+      "values": [
+        "in_progress",
+        "submitted",
+        "expired",
+        "abandoned"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "explanation_language",
+      "values": [
+        "english",
+        "filipino"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "exam_level",
+      "values": [
+        "professional",
+        "subprofessional"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "publication_status",
+      "values": [
+        "draft",
+        "reviewed",
+        "published",
+        "retired",
+        "quarantined"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "role",
+      "values": [
+        "learner",
+        "admin"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "account_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "provider_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "access_token",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "refresh_token",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "id_token",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "access_token_expires_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "refresh_token_expires_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "scope",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "password",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "rate_limit",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "rate_limit",
+      "name": "key",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "rate_limit",
+      "name": "count",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "rate_limit",
+      "name": "last_request",
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "expires_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "token",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "ip_address",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "user_agent",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "email",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "email_verified",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "image",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "verification",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "verification",
+      "name": "identifier",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "verification",
+      "name": "value",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "verification",
+      "name": "expires_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "verification",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "verification",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt",
+      "name": "user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt",
+      "name": "mode",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt",
+      "name": "profile_version_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt",
+      "name": "blueprint_version_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt",
+      "name": "status",
+      "type": "attempt_status",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'in_progress'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt",
+      "name": "started_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt",
+      "name": "expires_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt",
+      "name": "submitted_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_answer",
+      "name": "attempt_item_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_answer",
+      "name": "question_version_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_answer",
+      "name": "selected_choice_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_answer",
+      "name": "revision",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_answer",
+      "name": "saved_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_item",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_item",
+      "name": "attempt_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_item",
+      "name": "position",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_item",
+      "name": "question_version_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_item",
+      "name": "choice_order",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 1,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_item",
+      "name": "flagged",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_result",
+      "name": "attempt_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_result",
+      "name": "correct",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_result",
+      "name": "incorrect",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_result",
+      "name": "unanswered",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_result",
+      "name": "elapsed_seconds",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_result",
+      "name": "scoring_version",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_result",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "audit_event",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "audit_event",
+      "name": "actor_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "audit_event",
+      "name": "action",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "audit_event",
+      "name": "target_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "audit_event",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "bookmark",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "bookmark",
+      "name": "user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "bookmark",
+      "name": "lesson_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "bookmark",
+      "name": "question_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "bookmark",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "choice",
+      "name": "question_version_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "choice",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "choice",
+      "name": "text",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "content_source",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "content_source",
+      "name": "url",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "content_source",
+      "name": "title",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "content_source",
+      "name": "rights",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "content_source",
+      "name": "verified_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "content_source",
+      "name": "reviewer_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "exam_profile_version",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "exam_profile_version",
+      "name": "level",
+      "type": "exam_level",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "exam_profile_version",
+      "name": "version",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "exam_profile_version",
+      "name": "item_count",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "exam_profile_version",
+      "name": "duration_minutes",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "exam_profile_version",
+      "name": "active",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "exam_profile_version",
+      "name": "source_url",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "exam_profile_version",
+      "name": "source_title",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "exam_profile_version",
+      "name": "published_on",
+      "type": "date",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "exam_profile_version",
+      "name": "verified_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "exam_profile_version",
+      "name": "reviewer_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "import_batch",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "import_batch",
+      "name": "file_hash",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "import_batch",
+      "name": "operator_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "import_batch",
+      "name": "status",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "import_batch",
+      "name": "validation_summary",
+      "type": "jsonb",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "import_batch",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "invitation",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "invitation",
+      "name": "email",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "invitation",
+      "name": "token_hash",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "invitation",
+      "name": "expires_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "invitation",
+      "name": "accepted_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "invitation",
+      "name": "invited_by",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "invitation",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "lesson",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "lesson",
+      "name": "slug",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_progress",
+      "name": "user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_progress",
+      "name": "lesson_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_progress",
+      "name": "version_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_progress",
+      "name": "location",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_progress",
+      "name": "completed_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_version",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_version",
+      "name": "lesson_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_version",
+      "name": "version",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_version",
+      "name": "status",
+      "type": "publication_status",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'draft'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_version",
+      "name": "title",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_version",
+      "name": "body",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_version",
+      "name": "topic_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_version",
+      "name": "reviewed_by",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_version",
+      "name": "reviewed_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "mock_blueprint_version",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "mock_blueprint_version",
+      "name": "profile_version_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "mock_blueprint_version",
+      "name": "version",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "mock_blueprint_version",
+      "name": "quotas",
+      "type": "jsonb",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "mock_blueprint_version",
+      "name": "duration_minutes",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "mock_blueprint_version",
+      "name": "published",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "private_note",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "private_note",
+      "name": "user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "private_note",
+      "name": "lesson_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "private_note",
+      "name": "question_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "private_note",
+      "name": "body",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "private_note",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question",
+      "name": "external_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_issue",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_issue",
+      "name": "reporter_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_issue",
+      "name": "question_version_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_issue",
+      "name": "category",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_issue",
+      "name": "status",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'open'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_issue",
+      "name": "resolution",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_issue",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_topic",
+      "name": "question_version_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_topic",
+      "name": "topic_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "question_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "version",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "status",
+      "type": "publication_status",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'draft'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "level",
+      "type": "exam_level",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "language",
+      "type": "explanation_language",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "difficulty",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "prompt",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "answer_choice_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "explanation",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "primary_topic_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "source_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "reviewed_by",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "reviewed_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "erratum",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "request_limit",
+      "name": "key",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "request_limit",
+      "name": "count",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "request_limit",
+      "name": "window_start",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review_event",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review_event",
+      "name": "user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review_event",
+      "name": "question_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review_event",
+      "name": "event_key",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review_event",
+      "name": "outcome",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review_event",
+      "name": "from_step",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review_event",
+      "name": "to_step",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review_event",
+      "name": "study_date",
+      "type": "date",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review_event",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review_state",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review_state",
+      "name": "user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review_state",
+      "name": "question_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review_state",
+      "name": "due_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review_state",
+      "name": "interval_step",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review_state",
+      "name": "last_version_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review_state",
+      "name": "last_reviewed_on",
+      "type": "date",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "study_plan",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "study_plan",
+      "name": "user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "study_plan",
+      "name": "level",
+      "type": "exam_level",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "study_plan",
+      "name": "preferences_revision",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "study_plan",
+      "name": "status",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'active'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "study_plan",
+      "name": "reason",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "study_plan",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "study_preferences",
+      "name": "user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "study_preferences",
+      "name": "level",
+      "type": "exam_level",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "study_preferences",
+      "name": "target_date",
+      "type": "date",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "study_preferences",
+      "name": "days",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 1,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "study_preferences",
+      "name": "daily_minutes",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "study_preferences",
+      "name": "revision",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "1",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "study_preferences",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "study_task",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "study_task",
+      "name": "plan_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "study_task",
+      "name": "topic_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "study_task",
+      "name": "scheduled_on",
+      "type": "date",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "study_task",
+      "name": "minutes",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "study_task",
+      "name": "completed_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "topic",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "topic",
+      "name": "slug",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "topic",
+      "name": "title",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "topic",
+      "name": "parent_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "topic",
+      "name": "levels",
+      "type": "exam_level",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 1,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user_profile",
+      "name": "user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user_profile",
+      "name": "role",
+      "type": "role",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'learner'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user_profile",
+      "name": "timezone",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'Asia/Manila'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user_profile",
+      "name": "language",
+      "type": "explanation_language",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'english'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user_profile",
+      "name": "onboarded_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user_profile",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "account_userId_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "user_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "session_userId_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "user_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "verification",
+      "name": "verification_identifier_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "identifier",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "attempt",
+      "name": "attempt_owner_status_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "user_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "status",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "exam_profile_version",
+      "name": "one_active_profile_per_level",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "level",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": true,
+      "where": "\"active\"",
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "invitation",
+      "name": "invitation_email_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "email",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "private_note",
+      "name": "note_owner_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "user_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "question_selection_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "status",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "level",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "primary_topic_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "review_state",
+      "name": "review_due_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "user_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "due_at",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "study_plan",
+      "name": "one_active_plan_per_user",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "user_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": true,
+      "where": "\"status\" = 'active'",
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "study_task",
+      "name": "study_task_date_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "plan_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "scheduled_on",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "account_user_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "session_user_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "attempt",
+      "name": "attempt_user_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "attempt",
+      "name": "attempt_profile_version_id_exam_profile_version_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "profile_version_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "exam_profile_version",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "attempt",
+      "name": "attempt_blueprint_version_id_mock_blueprint_version_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "blueprint_version_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "mock_blueprint_version",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_answer",
+      "name": "attempt_answer_attempt_item_id_attempt_item_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "attempt_item_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "attempt_item",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_answer",
+      "name": "attempt_answer_PVPTEMcoGKrW_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "attempt_item_id",
+        "question_version_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "attempt_item",
+      "columnsTo": [
+        "id",
+        "question_version_id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_answer",
+      "name": "attempt_answer_Zvxl5sPJvipe_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "question_version_id",
+        "selected_choice_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "choice",
+      "columnsTo": [
+        "question_version_id",
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_item",
+      "name": "attempt_item_attempt_id_attempt_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "attempt_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "attempt",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_item",
+      "name": "attempt_item_question_version_id_question_version_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "question_version_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "question_version",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_result",
+      "name": "attempt_result_attempt_id_attempt_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "attempt_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "attempt",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "audit_event",
+      "name": "audit_event_actor_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "actor_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "SET NULL",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "bookmark",
+      "name": "bookmark_user_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "bookmark",
+      "name": "bookmark_lesson_id_lesson_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "lesson_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "lesson",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "bookmark",
+      "name": "bookmark_question_id_question_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "question_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "question",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "choice",
+      "name": "choice_question_version_id_question_version_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "question_version_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "question_version",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "content_source",
+      "name": "content_source_reviewer_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "reviewer_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "exam_profile_version",
+      "name": "exam_profile_version_reviewer_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "reviewer_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "import_batch",
+      "name": "import_batch_operator_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "operator_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "invitation",
+      "name": "invitation_invited_by_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "invited_by"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_progress",
+      "name": "lesson_progress_user_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_progress",
+      "name": "lesson_progress_lesson_id_lesson_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "lesson_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "lesson",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_progress",
+      "name": "lesson_progress_version_id_lesson_version_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "version_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "lesson_version",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_version",
+      "name": "lesson_version_lesson_id_lesson_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "lesson_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "lesson",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_version",
+      "name": "lesson_version_topic_id_topic_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "topic_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "topic",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_version",
+      "name": "lesson_version_reviewed_by_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "reviewed_by"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "mock_blueprint_version",
+      "name": "mock_blueprint_version_xv9rWClS5U8l_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "profile_version_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "exam_profile_version",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "private_note",
+      "name": "private_note_user_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "private_note",
+      "name": "private_note_lesson_id_lesson_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "lesson_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "lesson",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "private_note",
+      "name": "private_note_question_id_question_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "question_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "question",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "question_issue",
+      "name": "question_issue_reporter_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "reporter_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "question_issue",
+      "name": "question_issue_question_version_id_question_version_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "question_version_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "question_version",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "question_topic",
+      "name": "question_topic_question_version_id_question_version_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "question_version_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "question_version",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "question_topic",
+      "name": "question_topic_topic_id_topic_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "topic_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "topic",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "question_version_question_id_question_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "question_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "question",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "question_version_primary_topic_id_topic_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "primary_topic_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "topic",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "question_version_source_id_content_source_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "source_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "content_source",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "question_version_reviewed_by_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "reviewed_by"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "review_event",
+      "name": "review_event_user_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "review_event",
+      "name": "review_event_question_id_question_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "question_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "question",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "review_state",
+      "name": "review_state_user_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "review_state",
+      "name": "review_state_question_id_question_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "question_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "question",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "review_state",
+      "name": "review_state_last_version_id_question_version_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "last_version_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "question_version",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "study_plan",
+      "name": "study_plan_user_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "study_preferences",
+      "name": "study_preferences_user_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "study_task",
+      "name": "study_task_plan_id_study_plan_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "plan_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "study_plan",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "study_task",
+      "name": "study_task_topic_id_topic_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "topic_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "topic",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "topic",
+      "name": "topic_parent_id_topic_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "parent_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "topic",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "user_profile",
+      "name": "user_profile_user_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "choice",
+      "name": "choice_pkey",
+      "columns": [
+        "question_version_id",
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_progress",
+      "name": "lesson_progress_pkey",
+      "columns": [
+        "user_id",
+        "lesson_id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "question_topic",
+      "name": "question_topic_pkey",
+      "columns": [
+        "question_version_id",
+        "topic_id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "account_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "rate_limit",
+      "name": "rate_limit_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "session_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "user_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "verification",
+      "name": "verification_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "attempt",
+      "name": "attempt_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_answer",
+      "name": "attempt_answer_pkey",
+      "columns": [
+        "attempt_item_id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_item",
+      "name": "attempt_item_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_result",
+      "name": "attempt_result_pkey",
+      "columns": [
+        "attempt_id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "audit_event",
+      "name": "audit_event_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "bookmark",
+      "name": "bookmark_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "content_source",
+      "name": "content_source_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "exam_profile_version",
+      "name": "exam_profile_version_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "import_batch",
+      "name": "import_batch_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "invitation",
+      "name": "invitation_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "lesson",
+      "name": "lesson_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_version",
+      "name": "lesson_version_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "mock_blueprint_version",
+      "name": "mock_blueprint_version_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "private_note",
+      "name": "private_note_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "question",
+      "name": "question_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "question_issue",
+      "name": "question_issue_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "question_version_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "request_limit",
+      "name": "request_limit_pkey",
+      "columns": [
+        "key"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "review_event",
+      "name": "review_event_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "review_state",
+      "name": "review_state_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "study_plan",
+      "name": "study_plan_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "study_preferences",
+      "name": "study_preferences_pkey",
+      "columns": [
+        "user_id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "study_task",
+      "name": "study_task_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "topic",
+      "name": "topic_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "user_profile",
+      "name": "user_profile_pkey",
+      "columns": [
+        "user_id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "account_provider_id_account_id_unique",
+      "nameExplicit": false,
+      "columns": [
+        "provider_id",
+        "account_id"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_item",
+      "name": "attempt_item_attempt_id_position_unique",
+      "nameExplicit": false,
+      "columns": [
+        "attempt_id",
+        "position"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_item",
+      "name": "attempt_item_attempt_id_question_version_id_unique",
+      "nameExplicit": false,
+      "columns": [
+        "attempt_id",
+        "question_version_id"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_item",
+      "name": "attempt_item_id_question_version_id_unique",
+      "nameExplicit": false,
+      "columns": [
+        "id",
+        "question_version_id"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "bookmark",
+      "name": "bookmark_user_id_lesson_id_unique",
+      "nameExplicit": false,
+      "columns": [
+        "user_id",
+        "lesson_id"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "bookmark",
+      "name": "bookmark_user_id_question_id_unique",
+      "nameExplicit": false,
+      "columns": [
+        "user_id",
+        "question_id"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "exam_profile_version",
+      "name": "exam_profile_version_level_version_unique",
+      "nameExplicit": false,
+      "columns": [
+        "level",
+        "version"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "import_batch",
+      "name": "import_batch_file_hash_operator_id_unique",
+      "nameExplicit": false,
+      "columns": [
+        "file_hash",
+        "operator_id"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_version",
+      "name": "lesson_version_lesson_id_version_unique",
+      "nameExplicit": false,
+      "columns": [
+        "lesson_id",
+        "version"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "mock_blueprint_version",
+      "name": "mock_blueprint_version_profile_version_id_version_unique",
+      "nameExplicit": false,
+      "columns": [
+        "profile_version_id",
+        "version"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "question_version_question_id_version_unique",
+      "nameExplicit": false,
+      "columns": [
+        "question_id",
+        "version"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "review_state",
+      "name": "review_state_user_id_question_id_unique",
+      "nameExplicit": false,
+      "columns": [
+        "user_id",
+        "question_id"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "study_plan",
+      "name": "study_plan_user_id_preferences_revision_unique",
+      "nameExplicit": false,
+      "columns": [
+        "user_id",
+        "preferences_revision"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "rate_limit",
+      "name": "rate_limit_key_key",
+      "nameExplicit": false,
+      "columns": [
+        "key"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "session_token_key",
+      "nameExplicit": false,
+      "columns": [
+        "token"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "user_email_key",
+      "nameExplicit": false,
+      "columns": [
+        "email"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "invitation",
+      "name": "invitation_token_hash_key",
+      "nameExplicit": false,
+      "columns": [
+        "token_hash"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "lesson",
+      "name": "lesson_slug_key",
+      "nameExplicit": false,
+      "columns": [
+        "slug"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "question",
+      "name": "question_external_id_key",
+      "nameExplicit": false,
+      "columns": [
+        "external_id"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "review_event",
+      "name": "review_event_event_key_key",
+      "nameExplicit": false,
+      "columns": [
+        "event_key"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "topic",
+      "name": "topic_slug_key",
+      "nameExplicit": false,
+      "columns": [
+        "slug"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "attempt",
+      "name": "attempt_mode",
+      "value": "\"mode\" in ('practice','diagnostic','review','strict_mock','timed_practice')",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "attempt",
+      "name": "attempt_deadline",
+      "value": "(\"expires_at\" is null or \"expires_at\" > \"started_at\") and (\"mode\" <> 'strict_mock' or \"expires_at\" is not null)",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_answer",
+      "name": "answer_revision",
+      "value": "\"revision\" > 0",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_item",
+      "name": "item_position",
+      "value": "\"position\" >= 0",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "attempt_result",
+      "name": "result_nonnegative",
+      "value": "\"correct\" >= 0 and \"incorrect\" >= 0 and \"unanswered\" >= 0 and \"elapsed_seconds\" >= 0",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "bookmark",
+      "name": "bookmark_one_target",
+      "value": "num_nonnulls(\"lesson_id\", \"question_id\") = 1",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "exam_profile_version",
+      "name": "profile_positive",
+      "value": "\"version\" > 0 and \"item_count\" > 0 and \"duration_minutes\" > 0",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "exam_profile_version",
+      "name": "active_profile_verified",
+      "value": "not \"active\" or (\"source_url\" is not null and \"source_title\" is not null and \"verified_at\" is not null and \"reviewer_id\" is not null)",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "invitation",
+      "name": "invitation_email_normalized",
+      "value": "\"email\" = lower(trim(\"email\"))",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "lesson_version",
+      "name": "lesson_review_gate",
+      "value": "\"status\" not in ('published','reviewed') or (\"reviewed_by\" is not null and \"reviewed_at\" is not null)",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "private_note",
+      "name": "note_length",
+      "value": "length(\"body\") between 1 and 10000",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "private_note",
+      "name": "note_one_target",
+      "value": "num_nonnulls(\"lesson_id\", \"question_id\") = 1",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "question_difficulty",
+      "value": "\"difficulty\" in ('easy','medium','hard')",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "question_version",
+      "name": "question_review_gate",
+      "value": "\"status\" not in ('published','reviewed') or (\"reviewed_by\" is not null and \"reviewed_at\" is not null and length(trim(\"explanation\")) > 0)",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "study_plan",
+      "name": "plan_status",
+      "value": "\"status\" in ('active','superseded')",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "study_preferences",
+      "name": "preference_budget",
+      "value": "\"daily_minutes\" between 5 and 240",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "study_preferences",
+      "name": "preference_days",
+      "value": "cardinality(\"days\") between 1 and 7 and \"days\" <@ ARRAY[0,1,2,3,4,5,6]",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "study_preferences",
+      "name": "preference_revision",
+      "value": "\"revision\" > 0",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "study_task",
+      "name": "task_minutes",
+      "value": "\"minutes\" > 0",
+      "entityType": "checks"
+    }
+  ]
+}
