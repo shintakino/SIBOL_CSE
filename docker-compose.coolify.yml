@@ -1,19 +1,17 @@
 name: q52xajsad67xkcmtdwjto1uu
-x-coolify-labels: &coolify-labels
-  coolify.managed: "true"
-  coolify.applicationUuid: q52xajsad67xkcmtdwjto1uu
-  coolify.type: application
-  coolify.resourceName: sibol-cse
-  coolify.projectName: sibol-cse
-  coolify.environmentName: production
-  coolify.pullRequestId: "0"
 services:
   postgres:
     container_name: postgres-q52xajsad67xkcmtdwjto1uu
     labels:
-      <<: *coolify-labels
-      coolify.name: postgres-q52xajsad67xkcmtdwjto1uu
-      coolify.serviceName: postgres
+      - coolify.managed=true
+      - coolify.applicationUuid=q52xajsad67xkcmtdwjto1uu
+      - coolify.type=application
+      - coolify.resourceName=sibol-cse
+      - coolify.projectName=sibol-cse
+      - coolify.environmentName=production
+      - coolify.pullRequestId=0
+      - coolify.name=postgres-q52xajsad67xkcmtdwjto1uu
+      - coolify.serviceName=postgres
     image: postgres:17-alpine
     environment:
       POSTGRES_USER: sibol
@@ -31,9 +29,15 @@ services:
   backup-init:
     container_name: backup-init-q52xajsad67xkcmtdwjto1uu
     labels:
-      <<: *coolify-labels
-      coolify.name: backup-init-q52xajsad67xkcmtdwjto1uu
-      coolify.serviceName: backup-init
+      - coolify.managed=true
+      - coolify.applicationUuid=q52xajsad67xkcmtdwjto1uu
+      - coolify.type=application
+      - coolify.resourceName=sibol-cse
+      - coolify.projectName=sibol-cse
+      - coolify.environmentName=production
+      - coolify.pullRequestId=0
+      - coolify.name=backup-init-q52xajsad67xkcmtdwjto1uu
+      - coolify.serviceName=backup-init
     image: local/sibol-backup-init:${SIBOL_RELEASE_SHA:?}
     build:
       context: .
@@ -56,9 +60,15 @@ services:
   migrate:
     container_name: migrate-q52xajsad67xkcmtdwjto1uu
     labels:
-      <<: *coolify-labels
-      coolify.name: migrate-q52xajsad67xkcmtdwjto1uu
-      coolify.serviceName: migrate
+      - coolify.managed=true
+      - coolify.applicationUuid=q52xajsad67xkcmtdwjto1uu
+      - coolify.type=application
+      - coolify.resourceName=sibol-cse
+      - coolify.projectName=sibol-cse
+      - coolify.environmentName=production
+      - coolify.pullRequestId=0
+      - coolify.name=migrate-q52xajsad67xkcmtdwjto1uu
+      - coolify.serviceName=migrate
     image: local/sibol-migrate:${SIBOL_RELEASE_SHA:?}
     build:
       context: .
@@ -75,9 +85,15 @@ services:
   server:
     container_name: server-q52xajsad67xkcmtdwjto1uu
     labels:
-      <<: *coolify-labels
-      coolify.name: server-q52xajsad67xkcmtdwjto1uu
-      coolify.serviceName: server
+      - coolify.managed=true
+      - coolify.applicationUuid=q52xajsad67xkcmtdwjto1uu
+      - coolify.type=application
+      - coolify.resourceName=sibol-cse
+      - coolify.projectName=sibol-cse
+      - coolify.environmentName=production
+      - coolify.pullRequestId=0
+      - coolify.name=server-q52xajsad67xkcmtdwjto1uu
+      - coolify.serviceName=server
     image: local/sibol-server:${SIBOL_RELEASE_SHA:?}
     build:
       context: .
@@ -115,9 +131,15 @@ services:
   web:
     container_name: web-q52xajsad67xkcmtdwjto1uu
     labels:
-      <<: *coolify-labels
-      coolify.name: web-q52xajsad67xkcmtdwjto1uu
-      coolify.serviceName: web
+      - coolify.managed=true
+      - coolify.applicationUuid=q52xajsad67xkcmtdwjto1uu
+      - coolify.type=application
+      - coolify.resourceName=sibol-cse
+      - coolify.projectName=sibol-cse
+      - coolify.environmentName=production
+      - coolify.pullRequestId=0
+      - coolify.name=web-q52xajsad67xkcmtdwjto1uu
+      - coolify.serviceName=web
     image: local/sibol-web:${SIBOL_RELEASE_SHA:?}
     build:
       context: .
@@ -145,9 +167,15 @@ services:
   backup:
     container_name: backup-q52xajsad67xkcmtdwjto1uu
     labels:
-      <<: *coolify-labels
-      coolify.name: backup-q52xajsad67xkcmtdwjto1uu
-      coolify.serviceName: backup
+      - coolify.managed=true
+      - coolify.applicationUuid=q52xajsad67xkcmtdwjto1uu
+      - coolify.type=application
+      - coolify.resourceName=sibol-cse
+      - coolify.projectName=sibol-cse
+      - coolify.environmentName=production
+      - coolify.pullRequestId=0
+      - coolify.name=backup-q52xajsad67xkcmtdwjto1uu
+      - coolify.serviceName=backup
     image: local/sibol-backup:${SIBOL_RELEASE_SHA:?}
     build:
       context: .
@@ -169,9 +197,15 @@ services:
   mailpit:
     container_name: mailpit-q52xajsad67xkcmtdwjto1uu
     labels:
-      <<: *coolify-labels
-      coolify.name: mailpit-q52xajsad67xkcmtdwjto1uu
-      coolify.serviceName: mailpit
+      - coolify.managed=true
+      - coolify.applicationUuid=q52xajsad67xkcmtdwjto1uu
+      - coolify.type=application
+      - coolify.resourceName=sibol-cse
+      - coolify.projectName=sibol-cse
+      - coolify.environmentName=production
+      - coolify.pullRequestId=0
+      - coolify.name=mailpit-q52xajsad67xkcmtdwjto1uu
+      - coolify.serviceName=mailpit
     image: axllent/mailpit:v1.27
     environment:
       MP_DATABASE: /data/mailpit.db
@@ -190,9 +224,15 @@ services:
   tunnel:
     container_name: tunnel-q52xajsad67xkcmtdwjto1uu
     labels:
-      <<: *coolify-labels
-      coolify.name: tunnel-q52xajsad67xkcmtdwjto1uu
-      coolify.serviceName: tunnel
+      - coolify.managed=true
+      - coolify.applicationUuid=q52xajsad67xkcmtdwjto1uu
+      - coolify.type=application
+      - coolify.resourceName=sibol-cse
+      - coolify.projectName=sibol-cse
+      - coolify.environmentName=production
+      - coolify.pullRequestId=0
+      - coolify.name=tunnel-q52xajsad67xkcmtdwjto1uu
+      - coolify.serviceName=tunnel
     image: local/sibol-tunnel:${SIBOL_RELEASE_SHA:?}
     build:
       context: .

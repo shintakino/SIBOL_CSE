@@ -2,6 +2,8 @@
 """Validate the persistent production boundary without production credentials."""
 import json
 import os
+import re
+from pathlib import Path
 import subprocess
 
 env = dict(os.environ, POSTGRES_PASSWORD="ci-placeholder-only", DATABASE_URL="postgresql://sibol:ci-placeholder-only@postgres:5432/sibol", BETTER_AUTH_SECRET="ci-placeholder-secret-at-least-32-characters", BACKUP_AGE_RECIPIENT="age1-ci-placeholder", TUNNEL_TOKEN="ci-placeholder-only", SIBOL_RELEASE_SHA="a" * 40)
@@ -36,3 +38,10 @@ for name, service in services.items():
     assert service["labels"]["coolify.applicationUuid"] == resource
     assert service["container_name"] == f"{name}-{resource}"
 print("Raw Compose ownership, exact external volumes and per-service networks passed")
+
+# Coolify 4.7.5's raw parser appends list labels; mapping labels would become
+# mixed numeric/string mappings and Docker Compose would reject the result.
+label_blocks = re.findall(r"^    labels:\n((?:      .+\n)+)", Path("docker-compose.coolify.yml").read_text(), re.MULTILINE)
+assert len(label_blocks) == len(services)
+assert all(all(line.startswith("      - ") for line in block.splitlines()) for block in label_blocks)
+print("Installed Coolify raw-parser label compatibility passed")
