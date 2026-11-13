@@ -51,6 +51,8 @@ Use shadcn/ui components with a refined light theme: warm ivory, white surfaces,
 - No public signup, payments, ads, public leaderboard, or required external AI.
 - Deferred: approved-content AI explanations/drafts, consent-based study-buddy sharing, scheduled email/push reminders, offline packs, printable worksheets, richer diagrams, multiple reviewers, expanded content analytics.
 
+Offline AI-assisted original content drafting is authorized for the Professional starter pack. Drafts require human editorial review before publication; this does not add a runtime AI feature or dependency.
+
 ## Content and release gates
 
 - At least one concise lesson and worked example for each enabled topic.

@@ -20,3 +20,7 @@ Acceptance:
 - Original scoring is preserved; any rescore is explicit, audited, and distinguished.
 - Inventory checks enforce a lesson/example per enabled topic, 300 reviewed unique questions per launched level, 30 per major area, all quotas, and two nonoverlapping complete mock forms.
 - Rights and review metadata are required; no leaked/confidential reconstructed items or automatic AI answer keys.
+
+## Professional starter setup (13 November 2026)
+
+The user requested Professional setup and original offline question authoring. An active source-verified reference-format profile (150 scored items / 190 minutes; EDQ excluded; diagnostic 30) and 80 original draft questions are now in the live database. Five drafts cover each of the 16 Professional topics. Existing import contracts, an audited preview/commit and independent arithmetic/logic checks passed. The private review pack/answer keys are kept outside the public repository. Human review and explicit publication remain required; the 300-question, lesson and two-form launch gates have not been waived. See the progress tracker for evidence and the private artifact location.

@@ -175,7 +175,7 @@ Support study preferences, dark mode, reduced motion, reminder opt-in settings, 
 
 ## 8. Content strategy and launch inventory
 
-All questions must be original, licensed, or used with permission. No leaked or reconstructed confidential exam items. AI-generated drafts, if introduced later, must be reviewed before publication and cannot become trusted answer keys automatically.
+All questions must be original, licensed, or used with permission. No leaked or reconstructed confidential exam items. Offline AI-assisted original drafting is authorized for the Professional starter content. AI-generated drafts must be reviewed by a human administrator before publication and cannot become trusted answer keys automatically. No runtime AI dependency is required.
 
 Initial content delivery is part of the project, not an assumed external resource:
 
