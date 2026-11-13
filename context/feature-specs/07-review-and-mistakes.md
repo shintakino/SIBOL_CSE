@@ -20,3 +20,8 @@ Acceptance:
 ## Concurrency hardening
 
 Manual tomorrow actions hold a shared live-owner lock before reading history or waiting for the review advisory lock. Account deletion therefore either waits for the action and purges its records, or completes first and the action fails. A missing owner can never receive a new review event. Notebook history/filtering/choices are read in one read-committed transaction under the same shared owner lock, serializing feedback with strict-mock/diagnostic creation. PostgreSQL regression tests cover both ordering directions and post-deletion absence.
+
+
+## Categorized review extension (13 November 2026)
+
+Due counts, notebook history and review-set selection accept the same validated category/topic/source-focus filters as practice. Existing owner-private assessment restrictions remain in force. Review events preserve ordered responses and original ordered keys, question contexts and question/choice figures. Scheduling uses the same response-correctness semantics for all native formats; revisiting a corrected question never regrades historical results.

@@ -22,3 +22,8 @@ Acceptance:
 ## Assessment-start serialization
 
 Strict-mock and diagnostic inserts advance an internal owner revision through a database trigger. Notebook/library feedback readers hold the owner's shared lock; creation takes the exclusive lock. An export whose repeatable-read snapshot predates a concurrently committed assessment must retry authorization before any private bytes are emitted. This preserves original timing/scoring while closing alternate-feedback races. Regressions cover strict/diagnostic startup against notebook reads and exports.
+
+
+## Categorized short-set extension (13 November 2026)
+
+Short timed sets accept validated category/topic/source-focus filters and show published availability. Full mocks reject these filters and continue selecting the complete verified blueprint. Both use the shared image/ordering player, server-owned deadlines, checked saves and single-result finalization. No category selection or imported draft bypasses full-mock inventory, lesson or form gates.

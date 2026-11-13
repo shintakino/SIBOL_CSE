@@ -121,6 +121,8 @@ Acceptance: every lesson has topic tags and a publication version; a learner can
 
 Allow topic, difficulty, length of 5/10/20 questions, and unseen-first selection. Practice mode gives feedback after committing an answer. Include bookmarks, personal notes, optional confidence labels, and “report an issue.” Explanations cover the correct reasoning and why distractors fail when useful.
 
+User-directed extension (13 November 2026): organize study by track-appropriate category and subcategory, with published availability and optional source-focus filters in practice, short timed sets and review. Support question figures, image answer choices with accessible zoom, fixed error-recognition labels and keyboard ordering responses. Common questions share one identity across eligible tracks. Preserve full-mock blueprint requirements and all scoring, timing, ownership and feedback gates. Private import coverage distinguishes observed samples, held records, native drafts and published questions; complete provider coverage requires exact authoritative inventory reconciliation. See the [import runbook](context/topnotcher-import-runbook.md).
+
 Acceptance: committing an answer is idempotent and cannot award credit twice; stable choice IDs survive shuffled display order; solution content is withheld until the permitted feedback point; insufficient inventory never causes silent duplicates.
 
 ### FR-06 · Mistake notebook and spaced review — MVP
@@ -275,13 +277,13 @@ MVP needs no Redis, external vector database, AI API, or dedicated job queue. Ca
 | ExamProfileVersion | level, item count, duration, source metadata, active status |
 | Topic | stable slug, parent topic, supported levels |
 | Lesson / LessonVersion | stable identity, immutable published body and metadata |
-| Question / QuestionVersion | identity, immutable content, answer key, explanation, status |
-| Choice | questionVersionId, stable choice ID, text |
+| Question / QuestionVersion | identity, immutable content, supported tracks, choice/error/order format, contexts, media, answer key, explanation, import revision hash, status |
+| Choice | questionVersionId, stable choice ID, fixed label when required, text, optional media |
 | QuestionTopic | question/topic association; one primary scoring topic |
 | MockBlueprintVersion | profile version, editorial quotas, duration, version |
 | Attempt | userId, mode, profile/blueprint versions, status, startedAt, expiresAt, submittedAt |
 | AttemptItem | unique attemptId + position, questionVersionId, frozen display order |
-| AttemptAnswer | unique attemptItemId, selectedChoiceId nullable, revision, savedAt |
+| AttemptAnswer | unique attemptItemId, selectedChoiceId or full selectedOrder nullable, revision, savedAt |
 | AttemptResult | attemptId unique, counts, elapsed time, scoring version |
 | ReviewState | unique userId + questionId, dueAt, interval step, last reviewed version |
 | ReviewEvent | answer outcome and schedule transition; unique event key |
@@ -291,6 +293,8 @@ MVP needs no Redis, external vector database, AI API, or dedicated job queue. Ca
 | QuestionIssue | reporterId, questionVersionId, category, status, resolution |
 | ContentSource | URL, rights, verification and attribution metadata |
 | ImportBatch | file hash, validation summary, operator, status |
+| ContentAsset | immutable hash-addressed raster bytes, MIME, author; authenticated reference checks |
+| ProviderBank / ProviderSnapshot | private source manifests, permission hash, observed IDs/topic memberships, raw records, native links, holds and coverage reconciliation |
 | AuditEvent | actorId, action, target, timestamp; no passwords/tokens |
 
 Use foreign keys, unique constraints, transactions, and indexes on attempt ownership/status, due review dates, question publication/level/topic, and task dates. Keep published question versions immutable so edits do not change historical attempts.

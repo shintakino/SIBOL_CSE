@@ -22,3 +22,8 @@ Acceptance:
 ## Implemented evidence threshold
 
 An enabled topic is uncovered until it has five distinct answered questions in finalized work outside reviews/full mocks. Consistency requires 85% in each of the last three strict short timed sets, 30 distinct questions across those sets and no uncovered enabled topic. Extended-time practice and full mocks keep separate trends. Terminal-attempt deletion removes its answers/result and recalculates metrics; notebook snapshots retain historical outcomes.
+
+
+## Native format extension (13 November 2026)
+
+Answered counts, local scoring, review eligibility and progress include valid ordered responses as well as scalar choices. Results retain the pinned question version, contexts, image choices and original ordered key. Existing sample-size, provisional evidence, repeated-exposure and strict/extended-time separation remain unchanged.

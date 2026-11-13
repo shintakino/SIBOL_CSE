@@ -9,6 +9,7 @@ Source: [PRD sections 11–17](../Sibol-CSE-PRD.md). Apply to the generated work
 - Read installed Next guides before frontend code. Default to Server Components; add client boundaries for browser interaction/state.
 - Keep Hono/oRPC handlers thin; separate selection, scoring, and planning from transport and Drizzle persistence.
 - Share validated contracts, never secrets, answer keys, or database modules with browser bundles.
+- `packages/api/src/study-catalog.ts` is a pure shared catalog contract (labels, track mappings and stable provider topic IDs). It has no database, authentication or service imports. The browser boundary check permits this exact module alongside the existing contract modules; API service implementations remain server-only.
 - Follow generated package paths; avoid duplicate schemas/auth systems and speculative abstractions.
 
 ## API and security
