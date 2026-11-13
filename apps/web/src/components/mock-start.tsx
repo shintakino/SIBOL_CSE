@@ -5,8 +5,17 @@ import { useRouter } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
 import { client } from "@/utils/orpc";
 import { errorMessage, LoadState, SelectField, useData } from "./learning-ui";
+import {
+  allSubjects,
+  StudyFilters,
+  type StudySelection,
+  selectionAvailability,
+} from "./study-catalog";
 export function MockStart() {
-  const load = useCallback(() => client.mocks.list(), []),
+  const load = useCallback(
+      async () => ({ ...(await client.mocks.list()), catalog: await client.topics.catalog() }),
+      [],
+    ),
     state = useData(load),
     router = useRouter();
   const [kind, setKind] = useState("short"),
@@ -14,6 +23,7 @@ export function MockStart() {
     [count, setCount] = useState("10"),
     [multiplier, setMultiplier] = useState("100"),
     [pending, setPending] = useState(false);
+  const [selection, setSelection] = useState<StudySelection>(allSubjects);
   const request = useRef<string | null>(null);
   const change = (fn: (v: string) => void) => (v: string) => {
     fn(v);
@@ -26,6 +36,7 @@ export function MockStart() {
       request.current ??= crypto.randomUUID();
       const a = await client.mocks.start({
         requestId: request.current,
+        ...(kind === "full" ? allSubjects : selection),
         kind: kind as "short" | "full",
         mode: kind === "full" ? "strict_mock" : (mode as "strict_mock" | "timed_practice"),
         count: Number(count) as 10 | 20 | 30,
@@ -43,6 +54,7 @@ export function MockStart() {
   }
   const d = state.data,
     p = d?.profile;
+  const available = d ? selectionAvailability(d.catalog, selection) : 0;
   const minutes = p
     ? kind === "full"
       ? p.durationMinutes
@@ -80,6 +92,15 @@ export function MockStart() {
             />
             {kind === "short" && (
               <>
+                <StudyFilters
+                  catalog={d.catalog}
+                  value={selection}
+                  onChange={(value) => {
+                    setSelection(value);
+                    request.current = null;
+                  }}
+                  prefix="mock"
+                />
                 <SelectField
                   id="mock-count"
                   label="Timed set length"
@@ -138,7 +159,18 @@ export function MockStart() {
                 Practice timing is tracked separately from strict timed-set consistency.
               </p>
             )}
-            <Button disabled={pending || !p || (kind === "full" && !d.fullReady)} onClick={start}>
+            {kind === "short" && available < Number(count) && (
+              <p role="note">
+                {available} published questions match this focus; {count} are required. Choose a
+                broader category or a shorter timed set.
+              </p>
+            )}
+            <Button
+              disabled={
+                pending || !p || (kind === "full" ? !d.fullReady : available < Number(count))
+              }
+              onClick={start}
+            >
               {pending
                 ? "Preparing…"
                 : kind === "full"

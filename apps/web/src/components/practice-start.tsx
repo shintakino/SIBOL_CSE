@@ -9,18 +9,28 @@ import { useCallback, useRef, useState } from "react";
 import { client } from "@/utils/orpc";
 import { FormError } from "./feedback";
 import { errorMessage, LoadState, SelectField, useData } from "./learning-ui";
+import {
+  StudyCatalogCards,
+  StudyFilters,
+  type StudySelection,
+  selectionAvailability,
+} from "./study-catalog";
 export function PracticeStart({ initialTopic = "" }: { initialTopic?: string }) {
   const router = useRouter();
   const load = useCallback(
     async () => ({
-      topics: await client.topics.list(),
+      catalog: await client.topics.catalog(),
       profile: await client.profile.get(),
       attempts: await client.attempts.list(),
     }),
     [],
   );
   const state = useData(load);
-  const [topic, setTopic] = useState(initialTopic),
+  const [selection, setSelection] = useState<StudySelection>({
+      area: "all",
+      topicId: initialTopic || "mixed",
+      providerSubcategory: null,
+    }),
     [difficulty, setDifficulty] = useState("any"),
     [count, setCount] = useState("5"),
     [unseen, setUnseen] = useState(true),
@@ -31,7 +41,7 @@ export function PracticeStart({ initialTopic = "" }: { initialTopic?: string }) 
     state.setError("");
     try {
       const a = await client.practice.create({
-        topicId: topic,
+        ...selection,
         difficulty: difficulty as "any" | "easy" | "medium" | "hard",
         count: Number(count) as 5 | 10 | 20,
         unseenFirst: unseen,
@@ -48,31 +58,36 @@ export function PracticeStart({ initialTopic = "" }: { initialTopic?: string }) 
     request.current = crypto.randomUUID();
     state.setError("");
   };
-  const topics =
-    state.data?.topics.filter(
-      (t) =>
-        t.enabled &&
-        state.data?.profile.preferences &&
-        t.levels.includes(state.data.profile.preferences.level),
-    ) ?? [];
+  const available = state.data ? selectionAvailability(state.data.catalog, selection) : 0;
+  const select = (value: StudySelection) => {
+    setSelection(value);
+    changed();
+  };
   return (
     <>
       <LoadState {...state} />
-      <Card className="max-w-2xl">
+      {state.data && (
+        <StudyCatalogCards
+          catalog={state.data.catalog}
+          onSelect={(value) => {
+            select(value);
+            document.getElementById("practice-options-heading")?.focus();
+          }}
+        />
+      )}
+      <Card className="mt-8 max-w-2xl" id="practice-options">
         <CardContent className="space-y-6">
-          <SelectField
-            id="practice-topic"
-            label="Topic"
-            value={topic}
-            options={[
-              { value: "mixed", label: "Mixed retrieval · all enabled topics" },
-              ...topics.map((t) => ({ value: t.id, label: t.title })),
-            ]}
-            onChange={(v) => {
-              setTopic(v);
-              changed();
-            }}
-          />
+          <h2 id="practice-options-heading" tabIndex={-1} className="scroll-mt-8">
+            Prepare a practice set
+          </h2>
+          {state.data && (
+            <StudyFilters
+              catalog={state.data.catalog}
+              value={selection}
+              onChange={select}
+              prefix="practice"
+            />
+          )}
           <div className="grid gap-5 sm:grid-cols-2">
             <SelectField
               id="practice-difficulty"
@@ -113,7 +128,13 @@ export function PracticeStart({ initialTopic = "" }: { initialTopic?: string }) 
             Every choice is saved before commitment. Explanations appear when you commit an answer.
             Shortages never create duplicate questions.
           </p>
-          <Button disabled={pending || !topic || !state.data} onClick={start}>
+          {available < Number(count) && state.data && (
+            <p role="note">
+              {available} published questions match this selection. Choose a smaller set or another
+              subcategory.
+            </p>
+          )}
+          <Button disabled={pending || available < Number(count) || !state.data} onClick={start}>
             {pending ? "Preparing your set…" : "Start practice"}
           </Button>
           <FormError message={state.error} />

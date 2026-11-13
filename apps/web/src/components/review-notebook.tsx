@@ -1,4 +1,5 @@
 "use client";
+import { areaLabels } from "@sibol-cse/api/study-catalog";
 import { Button } from "@sibol-cse/ui/components/button";
 import { Card, CardContent, CardHeader } from "@sibol-cse/ui/components/card";
 import { useRouter } from "next/navigation";
@@ -6,22 +7,35 @@ import { useCallback, useRef, useState } from "react";
 import { client } from "@/utils/orpc";
 import { errorMessage, LoadState, SelectField, useData } from "./learning-ui";
 import { NoteEditor } from "./saved-tools";
+import { allSubjects, StudyFilters, type StudySelection } from "./study-catalog";
+import { StudyImage } from "./study-image";
 export function ReviewNotebook() {
   const [page, setPage] = useState(0),
     [count, setCount] = useState("10"),
     [pending, setPending] = useState(false),
     [message, setMessage] = useState("");
+  const [selection, setSelection] = useState<StudySelection>(allSubjects);
   const request = useRef<string | null>(null),
     manual = useRef(new Map<string, string>());
   const router = useRouter();
-  const load = useCallback(() => client.review.listDue({ page }), [page]),
+  const load = useCallback(
+      async () => ({
+        ...(await client.review.listDue({ page, ...selection })),
+        catalog: await client.topics.catalog(),
+      }),
+      [page, selection],
+    ),
     state = useData(load);
   async function start() {
     setPending(true);
     state.setError("");
     try {
       request.current ??= crypto.randomUUID();
-      const a = await client.review.start({ requestId: request.current, count: Number(count) });
+      const a = await client.review.start({
+        requestId: request.current,
+        count: Number(count),
+        ...selection,
+      });
       router.push(`/attempts/${a.id}`);
     } catch (e) {
       state.setError(errorMessage(e));
@@ -71,6 +85,16 @@ export function ReviewNotebook() {
                   Some study material is hidden during your active assessment. Resume it from Today.
                 </p>
               )}
+              <StudyFilters
+                catalog={data.catalog}
+                value={selection}
+                onChange={(value) => {
+                  setSelection(value);
+                  setPage(0);
+                  request.current = null;
+                }}
+                prefix="review"
+              />
               <SelectField
                 id="review-count"
                 label="Review session length"
@@ -111,6 +135,11 @@ export function ReviewNotebook() {
           <div className="space-y-6">
             {[...new Set(data.history.map((e) => e.topicId))].map((topicId) => (
               <section key={topicId} className="rounded-xl border bg-card p-5">
+                <p className="eyebrow">
+                  {areaLabels[
+                    data.history.find((e) => e.topicId === topicId)?.area as keyof typeof areaLabels
+                  ] ?? "Study history"}
+                </p>
                 <h3 className="mb-4">{data.history.find((e) => e.topicId === topicId)?.topic}</h3>
                 {data.history
                   .filter((e) => e.topicId === topicId)
@@ -121,8 +150,18 @@ export function ReviewNotebook() {
                         {event.studyDate} · {event.prompt}
                       </summary>
                       <div className="mt-4 space-y-4 reading">
+                        {event.instruction && <p>{event.instruction}</p>}
+                        {event.passage && (
+                          <blockquote className="whitespace-pre-wrap border-l-2 pl-4">
+                            {event.passage}
+                          </blockquote>
+                        )}
+                        {event.media && <StudyImage media={event.media} />}
+                        {event.highlight && <p>Referenced text: {event.highlight}</p>}
                         <p>Your response: {event.selected}</p>
+                        {event.selectedMedia && <StudyImage media={event.selectedMedia} compact />}
                         <p>Original answer: {event.key ?? "Unavailable"}</p>
+                        {event.keyMedia && <StudyImage media={event.keyMedia} compact />}
                         <p className="whitespace-pre-wrap">{event.explanation}</p>
                         {event.erratum && (
                           <p role="note">

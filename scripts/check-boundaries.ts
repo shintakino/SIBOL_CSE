@@ -20,7 +20,11 @@ for (const file of source.filter((file) => /\.[jt]sx?$/.test(file))) {
   )) {
     if (
       !match[1] &&
-      !["@sibol-cse/api/contracts", "@sibol-cse/api/learning-contracts"].includes(match[2] ?? "")
+      ![
+        "@sibol-cse/api/contracts",
+        "@sibol-cse/api/learning-contracts",
+        "@sibol-cse/api/study-catalog",
+      ].includes(match[2] ?? "")
     )
       throw new Error(`Import contracts or types instead of API implementations: ${file}`);
   }

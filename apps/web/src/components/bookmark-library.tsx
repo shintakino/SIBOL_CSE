@@ -11,6 +11,7 @@ import { useCallback, useState } from "react";
 import { client } from "@/utils/orpc";
 import { errorMessage, LoadState, SelectField, useData } from "./learning-ui";
 import { NoteEditor, SavedTools } from "./saved-tools";
+import { StudyImage } from "./study-image";
 
 type Preview = NonNullable<Awaited<ReturnType<typeof client.notes.get>>["preview"]>;
 export function BookmarkLibrary() {
@@ -320,10 +321,28 @@ export function LibraryQuestion({ versionId }: { versionId: string }) {
               >
                 {d.prompt}
               </p>
+              {d.media && <StudyImage media={d.media} />}
+              {d.instruction && <p>{d.instruction}</p>}
+              {d.highlight && (
+                <p>
+                  Highlighted text: <strong>{d.highlight}</strong>
+                </p>
+              )}
+              {d.answerOrder && (
+                <ol
+                  className="list-inside list-decimal space-y-2"
+                  aria-label="Original correct order"
+                >
+                  {d.answerOrder.map((id) => (
+                    <li key={id}>{d.orderItems.find((i) => i.id === id)?.text}</li>
+                  ))}
+                </ol>
+              )}
               <ul className="space-y-3">
                 {d.choices.map((c) => (
                   <li key={c.id} className="rounded-lg border p-4">
                     {c.text}
+                    {c.media && <StudyImage media={c.media} compact />}
                     {d.answerChoiceId === c.id && (
                       <span className="ml-3 font-medium">Original answer</span>
                     )}

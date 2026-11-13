@@ -49,6 +49,8 @@ lerna-debug.log*
 
 # Testing
 coverage
+!apps/web/src/app/(study)/admin/coverage/
+!apps/web/src/app/(study)/admin/coverage/page.tsx
 .nyc_output
 
 # Misc

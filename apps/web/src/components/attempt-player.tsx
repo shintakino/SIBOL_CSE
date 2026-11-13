@@ -1,5 +1,6 @@
 "use client";
 import { ORPCError } from "@orpc/client";
+import { areaLabels, providerTopicLabels, providerTopics } from "@sibol-cse/api/study-catalog";
 import { Badge } from "@sibol-cse/ui/components/badge";
 import { Button, buttonVariants } from "@sibol-cse/ui/components/button";
 import { Card, CardContent, CardHeader } from "@sibol-cse/ui/components/card";
@@ -18,7 +19,6 @@ import { Progress } from "@sibol-cse/ui/components/progress";
 import { RadioGroup, RadioGroupItem } from "@sibol-cse/ui/components/radio-group";
 import { Textarea } from "@sibol-cse/ui/components/textarea";
 import { AlertCircle, Bookmark, CheckCircle2, CloudOff, Flag, LoaderCircle } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -27,11 +27,38 @@ import { AttemptTimer } from "./attempt-timer";
 import { DeleteAttempt } from "./delete-attempt";
 import { FormError } from "./feedback";
 import { errorMessage, LoadState, SelectField, useData } from "./learning-ui";
+import { OrderedAnswer } from "./ordered-answer";
+import { ImageZoom, StudyImage } from "./study-image";
 
 type Attempt = Awaited<ReturnType<typeof client.attempts.get>>;
 type Item = Attempt["items"][number];
 type SaveInput = Parameters<typeof client.attempts.saveAnswer>[0];
-export function Feedback({ feedback }: { feedback: NonNullable<Item["feedback"]> }) {
+function answered(item: { selectedChoiceId: string | null; selectedOrder?: string[] | null }) {
+  return !!item.selectedChoiceId || !!item.selectedOrder?.length;
+}
+function responseText(item: Item, key = false) {
+  if (item.kind === "order")
+    return (
+      (key ? item.feedback?.answerOrder : item.selectedOrder)
+        ?.map((id) => item.orderItems.find((i) => i.id === id)?.text ?? id)
+        .join(" → ") ?? (key ? "Feedback unavailable" : "Unanswered")
+    );
+  return (
+    item.choices.find((c) => c.id === (key ? item.feedback?.answerChoiceId : item.selectedChoiceId))
+      ?.text ?? (key ? "Feedback unavailable" : "Unanswered")
+  );
+}
+function ChoiceMedia({ item, choiceId }: { item: Item; choiceId: string | null | undefined }) {
+  const media = item.choices.find((c) => c.id === choiceId)?.media;
+  return media ? <StudyImage media={media} compact /> : null;
+}
+export function Feedback({
+  feedback,
+  orderItems = [],
+}: {
+  feedback: NonNullable<Item["feedback"]>;
+  orderItems?: Item["orderItems"];
+}) {
   return (
     <section className="space-y-4 border-t pt-5" aria-label="Answer explanation">
       <p className="status-row font-medium">
@@ -42,6 +69,16 @@ export function Feedback({ feedback }: { feedback: NonNullable<Item["feedback"]>
         )}
         {feedback.correct ? "Correct reasoning" : "Let’s work through it"}
       </p>
+      {feedback.answerOrder && (
+        <div>
+          <h3 className="text-base font-medium">Correct order</h3>
+          <ol className="list-inside list-decimal space-y-2">
+            {feedback.answerOrder.map((id) => (
+              <li key={id}>{orderItems.find((i) => i.id === id)?.text ?? id}</li>
+            ))}
+          </ol>
+        </div>
+      )}
       <p className="whitespace-pre-wrap reading">{feedback.explanation}</p>
       {Object.entries(feedback.distractorExplanations).map(([id, text]) => (
         <p key={id} className="text-sm text-muted-foreground">
@@ -208,6 +245,7 @@ export function AttemptPlayer({ id }: { id: string }) {
                     ? {
                         ...i,
                         selectedChoiceId: input.selectedChoiceId,
+                        selectedOrder: input.selectedOrder ?? null,
                         confidence: input.confidence ?? null,
                         revision: response.revision,
                         savedAt: response.savedAt,
@@ -240,12 +278,17 @@ export function AttemptPlayer({ id }: { id: string }) {
       }
     }
   }
-  async function choose(selectedChoiceId: string | null, confidence = item?.confidence ?? null) {
+  async function choose(
+    selectedChoiceId: string | null,
+    confidence = item?.confidence ?? null,
+    selectedOrder = item?.selectedOrder ?? null,
+  ) {
     if (!item || saveStatus === "saving") return;
     await persist({
       attemptId: id,
       itemId: item.id,
       selectedChoiceId,
+      selectedOrder: item.kind === "order" ? selectedOrder : null,
       confidence: confidence as "guessed" | "unsure" | "confident" | null,
       expectedRevision: item.revision,
       mutationId: crypto.randomUUID(),
@@ -411,7 +454,21 @@ export function AttemptPlayer({ id }: { id: string }) {
           <Card className="mt-5">
             <CardHeader>
               <div className="flex flex-wrap justify-between gap-3">
-                <Badge variant="secondary">{item.topic}</Badge>
+                <span className="flex flex-wrap items-center gap-2">
+                  <Badge variant="secondary">
+                    {areaLabels[item.area as keyof typeof areaLabels] ?? "Study"} / {item.topic}
+                  </Badge>
+                  {item.provider &&
+                    providerTopics.some(
+                      (source) =>
+                        source.subcategory === item.provider?.subcategory &&
+                        source.topicId === item.topicId,
+                    ) && (
+                      <span className="text-sm text-muted-foreground">
+                        {providerTopicLabels[item.provider.subcategory]}
+                      </span>
+                    )}
+                </span>
                 <span className="text-sm text-muted-foreground">
                   Question {position + 1} of {attemptData.items.length} ·{" "}
                   {item.firstExposure ? "First exposure" : "Repeated question"}
@@ -429,46 +486,84 @@ export function AttemptPlayer({ id }: { id: string }) {
                   {item.passage}
                 </blockquote>
               )}
-              {item.media && (
-                <Image
-                  src={item.media.src}
-                  alt={item.media.alt}
-                  width={800}
-                  height={480}
-                  className="h-auto max-w-full object-contain"
-                />
-              )}
+              {item.instruction && <p className="text-sm font-medium">{item.instruction}</p>}
+              {item.media && <StudyImage media={item.media} />}
               <p id="question-prompt" className="reading whitespace-pre-wrap">
                 {item.prompt}
               </p>
-              <RadioGroup
-                aria-labelledby="question-prompt"
-                value={
-                  draft?.itemId === item.id
-                    ? (draft.selectedChoiceId ?? "")
-                    : (item.selectedChoiceId ?? "")
-                }
-                disabled={!!locked}
-                onValueChange={(v) => {
-                  if (typeof v === "string") void choose(v);
-                }}
-              >
-                {item.choices.map((c) => (
-                  <Label htmlFor={`answer-${item.id}-${c.id}`} key={c.id} className="answer-option">
-                    <RadioGroupItem id={`answer-${item.id}-${c.id}`} value={c.id} />
-                    <span>{c.text}</span>
-                    {item.feedback?.answerChoiceId === c.id && (
-                      <span className="ml-auto text-sm font-medium">Correct answer</span>
-                    )}
-                  </Label>
-                ))}
-              </RadioGroup>
+              {item.highlight && (
+                <p className="rounded-lg bg-secondary p-3">
+                  Highlighted text: <strong>{item.highlight}</strong>
+                </p>
+              )}
+              {item.kind === "order" ? (
+                <OrderedAnswer
+                  items={item.orderItems}
+                  value={
+                    draft?.itemId === item.id ? (draft.selectedOrder ?? null) : item.selectedOrder
+                  }
+                  disabled={!!locked}
+                  onChange={(order) => {
+                    void choose(null, item.confidence, order);
+                  }}
+                />
+              ) : (
+                <RadioGroup
+                  className={
+                    item.choices.some((c) => c.media) ? "grid gap-3 sm:grid-cols-2" : "grid gap-3"
+                  }
+                  aria-labelledby="question-prompt"
+                  value={
+                    draft?.itemId === item.id
+                      ? (draft.selectedChoiceId ?? "")
+                      : (item.selectedChoiceId ?? "")
+                  }
+                  disabled={!!locked}
+                  onValueChange={(v) => {
+                    if (typeof v === "string") void choose(v);
+                  }}
+                >
+                  {item.choices.map((c, index) => (
+                    <div key={c.id} className="flex min-w-0 flex-col gap-2">
+                      <Label
+                        htmlFor={`answer-${item.id}-${c.id}`}
+                        className="answer-option flex-1 items-start"
+                      >
+                        <RadioGroupItem id={`answer-${item.id}-${c.id}`} value={c.id} />
+                        <span className="min-w-0 flex-1 space-y-3">
+                          <span className="block">
+                            <span
+                              aria-hidden={item.kind !== "error"}
+                              className="mr-2 inline-flex min-w-8 items-center justify-center rounded-md border px-2 py-1 text-sm font-medium"
+                            >
+                              {c.label ?? String.fromCharCode(65 + index)}
+                            </span>
+                            {c.text}
+                          </span>
+                          {c.media && <StudyImage media={c.media} compact zoom={false} />}
+                          {item.feedback?.answerChoiceId === c.id && (
+                            <span className="block text-sm font-medium">Correct answer</span>
+                          )}
+                        </span>
+                      </Label>
+                      {c.media && (
+                        <span className="flex justify-end">
+                          <ImageZoom
+                            media={c.media}
+                            label={`Enlarge choice ${c.label ?? String.fromCharCode(65 + index)}`}
+                          />
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </RadioGroup>
+              )}
               {!ended && !item.committed && (
                 <div className="flex flex-wrap gap-3">
                   <Button
                     variant="outline"
-                    disabled={!!locked || !item.selectedChoiceId}
-                    onClick={() => choose(null)}
+                    disabled={!!locked || !answered(item)}
+                    onClick={() => choose(null, item.confidence, null)}
                   >
                     Clear answer
                   </Button>
@@ -496,7 +591,7 @@ export function AttemptPlayer({ id }: { id: string }) {
                   <Button disabled={pending || unsaved} onClick={commit}>
                     {pending
                       ? "Committing…"
-                      : item.selectedChoiceId
+                      : answered(item)
                         ? "Commit answer and see explanation"
                         : "Commit as unanswered"}
                   </Button>
@@ -508,7 +603,7 @@ export function AttemptPlayer({ id }: { id: string }) {
                   diagnostic is completed.
                 </p>
               )}
-              {item.feedback && <Feedback feedback={item.feedback} />}
+              {item.feedback && <Feedback feedback={item.feedback} orderItems={item.orderItems} />}
             </CardContent>
           </Card>
           <div className="mt-6 flex flex-wrap justify-between gap-3">
@@ -536,9 +631,9 @@ export function AttemptPlayer({ id }: { id: string }) {
                   <DialogHeader>
                     <DialogTitle>Finish this set?</DialogTitle>
                     <DialogDescription>
-                      {attemptData.items.filter((i) => !i.selectedChoiceId).length} questions have
-                      no saved answer. Blanks count against accuracy. Your acknowledged choices will
-                      be finalized once.
+                      {attemptData.items.filter((i) => !answered(i)).length} questions have no saved
+                      answer. Blanks count against accuracy. Your acknowledged choices will be
+                      finalized once.
                     </DialogDescription>
                   </DialogHeader>
                   <FormError message={state.error} />
@@ -560,13 +655,13 @@ export function AttemptPlayer({ id }: { id: string }) {
                 key={i.id}
                 variant={position === index ? "default" : "outline"}
                 disabled={unsaved || pending}
-                aria-label={`Question ${index + 1}, ${i.selectedChoiceId ? "answered" : "unanswered"}${i.flagged ? ", flagged" : ""}`}
+                aria-label={`Question ${index + 1}, ${answered(i) ? "answered" : "unanswered"}${i.flagged ? ", flagged" : ""}`}
                 aria-current={position === index ? "step" : undefined}
                 onClick={() => move(index)}
               >
                 {index + 1}
                 {i.flagged && <Flag className="size-3" aria-hidden="true" />}
-                {i.selectedChoiceId && <CheckCircle2 className="size-3" aria-hidden="true" />}
+                {answered(i) && <CheckCircle2 className="size-3" aria-hidden="true" />}
               </Button>
             ))}
           </nav>
@@ -693,18 +788,26 @@ export function AttemptResults({ id }: { id: string }) {
                     {item.firstExposure ? "First exposure" : "Repeated exposure"} · Version{" "}
                     {item.version}
                   </p>
+                  <p className="eyebrow">
+                    {areaLabels[item.area as keyof typeof areaLabels] ?? "Study"} / {item.topic}
+                  </p>
+                  {item.passage && (
+                    <blockquote className="reading whitespace-pre-wrap border-l-2 pl-4">
+                      {item.passage}
+                    </blockquote>
+                  )}
+                  {item.media && <StudyImage media={item.media} />}
+                  {item.instruction && <p>{item.instruction}</p>}
                   <h3>{item.prompt}</h3>
+                  {item.highlight && <p>Referenced text: {item.highlight}</p>}
                   {item.warning && <p role="note">{item.warning}</p>}
-                  <p>
-                    Your saved answer:{" "}
-                    {item.choices.find((c) => c.id === item.selectedChoiceId)?.text ?? "Unanswered"}
-                  </p>
-                  <p>
-                    Original key:{" "}
-                    {item.choices.find((c) => c.id === item.feedback?.answerChoiceId)?.text ??
-                      "Feedback unavailable"}
-                  </p>
-                  {item.feedback && <Feedback feedback={item.feedback} />}
+                  <p>Your saved answer: {responseText(item)}</p>
+                  <p>Original key: {responseText(item, true)}</p>
+                  <ChoiceMedia item={item} choiceId={item.selectedChoiceId} />
+                  <ChoiceMedia item={item} choiceId={item.feedback?.answerChoiceId} />
+                  {item.feedback && (
+                    <Feedback feedback={item.feedback} orderItems={item.orderItems} />
+                  )}
                 </CardContent>
               </Card>
             ))}
