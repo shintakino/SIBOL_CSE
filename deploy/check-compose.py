@@ -4,7 +4,7 @@ import json
 import os
 import subprocess
 
-env = dict(os.environ, POSTGRES_PASSWORD="ci-placeholder-only", DATABASE_URL="postgresql://sibol:ci-placeholder-only@postgres:5432/sibol", BETTER_AUTH_SECRET="ci-placeholder-secret-at-least-32-characters", BACKUP_AGE_RECIPIENT="age1-ci-placeholder", TUNNEL_TOKEN="ci-placeholder-only", SOURCE_COMMIT="a" * 40)
+env = dict(os.environ, POSTGRES_PASSWORD="ci-placeholder-only", DATABASE_URL="postgresql://sibol:ci-placeholder-only@postgres:5432/sibol", BETTER_AUTH_SECRET="ci-placeholder-secret-at-least-32-characters", BACKUP_AGE_RECIPIENT="age1-ci-placeholder", TUNNEL_TOKEN="ci-placeholder-only", SIBOL_RELEASE_SHA="a" * 40)
 result = subprocess.run(["docker", "compose", "--env-file", "/dev/null", "-f", "docker-compose.coolify.yml", "config", "--format", "json"], env=env, capture_output=True, text=True, check=True)
 config = json.loads(result.stdout)
 assert set(config["volumes"]) == {"sibol_data", "sibol_backups", "sibol_mail"}, "Persistent volume identities must be preserved"

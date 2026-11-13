@@ -69,6 +69,12 @@ def main():
         raise ReleaseError("Coolify source repository differs from Sibol")
     if app.get("docker_compose_location") != "/docker-compose.coolify.yml":
         raise ReleaseError("Unexpected production Compose location")
+    # Compose parsing may persist defaults for Coolify's SOURCE_COMMIT variable.
+    # Own the runtime revision explicitly instead of relying on that default.
+    request(f"{base}/applications/{resource}/envs/bulk", "PATCH", {"data": [{
+        "key": "SIBOL_RELEASE_SHA", "value": revision, "is_preview": False,
+        "is_buildtime": False, "is_runtime": True, "is_literal": True,
+    }]}, token)
     request(f"{base}/applications/{resource}", "PATCH", {"git_commit_sha": revision}, token)
     queued = request(f"{base}/deploy", "POST", {"uuid": resource}, token)
     entries = queued.get("deployments", [])

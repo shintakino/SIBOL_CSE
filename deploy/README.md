@@ -30,7 +30,9 @@ The initial administrator is `admin@shintakino.qzz.io`. Its generated password i
 To read captured invitations/recovery links, obtain the private container address on the server:
 
 ```bash
-docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mailpit-q52xajsad67xkcmtdwjto1uu
+docker ps --filter name=mailpit-q52xajsad67xkcmtdwjto1uu --format '{{.Names}}'
+# Use that timestamped container name:
+docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' MAILPIT_CONTAINER
 ```
 
 From your own computer, run `ssh -N -L 8026:MAILPIT_IP:8025 YOUR_SERVER`, substituting that private address and your SSH host. Open `http://localhost:8026` while the SSH session remains connected. No inbox port or hostname is published.
@@ -41,6 +43,6 @@ Keep the service names and the `sibol_data` / `sibol_backups` / `sibol_mail` vol
 
 Each deployment takes an encrypted pre-migration dump, then runs one migration job before the API starts. Application replicas never run migrations. Daily encrypted backups retain 30 days; the deletion journal is refreshed hourly. See [recovery instructions](../ops/README.md) before restoring. Backups currently remain on this server; off-host replication, key escrow and alerts still require operator setup. A failed/incompatible migration requires operator review; no destructive down migration or automatic database rollback runs. Revert application code only when it remains schema-compatible.
 
-The deployment API hostname exposes only the application's configuration/deploy/status routes, with Coolify authentication and resource scope enforced. Dashboard and other APIs are excluded by tunnel ingress rules. Public sign-in and readiness are checked after deployment. Exact workflow/deployment evidence belongs in the progress tracker.
+The deployment API hostname exposes only the application's configuration/runtime-revision/deploy/status routes, with Coolify authentication and resource scope enforced. Dashboard and other APIs are excluded by tunnel ingress rules. Public sign-in and readiness are checked after deployment. Exact workflow/deployment evidence belongs in the progress tracker.
 
 This is an invitation-only pre-launch deployment. Reviewed question/lesson inventory, verified exam source activation, the measured performance target, manual assistive-technology/phone checks and a usable week of study remain separate release acceptance gates.

@@ -60,7 +60,7 @@ services:
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?}
       SMTP_URL: ${SMTP_URL:-smtp://mailpit:1025}
       EMAIL_FROM: ${EMAIL_FROM:-Sibol <no-reply@shintakino.qzz.io>}
-      SIBOL_RELEASE_SHA: ${SOURCE_COMMIT:-development}
+      SIBOL_RELEASE_SHA: ${SIBOL_RELEASE_SHA:?}
     networks: [application, database]
     depends_on:
       migrate:
