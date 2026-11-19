@@ -16,7 +16,7 @@ Acceptance:
 - First visit renders the light theme; explicit theme preference persists without a wrong-theme flash.
 - Components use the palette and layout rules in UI context, with consistent typography, spacing, radii, and elevation.
 - Standard controls use shadcn/ui primitives; product-specific wrappers preserve their semantics and keyboard behavior.
-- Mobile bottom navigation and desktop sidebar support 360px width without page overflow.
+- The user-requested CMMS-style top tab navigation and More tools dialog support mobile and desktop widths without page overflow; attempts use a compact return link. The initial bottom-navigation/sidebar presentation is superseded.
 - Both themes support question, selected, error, focus, disabled, and save states.
 - Keyboard operation, dialog focus/restore, labels, non-color status indicators, and screen-reader announcements work.
 - Text resizing, Filipino copy, passages, math, and tables remain readable.

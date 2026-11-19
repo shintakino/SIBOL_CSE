@@ -46,8 +46,8 @@ Typography must support English, Filipino, math, tables, and passages, readable 
 
 ## Layout
 
-- Prefer bottom navigation on mobile and a sidebar on desktop. Support 360px screens without page-level horizontal scrolling.
-- Dashboard prioritizes today's task, due reviews, resume attempt, weekly completion, recent practice, next topic, and optional countdown. Distinguish personal dates from verified announcements.
+- Use compact top tabs on mobile and desktop, with planning/account/admin tools in More tools. During question sets, show a compact return link. Support 360px screens without page-level horizontal scrolling.
+- Dashboard prioritizes quick practice actions, actual study stats, category browsing and resumable sets. Planning/diagnostic guidance and optional personal target dates remain available in secondary sections, distinct from verified announcements.
 - Player prioritizes prompt, choices, timer, save status, and next action. Mock navigation distinguishes answered/unanswered/flagged states without color alone.
 - Lessons/results use worked steps, sample sizes, exposure labels, and actionable guidance.
 - Admin workflows show publication state, import validation, source metadata, and audit-relevant actions.
@@ -74,7 +74,7 @@ The shared semantic tokens and generated shadcn/Base UI variants live in `packag
 
 ## Saved library and account-control implementation
 
-Saved & search is available from Today, Settings and desktop navigation while the four-item mobile bar stays stable. `/bookmarks` uses separate saved-item, private-note and permitted-material views, bounded page controls, source-unavailable cards, revision-aware note dialogs and empty/locked/failure states. Strict/diagnostic restrictions are explained before snippets can appear. Original question review identifies historical versions and corrections.
+Saved & search is available from the shared Saved tab and Settings. `/bookmarks` uses separate saved-item, private-note and permitted-material views, bounded page controls, source-unavailable cards, revision-aware note dialogs and empty/locked/failure states. Strict/diagnostic restrictions are explained before snippets can appear. Original question review identifies historical versions and corrections.
 
 Settings group account-synchronized theme/motion/reminder choices and data controls. Theme changes apply after server acknowledgment; stale tabs can reload. Device reduced motion is always respected. Future email interest is visibly deferred. Export omits course-bank text/keys and labels the file private. Account deletion has a password/DELETE confirmation, actionable errors, retained-publication/30-day backup disclosures and a public receipt page after sessions are revoked. New mobile screens/dialogs have automated Chromium/axe checks; real assistive-technology and phone validation remain release requirements.
 
@@ -86,3 +86,12 @@ Practice uses category cards with native topic rows, published counts and visibl
 Question figures sit with their context; image answer choices use responsive two-column cards where space allows. Zoom is a labeled dialog action outside the radio label and restores focus when closed. Protected images use authenticated same-origin requests. Failed media shows its description and retry guidance. Error-recognition labels remain fixed. Ordering questions use a keyboard-accessible list with explicit up/down controls and save the whole sequence; the pinned arrangement and acknowledged answer survive refresh. Keys and explanations follow the existing feedback gates in every format.
 
 Administrators can inspect source coverage and held records at `/admin/coverage`, including privately preserved source images. The content editor supports shared-track drafts, contexts, formats, question/choice image upload, descriptions and description approval. A pending description blocks editorial approval; imported content stays draft until reviewed and explicitly published.
+
+
+## CMMS-style simplification (user request, 19 November 2026)
+
+Use the neighboring `CMMS-REVIEWER` application's mode-first dashboard, compact statistics, top navigation tabs and large quiz-launch cards as the interaction reference. Keep Sibol's ivory/forest/sage theme and shadcn/Lucide foundation. Replace the long desktop sidebar with a small shared tab bar; place planning, account settings and administration in a labeled More tools dialog. Question screens use a compact return link instead of the full tab bar. All existing routes remain available.
+
+Home prioritizes Quick 10, a 20-question practice session, timed exams and missed questions, followed by category shortcuts and resumable sets. The current 5/10/20 practice and 10/20/30 timed contracts remain the supported lengths. Planning, diagnostic guidance and optional dedication remain accessible in secondary sections. Source availability, save status, assessment restrictions and insufficient evidence stay truthful; no CMMS marketing question bank, fabricated readiness percentage, certificate, streak or client-side scoring is copied.
+
+Practice puts category/topic/length and Start practice first, with difficulty/unseen preferences under More options. Topic cards remain available for browsing. The player prioritizes question, answer choices, Check answer and Next; secondary study tools remain accessible. Server-owned selection/scoring/timing and explicit feedback commitment remain unchanged.

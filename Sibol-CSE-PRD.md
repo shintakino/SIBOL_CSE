@@ -211,7 +211,7 @@ The 300-item threshold is a minimum and does not override blueprint shortages or
 
 ## 10. User experience requirements
 
-Use a warm cream background with green accents, clear typography, and restrained celebration. Prefer bottom navigation on mobile and a sidebar on desktop. The question player prioritizes the prompt, choices, timer, and next action over decorative elements.
+Use a warm cream background with green accents, clear typography, and restrained celebration. Use the user-requested CMMS-style top navigation tabs on mobile and desktop, with secondary tools in More tools and a compact return link during question sets. The question player prioritizes the prompt, choices, timer, and next action over decorative elements.
 
 Design refinement (11 November 2026): use shadcn/ui as the required component foundation and Lucide React for icons. The primary experience is a refined light theme with warm ivory backgrounds, white surfaces, deep forest-green actions, quiet sage highlights, generous spacing, and subtle elevation. Light mode is the initial default regardless of device preference; FR-12 retains optional dark mode. Concrete palette, typography, and component conventions are maintained in [context/ui-context.md](context/ui-context.md).
 
@@ -395,3 +395,8 @@ Checked on 22 October 2026. These references establish exam context; product alg
 3. Official CSC website for applicable announcements: https://www.csc.gov.ph/
 
 Do not use a past 2026 exam date as her upcoming target. Consult the applicable future announcement when her intended examination cycle is known.
+
+
+## User-directed presentation refinement · 19 November 2026
+
+Simplify the learner reviewer using the adjacent CMMS reviewer as the interaction reference: top navigation tabs, compact actual statistics, direct short-practice actions, topic browsing, timed exams, mistakes and saved material. Planning and extended tools remain available in secondary UI. Preserve all existing stack, privacy, content review, save-revision, server scoring/timing and feedback invariants. Reuse existing supported question counts and published CSE content; the reference's marketing bank, readiness claims, certificates and browser grading are outside this change.

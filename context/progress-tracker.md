@@ -1,6 +1,6 @@
 # Progress Tracker
 
-Last updated: 2026-11-13.
+Last updated: 2026-11-19.
 
 ## Current phase
 
@@ -149,3 +149,16 @@ The private, hash-pinned publication plan selects only native drafts with no sou
 Encrypted production backups completed before and after publication. Read-only comparison verifies the original starter question/version/choice/source checksum is unchanged. Live HTTPS checks verify every source-topic published count against the approved plan, all Professional learner topic counts, mobile category display, administrator-only coverage access and the still-closed full-mock gate. Verification created no learner attempts, answers, notes or other study records. No application code/schema changes or new application test run were required for this data operation; it used the previously validated editorial services. Publication plans, exact receipts and bank content remain private under `.cache/content-authoring/topnotcher/publication-v1/`.
 
 The exact approved publication plan, permission record and before/after/HTTPS verification receipts are also retained in a separate age-encrypted publication archive on the existing backup volume. Decryption and complete tar-member reconciliation passed; it contains no learner records.
+
+
+## CMMS-style reviewer simplification (19 November 2026)
+
+The user requested replicating the simpler approach from the neighboring CMMS app. Located the actual reference at `../CMMS-REVIEWER` (the literal `../CMMS` path does not exist). Reviewed its tab navigation, compact stats, launcher cards, topic drills and focused quiz layout. Implementing the same mode-first hierarchy in Sibol while retaining existing learning records, publication/feedback gates, server scoring/timing, authentication and routes. The named project frontend/design skills are unavailable in this environment; implementation follows repository guidance and the installed Next.js guides. Local implementation and verification evidence follows below.
+
+
+Implementation now includes the shared top tab shell/More tools dialog, mode-first home with real stats and direct server-backed Quick 10/20-question actions, category shortcut filters, 10/20/30 timed launchers, setup-first practice and compact player controls. No server/schema/content/learning-record changes were made. Browser regression coverage is being updated for the new control labels/disclosures and adds lost-response retry, repeated quick starts, category links, timed presets, menu focus, dark mode and 200% mobile text checks. Local verification is complete as recorded below.
+
+
+Validation: **all 19 production Chromium flows passed** in the complete local run, including the 17 existing flows and two added CMMS-style reviewer flows. New checks cover creation after a lost response without duplicate attempts, a fresh repeated Quick 10, correct 20-question daily/timed lengths, hidden strict feedback, category deep links, secondary menu focus/role visibility, dark mode, 320px width and 200% text resizing. Existing save retry, private notes, image zoom, ordering, diagnostic, review, expiry and full-mock/deletion flows remain passing. Fixed the enlarged-text tab overlap and long badge clipping found in the first run. Mobile/desktop/player screenshots were visually inspected; secondary saved sets are collapsed behind the most recent resume link. The first email failures came from a stopped local Mailpit fixture; restarting that development-only service restored invitation/recovery checks.
+
+Workspace/tools typechecking, lint (204 files), browser import/production-chunk boundaries, Compose checks, four deployment regressions and `git diff --check` pass. The production Next build is exercised by the browser suite. No backend, database-schema or bank-publication changes were made. Existing application deployment remains through the checked GitHub workflow; live readiness is verified separately for its exact deployed revision. Private verification artifacts stay under ignored `.cache/verification/`. The CMMS reference repository and its data/configuration were not modified or copied into this application.

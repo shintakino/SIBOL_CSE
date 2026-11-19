@@ -13,7 +13,7 @@ Sibol is a proposed brand with availability unchecked. This independent study ai
 1. Accept an invitation and sign in.
 2. Choose Professional or Subprofessional, study days, daily minutes, optional target date, and explanation language.
 3. Complete or skip a diagnostic; skipping creates a balanced plan with insufficient-evidence labels.
-4. Follow today's lesson, practice, and due review.
+4. Open the simple reviewer home and choose Quick 10, a 20-question practice session, topic drills or due review. Use the weekly plan for guidance when wanted.
 5. Read explanations, save private notes, and revisit mistakes after a delay.
 6. Take timed mocks when reviewed inventory meets the selected blueprint.
 7. Review first-exposure performance, pacing, coverage, and next actions.

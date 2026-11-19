@@ -27,3 +27,8 @@ Strict-mock and diagnostic inserts advance an internal owner revision through a 
 ## Categorized short-set extension (13 November 2026)
 
 Short timed sets accept validated category/topic/source-focus filters and show published availability. Full mocks reject these filters and continue selecting the complete verified blueprint. Both use the shared image/ordering player, server-owned deadlines, checked saves and single-result finalization. No category selection or imported draft bypasses full-mock inventory, lesson or form gates.
+
+
+## Simple exam launchers (19 November 2026)
+
+Provide direct 10/20/30-question strict-set launchers using the active profile's existing proportional durations. Keep the custom category/topic/timing form and full-mock eligibility notices. Retry IDs bind the selected configuration so retrying a different preset cannot reopen a set with the wrong length. The original server-owned deadline, safe feedback and full blueprint gates remain enforced.

@@ -26,3 +26,8 @@ Acceptance:
 The study catalog groups enabled topics into track-appropriate category cards and counts only currently published eligible questions. Category/topic/optional source-focus filters are checked server-side. Shared question eligibility uses one identity, so mixed sets never duplicate a common question by track.
 
 Question figures and image answer choices support protected display and zoom. Error-recognition labels remain fixed. Ordering responses are full permutations of the pinned item's IDs, saved with the same checked revisions, retry rules and finalization guarantees as choices. Initial item arrangement is pinned for refresh stability. Null or incomplete responses never earn credit. Pre-feedback payloads exclude ordered keys; permitted feedback/results render the original sequence. Database guards independently reject malformed arrays and mixed scalar/ordered answers.
+
+
+## Simplified practice presentation (19 November 2026)
+
+Practice setup comes before the category browser: category, topic, set length and Start practice are the primary controls. Difficulty and unseen preference remain under More options. Home category links preselect a validated native area. The player uses Check answer for the existing save-then-commit action; optional confidence and private-note fields use disclosures. No answer is revealed before a successful existing commit, and no grading/timing/save contract changes.
