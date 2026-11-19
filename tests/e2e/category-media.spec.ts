@@ -5,9 +5,17 @@ import type { Context } from "@sibol-cse/api/context";
 import { questionInput } from "@sibol-cse/api/learning-contracts";
 import { appRouter } from "@sibol-cse/api/routers/index";
 import { createDb } from "@sibol-cse/db";
-import { account, studyPreferences, topic, user, userProfile } from "@sibol-cse/db/schema";
+import {
+  account,
+  attempt,
+  attemptItem,
+  studyPreferences,
+  topic,
+  user,
+  userProfile,
+} from "@sibol-cse/db/schema";
 import { hashPassword } from "better-auth/crypto";
-import { sql } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
 import { resetBrowserRateLimits } from "../fixtures/browser-limits";
 import { checklist, questionDraft, seedLearning } from "../fixtures/learning";
@@ -222,9 +230,7 @@ test("private question and choice images render, zoom restores focus and saved c
   await expect(page.getByText("Saved", { exact: true })).toBeVisible();
   await page.reload();
   await expect(page.getByRole("radio", { name: /Second description/ })).toBeChecked();
-  await page
-    .getByRole("button", { name: "Commit answer and see explanation", exact: true })
-    .click();
+  await page.getByRole("button", { name: "Check answer", exact: true }).click();
   await expect(page.getByText("Correct reasoning", { exact: true })).toBeVisible();
   await scan(page);
   await page.screenshot({
@@ -265,9 +271,7 @@ test("keyboard ordering saves the whole sequence and results show the original o
   }
   await page.reload();
   await expect(region.locator("li p")).toHaveText(desired);
-  await page
-    .getByRole("button", { name: "Commit answer and see explanation", exact: true })
-    .click();
+  await page.getByRole("button", { name: "Check answer", exact: true }).click();
   await expect(page.getByRole("heading", { name: "Correct order", exact: true })).toBeVisible();
   await scan(page);
   await page.getByRole("button", { name: "Question 5, unanswered", exact: true }).click();
@@ -284,4 +288,126 @@ test("keyboard ordering saves the whole sequence and results show the original o
       })
       .first(),
   ).toBeVisible();
+});
+
+test("CMMS-style home launches Quick 10 once after a lost response and keeps tools reachable", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 360, height: 800 });
+  await signIn(page);
+  await expect(
+    page.getByRole("navigation", { name: "Main navigation", exact: true }),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Quick 10", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Daily practice", exact: true })).toBeVisible();
+  await expect(page.getByText("Questions available", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "More tools", exact: true }).click();
+  await expect(
+    page.getByRole("dialog").getByRole("link", { name: "Settings", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("dialog").getByRole("heading", { name: "Administration", exact: true }),
+  ).toHaveCount(0);
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("button", { name: "More tools", exact: true })).toBeFocused();
+  await scan(page);
+  await page.screenshot({ path: ".cache/verification/cmms-home-mobile.png", fullPage: true });
+  const before = await db
+    .select({ id: attempt.id })
+    .from(attempt)
+    .where(eq(attempt.userId, learnerId));
+  let lost = false;
+  await page.route("**/api/rpc/practice/create", async (route) => {
+    if (!lost) {
+      lost = true;
+      await route.fetch();
+      await route.abort();
+    } else await route.continue();
+  });
+  await page.getByRole("button", { name: "Start Quick 10", exact: true }).click();
+  await expect(page.getByRole("alert")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Start Quick 10", exact: true })).toBeEnabled();
+  await page.getByRole("button", { name: "Start Quick 10", exact: true }).click();
+  await expect(page).toHaveURL(/\/attempts\/[^/]+$/);
+  const firstId = new URL(page.url()).pathname.split("/")[2] ?? "";
+  const items = await db
+    .select({ id: attemptItem.id })
+    .from(attemptItem)
+    .where(eq(attemptItem.attemptId, firstId));
+  expect(items).toHaveLength(10);
+  expect(
+    await db.select({ id: attempt.id }).from(attempt).where(eq(attempt.userId, learnerId)),
+  ).toHaveLength(before.length + 1);
+  await expect(page.getByRole("heading", { name: "Question 1 of 10", exact: true })).toBeVisible();
+  await expect(page.getByRole("navigation", { name: "Main navigation", exact: true })).toHaveCount(
+    0,
+  );
+  await expect(page.getByLabel("Private note", { exact: true })).not.toBeVisible();
+  await scan(page);
+  await page.screenshot({ path: ".cache/verification/cmms-player-mobile.png", fullPage: true });
+  await page.getByRole("link", { name: "Back to reviewer", exact: true }).click();
+  await page.unroute("**/api/rpc/practice/create");
+  await page.getByRole("button", { name: "Start Quick 10", exact: true }).click();
+  await expect(page).toHaveURL(/\/attempts\/[^/]+$/);
+  expect(new URL(page.url()).pathname.split("/")[2]).not.toBe(firstId);
+});
+
+test("category shortcuts, daily practice and timed presets follow the selected mode on mobile and desktop", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await signIn(page);
+  await page.screenshot({ path: ".cache/verification/cmms-home-desktop.png", fullPage: true });
+  await page.getByRole("link", { name: /Numerical Ability.*questions/ }).click();
+  await expect(page.getByRole("combobox", { name: "Category", exact: true })).toContainText(
+    "Numerical Ability",
+  );
+  await expect(page.getByRole("combobox", { name: "Difficulty", exact: true })).toHaveCount(0);
+  await page.getByText("More options", { exact: true }).click();
+  await expect(page.getByRole("combobox", { name: "Difficulty", exact: true })).toBeVisible();
+  await page.getByRole("link", { name: "Home", exact: true }).click();
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.getByRole("button", { name: "Toggle light and dark theme", exact: true }).click();
+  await scan(page);
+  await page.evaluate(() => {
+    document.documentElement.style.fontSize = "200%";
+  });
+  await scan(page);
+  await page.evaluate(() => {
+    document.documentElement.style.fontSize = "";
+  });
+  await page.getByRole("button", { name: "Toggle light and dark theme", exact: true }).click();
+  await page.getByRole("button", { name: "Start 20 questions", exact: true }).click();
+  await expect(page).toHaveURL(/\/attempts\/[^/]+$/);
+  const practiceId = new URL(page.url()).pathname.split("/")[2] ?? "";
+  expect(
+    await db
+      .select({ id: attemptItem.id })
+      .from(attemptItem)
+      .where(eq(attemptItem.attemptId, practiceId)),
+  ).toHaveLength(20);
+  await page.getByRole("link", { name: "Back to reviewer", exact: true }).click();
+  await page
+    .getByRole("navigation", { name: "Main navigation", exact: true })
+    .getByRole("link", { name: "Timed exams", exact: true })
+    .click();
+  await page.getByRole("button", { name: "Start 20-question exam", exact: true }).click();
+  await expect(page).toHaveURL(/\/attempts\/[^/]+$/);
+  const timedId = new URL(page.url()).pathname.split("/")[2] ?? "";
+  expect(
+    await db
+      .select({ id: attemptItem.id })
+      .from(attemptItem)
+      .where(eq(attemptItem.attemptId, timedId)),
+  ).toHaveLength(20);
+  const [timed] = await db
+    .select({ mode: attempt.mode, expiresAt: attempt.expiresAt })
+    .from(attempt)
+    .where(eq(attempt.id, timedId));
+  expect(timed?.mode).toBe("strict_mock");
+  expect(timed?.expiresAt).toBeTruthy();
+  await expect(page.getByRole("button", { name: "Check answer", exact: true })).toHaveCount(0);
+  await expect(page.getByRole("region", { name: "Answer explanation", exact: true })).toHaveCount(
+    0,
+  );
 });

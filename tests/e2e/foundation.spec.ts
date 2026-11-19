@@ -124,6 +124,7 @@ test("invitation, onboarding, private shell and accessible study controls on mob
   await noAccessibilityViolations(page);
   await page.getByRole("button", { name: "Create my study space" }).click();
   await expect(page).toHaveURL(/dashboard/);
+  await page.getByText("Study plan & preferences", { exact: true }).click();
   await expect(page.getByText("25 minutes per study day")).toBeVisible();
   await expect(page.getByText("Insufficient evidence:", { exact: false })).toBeVisible();
   await page.screenshot({ path: "test-results/mobile-dashboard.png", fullPage: true });
@@ -134,7 +135,8 @@ test("invitation, onboarding, private shell and accessible study controls on mob
   await page.reload();
   await expect(page.locator("html")).toHaveClass(/\bdark\b/);
   await noAccessibilityViolations(page);
-  await page.getByRole("link", { name: "Settings", exact: true }).last().click();
+  await page.getByRole("button", { name: "More tools", exact: true }).click();
+  await page.getByRole("link", { name: "Settings", exact: true }).click();
   await page.getByRole("link", { name: "UI preview", exact: true }).click();
   await expect(page.getByRole("heading", { name: "Designed for a calmer focus." })).toBeVisible();
   await page.getByRole("radio", { name: "4 seedlings", exact: true }).focus();

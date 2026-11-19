@@ -175,15 +175,14 @@ test("mobile learner resumes a lesson, recovers a failed save, commits, takes no
   await page.route("**/api/rpc/attempts/saveAnswer", (route) => route.abort());
   await page.getByRole("radio", { name: "3", exact: true }).check();
   await expect(page.getByRole("button", { name: "Retry save", exact: true })).toBeVisible();
-  await expect(
-    page.getByRole("button", { name: "Commit answer and see explanation" }),
-  ).toBeDisabled();
+  await expect(page.getByRole("button", { name: "Check answer" })).toBeDisabled();
   await page.unroute("**/api/rpc/attempts/saveAnswer");
   await page.getByRole("button", { name: "Retry save", exact: true }).click();
   await expect(page.getByRole("status").filter({ hasText: /^Saved$/ })).toBeVisible();
-  await page.getByRole("button", { name: "Commit answer and see explanation" }).click();
+  await page.getByRole("button", { name: "Check answer" }).click();
   await expect(page.getByRole("region", { name: "Answer explanation" })).toBeVisible();
   await expect(page.getByText("Two plus two equals four.", { exact: true })).toBeVisible();
+  await page.getByText("Add a private note", { exact: true }).click();
   await page.getByLabel("Private note", { exact: true }).fill("My private browser note.");
   await page.getByRole("button", { name: "Save private note" }).click();
   await expect(page.getByRole("status").filter({ hasText: "Private note saved" })).toBeVisible();
@@ -208,9 +207,11 @@ test("diagnostic can be skipped, then completed with feedback withheld until sub
   page,
 }) => {
   await signIn(page, diagnosticEmail);
+  await page.getByText("Study plan & preferences", { exact: true }).click();
   await page.getByRole("link", { name: "Take or skip a diagnostic", exact: true }).click();
   await page.getByRole("button", { name: "Skip for now", exact: true }).click();
   await expect(page).toHaveURL(/dashboard/);
+  await page.getByText("Study plan & preferences", { exact: true }).click();
   await expect(
     page.getByText("Insufficient evidence: a diagnostic has not been completed.", { exact: false }),
   ).toBeVisible();
@@ -220,9 +221,7 @@ test("diagnostic can be skipped, then completed with feedback withheld until sub
   await page.getByRole("radio", { name: "4", exact: true }).check();
   await expect(page.getByRole("status").filter({ hasText: /^Saved$/ })).toBeVisible();
   await expect(page.getByRole("region", { name: "Answer explanation" })).not.toBeVisible();
-  await expect(
-    page.getByRole("button", { name: "Commit answer and see explanation" }),
-  ).not.toBeVisible();
+  await expect(page.getByRole("button", { name: "Check answer" })).not.toBeVisible();
   await page.getByRole("button", { name: /^Question 30, unanswered/ }).click();
   await page.getByRole("button", { name: "Finish set", exact: true }).click();
   await page.getByRole("button", { name: "Submit saved answers" }).click();

@@ -111,6 +111,7 @@ test("mobile dashboard and weekly plan preserve completed work and personal dedi
     page.getByRole("paragraph").filter({ hasText: /^A calm step for my future self\.$/ }),
   ).toBeVisible();
   await scan(page);
+  await page.getByText("Study plan & preferences", { exact: true }).click();
   await page.getByRole("link", { name: "Open weekly plan", exact: true }).click();
   await expect(page.getByRole("heading", { name: "Your weekly study plan" })).toBeVisible();
   const today = page
@@ -134,7 +135,7 @@ test("practice mistakes lead to a scheduled review without erasing history", asy
   await expect(page).toHaveURL(/\/attempts\//);
   await page.getByRole("radio", { name: "3", exact: true }).check();
   await expect(page.getByRole("status").filter({ hasText: /^Saved$/ })).toBeVisible();
-  await page.getByRole("button", { name: "Commit answer and see explanation" }).click();
+  await page.getByRole("button", { name: "Check answer" }).click();
   await expect(page.getByRole("region", { name: "Answer explanation" })).toBeVisible();
   await page.getByRole("button", { name: /^Question 5, unanswered/ }).click();
   await page.getByRole("button", { name: "Finish set", exact: true }).click();
@@ -151,7 +152,7 @@ test("practice mistakes lead to a scheduled review without erasing history", asy
   await expect(page.getByText("Scheduled review", { exact: true })).toBeVisible();
   await page.getByRole("radio", { name: "4", exact: true }).check();
   await expect(page.getByRole("status").filter({ hasText: /^Saved$/ })).toBeVisible();
-  await page.getByRole("button", { name: "Commit answer and see explanation" }).click();
+  await page.getByRole("button", { name: "Check answer" }).click();
   await expect(page.getByText("Correct reasoning", { exact: true })).toBeVisible();
   await page.reload();
   await expect(page.getByRole("region", { name: "Answer explanation" })).toBeVisible();
@@ -196,9 +197,7 @@ test("strict timed set restores acknowledged answers and ignores device-clock ch
   await page.reload();
   await expect(page.getByRole("radio", { name: "4", exact: true })).toBeChecked();
   await expect(page.getByRole("region", { name: "Answer explanation" })).not.toBeVisible();
-  await expect(
-    page.getByRole("button", { name: "Commit answer and see explanation" }),
-  ).not.toBeVisible();
+  await expect(page.getByRole("button", { name: "Check answer" })).not.toBeVisible();
   await expect(page.getByLabel("Private note", { exact: true })).not.toBeVisible();
   await page.clock.setFixedTime(new Date("2036-01-01T00:00:00Z"));
   await expect(page.getByRole("timer")).not.toContainText("0:00");
