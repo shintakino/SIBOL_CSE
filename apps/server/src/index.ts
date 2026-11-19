@@ -93,9 +93,11 @@ app.use("/api/*", async (c, next) => {
       "/api/rpc/attempts/clock",
       "/api/rpc/attempts/saveAnswer",
       "/api/rpc/attempts/setFlag",
+      "/api/rpc/reviewer/bookmark",
     ];
     const studyReads = [
       "dashboard/get",
+      "reviewer/summary",
       "plan/get",
       "review/listDue",
       "progress/summary",

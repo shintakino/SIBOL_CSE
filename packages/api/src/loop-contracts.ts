@@ -26,7 +26,16 @@ export const mockInput = z
     requestId: z.uuid(),
     kind: z.enum(["short", "full"]),
     mode: z.enum(["strict_mock", "timed_practice"]),
-    count: z.union([z.literal(10), z.literal(20), z.literal(30)]).default(10),
+    count: z
+      .union([
+        z.literal(10),
+        z.literal(20),
+        z.literal(25),
+        z.literal(30),
+        z.literal(50),
+        z.literal(75),
+      ])
+      .default(10),
     multiplier: z.union([z.literal(100), z.literal(150), z.literal(200)]).default(100),
     area: studyFilterInput.shape.area.optional(),
     topicId: entityId.optional(),

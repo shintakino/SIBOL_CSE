@@ -15,9 +15,11 @@ import {
 
 import { learningRouter } from "./learning";
 import { libraryAccountRouter } from "./library-account";
+import { reviewerRouter } from "./reviewer";
 import { studyLoopRouter } from "./study-loop";
 
 export const appRouter = {
+  ...reviewerRouter,
   ...learningRouter,
   ...libraryAccountRouter,
   ...studyLoopRouter,

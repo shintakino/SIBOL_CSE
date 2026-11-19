@@ -1,4 +1,3 @@
-import type { Database } from "@sibol-cse/db";
 import { questionVersion, topic } from "@sibol-cse/db/schema";
 import { and, eq, sql } from "drizzle-orm";
 import { type StudyFilter, studyFilterInput } from "../learning-contracts";
@@ -53,7 +52,7 @@ export function studyFilterWhere(filter: StudyFilter) {
       : undefined,
   );
 }
-export async function studyCatalog(db: Database, userId: string) {
+export async function studyCatalog(db: Store, userId: string) {
   const prefs = await preferences(db, userId);
   const pool = await candidates(db, prefs.level);
   const topics = await db

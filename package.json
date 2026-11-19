@@ -26,7 +26,7 @@
     "docker:logs": "docker compose logs -f",
     "lint": "biome check .",
     "format": "biome format --write .",
-    "test": "bun test --timeout 15000 tests/topnotcher.test.ts tests/question-formats.test.ts tests/provider-normalization.test.ts && bun test --timeout 15000 tests/policies.test.ts && bun test --timeout 15000 tests/integration.test.ts && bun test --timeout 15000 tests/learning.test.ts && bun test --timeout 20000 tests/study-loop.test.ts && bun test --timeout 20000 tests/library-account.test.ts && bun test --timeout 20000 tests/concurrency.test.ts && bun test --timeout 20000 tests/catalog-media.test.ts",
+    "test": "bun test --timeout 15000 tests/topnotcher.test.ts tests/question-formats.test.ts tests/provider-normalization.test.ts && bun test --timeout 15000 tests/policies.test.ts && bun test --timeout 15000 tests/integration.test.ts && bun test --timeout 15000 tests/learning.test.ts && bun test --timeout 20000 tests/study-loop.test.ts && bun test --timeout 20000 tests/library-account.test.ts && bun test --timeout 20000 tests/concurrency.test.ts && bun test --timeout 20000 tests/catalog-media.test.ts && bun test --timeout 20000 tests/reviewer.test.ts",
     "test:e2e": "playwright test",
     "admin:bootstrap": "bun run scripts/bootstrap-admin.ts",
     "check:boundaries": "bun scripts/check-boundaries.ts",

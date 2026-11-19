@@ -11,7 +11,7 @@ export type MockInput = Partial<StudyFilter> & {
   requestId: string;
   kind: "short" | "full";
   mode: "strict_mock" | "timed_practice";
-  count: 10 | 20 | 30;
+  count: 10 | 20 | 25 | 30 | 50 | 75;
   multiplier: 100 | 150 | 200;
 };
 export async function mockOptions(db: Database, userId: string) {
