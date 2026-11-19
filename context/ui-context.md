@@ -1,5 +1,8 @@
 # UI Context
 
+**Current scope override — 19 November 2026:** The user requested an exact CSE adaptation of `../CMMS-REVIEWER` and removal of the extra learner features. [CMMS replica specification](feature-specs/15-cmms-replica.md) supersedes the earlier learner scope below. Keep the existing stack, accounts, content and stored history; retire planner/diagnostic/lesson/notes/search/advanced analytics screens.
+
+
 Source: [PRD sections 9–10, FR-02 and FR-12](../Sibol-CSE-PRD.md). Direction: a calm, warm study companion with clear next actions and readable explanations.
 
 ## Theme

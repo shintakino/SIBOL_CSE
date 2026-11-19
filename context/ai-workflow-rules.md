@@ -1,5 +1,8 @@
 # Development Workflow
 
+**Current scope override — 19 November 2026:** The user requested an exact CSE adaptation of `../CMMS-REVIEWER` and removal of the extra learner features. [CMMS replica specification](feature-specs/15-cmms-replica.md) supersedes the earlier learner scope below. Keep the existing stack, accounts, content and stored history; retire planner/diagnostic/lesson/notes/search/advanced analytics screens.
+
+
 ## Source and scope
 
 Read the six context files in AGENTS.md order, then relevant PRD sections and the [feature spec](feature-specs/README.md). The PRD defines product scope; reconcile conflicting context/specs against it. User-directed changes should update affected documentation explicitly.

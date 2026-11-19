@@ -1,5 +1,8 @@
 # Sibol CSE
 
+**Current scope override — 19 November 2026:** The user requested an exact CSE adaptation of `../CMMS-REVIEWER` and removal of the extra learner features. [CMMS replica specification](feature-specs/15-cmms-replica.md) supersedes the earlier learner scope below. Keep the existing stack, accounts, content and stored history; retire planner/diagnostic/lesson/notes/search/advanced analytics screens.
+
+
 Source: [Sibol-CSE-PRD.md](../Sibol-CSE-PRD.md), version 1.0, 22 October 2026. This context translates the supplied PRD; official references have not been independently reverified.
 
 ## Product and audience

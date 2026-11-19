@@ -1,5 +1,8 @@
 # Architecture Context
 
+**Current scope override — 19 November 2026:** The user requested an exact CSE adaptation of `../CMMS-REVIEWER` and removal of the extra learner features. [CMMS replica specification](feature-specs/15-cmms-replica.md) supersedes the earlier learner scope below. Keep the existing stack, accounts, content and stored history; retire planner/diagnostic/lesson/notes/search/advanced analytics screens.
+
+
 Source: [PRD sections 11–16](../Sibol-CSE-PRD.md). Status: specs 00–13 implemented and concurrency-hardened (13 November 2026); spec 14 release acceptance and real reviewed launch inventory remain open.
 
 ## Stack and boundaries
@@ -144,3 +147,8 @@ Question versions gain supported levels, preserving the legacy primary `level` f
 Store the pilot's small private raster assets in bounded PostgreSQL `bytea` rows, addressed by SHA-256 and included in encrypted database backups. Hono serves same-origin `/api/content-media/` only to administrators or owners with a pinned attempt/review reference. Serve private/no-store responses with checked MIME/extensions; Next image rendering bypasses the optimizer for these authenticated URLs. Keep public `/media/` support for existing authored assets. Add zoom dialogs and image choices with keyboard-accessible controls. Unreviewed imported image descriptions are explicit draft metadata and block publication until corrected; archival GIFs are not silently enabled as animated learner media.
 
 Persist provider snapshot records and per-topic collection reports for administrator reconciliation, including held records, source IDs, duplicates, rejected/missing assets and unknown expected totals. Sampling never becomes “complete bank verified”; only an authoritative export/feed manifest can establish that. The provider's General Information bucket contains out-of-scope/miscategorized items; item-specific classification must not force unrelated science/current-affairs content into the four native general topics. Keep source labels and classification reasons separately. Source keys/content and answer keys remain server-private; no licensed bank/images go into the public repository or Docker context.
+
+
+## Replica implementation decisions (19 November 2026)
+
+The replacement uses the existing attempt engine and schema. The `reviewer` oRPC group supplies owner-scoped summary, launch and bookmark metadata without returning keys. Daily/quick/topic/missed/bookmarked/retake practice starts serialize on the learner row and use a `cse:<mode>:<configuration hash>:<request UUID>` creation key. Reusing a request UUID with a different configuration is rejected. Daily completion dates derive from submitted daily-prefixed attempts in the learner timezone; no seeded/fabricated streak is stored. Retakes select the original stable identities from currently eligible published versions and fail rather than silently shortening. Missed questions use each stable identity's latest committed/finalized answer, not the former due-date schedule. The mock contract adds 25/50/75 short practice simulations using the active reviewed profile’s proportional server deadline; official full-form gates are retained in backend compatibility services. No migration or content/history mutation is part of this change.

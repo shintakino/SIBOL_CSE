@@ -1,5 +1,7 @@
 # Feature specifications
 
+**Current learner product:** [15 — Exact CMMS replica for CSE](15-cmms-replica.md), explicitly requested 19 November 2026. This supersedes prior learner scope; retained specifications document the implemented backend/history and operator safeguards.
+
 Source of truth: [Sibol-CSE-PRD.md](../../Sibol-CSE-PRD.md). Specs 00–13 are implemented and locally verified. Spec 14 has operational tooling and local recovery/container/performance verification, with performance and external/manual/content/pilot acceptance still pending. Real reviewed content and verified official-source profiles remain launch requirements. Read the six context files in AGENTS.md order first. Numeric filenames organize the documents; dependencies and [delivery phases](../ai-workflow-rules.md) determine implementation order.
 
 | Spec | PRD coverage |

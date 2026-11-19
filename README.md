@@ -1,6 +1,8 @@
 # Sibol CSE
 
-A private civil service review companion. This repository implements specifications 00–13: accounts, content administration, lessons/practice/diagnostics, spaced review, planning, dashboard, timed mocks, learning analytics, saved/search libraries and account data controls. Specification 14 has operational tooling and local rehearsals; performance and external/manual/content/pilot release gates remain open. Learning content appears only after explicit editorial review and publication. The development database starts with the topic taxonomy; it has no learning bank or activated exam profile.
+A private CSE adaptation of the neighboring CMMS reviewer. The current learner app replicates its six tabs: Dashboard, Mock Simulation, Topic Drills, Flashcards, Study Cheatsheet, and Analytics & History. Daily 25, Quick 10, 25/50/75 timed simulations, missed/bookmarked drills, instant practice explanations and saved results use the existing owner-private CSE bank and server scoring. The former planner, diagnostic, lesson, notes/search and advanced analytics screens have been retired under [specification 15](context/feature-specs/15-cmms-replica.md). Existing accounts, content and history are preserved. Editorial review, privacy, deployment and recovery safeguards remain in place.
+
+Read [context/progress-tracker.md](context/progress-tracker.md) for current verification and remaining content/release gates. A fresh development database contains taxonomy only and requires reviewed content and an activated exam profile.
 
 ## Local development
 
@@ -58,11 +60,11 @@ Use migrations for reproducibility. `db:push` is available for disposable explor
 
 The browser imports only validated contracts and API types. It never imports database/auth-server packages. Hono owns business operations. Personal reads/writes derive the owner from the session; administrator access returns account identity/role metadata, never another learner's answers or notes. Role changes are audited, revoke the target's sessions, and cannot demote the last administrator.
 
-Onboarding requires an explicit exam level, study days and daily minutes. The optional date is a **personal target**, not an official announcement. Availability/level changes use checked preference revisions and supersede the starter plan while keeping its old tasks and attempt profile references. Diagnostics provide observed topic evidence. Weekly plans allocate actual study tasks from availability, review burden, evidence and reviewed inventory; skipping uses broad coverage without invented proficiency.
+Onboarding asks only for the CSE track. Account settings allow track changes while preserving earlier attempts under their original profiles. Legacy scheduling preferences and historical notes remain in storage/export; the retired learner tools are not part of the replica.
 
 ## Content and learning workflow
 
-Open **Settings → Content workspace** as an administrator. Create a question or structured lesson draft with authorship/permission metadata, complete all five review checks, then publish explicitly. A question has stable choice IDs and one primary scoring topic. Corrections create a new version; publishing a correction requires an erratum. Earlier attempts retain their original keys and scores. Issue reports can quarantine the stable question, removing it from future selection while pinned attempts show a warning. No rescoring operation is exposed.
+Open **Account settings → Content workspace** as an administrator. Create a question or structured lesson draft with authorship/permission metadata, complete all five review checks, then publish explicitly. A question has stable choice IDs and one primary scoring topic. Corrections create a new version; publishing a correction requires an erratum. Earlier attempts retain their original keys and scores. Issue reports can quarantine the stable question, removing it from future selection while pinned attempts show a warning. No rescoring operation is exposed.
 
 Lessons contain concept, worked example, common mistake and technique sections. Blocks support plain text, readable math, captioned tables, step diagrams and raster media with alt text. Authored HTML is rejected. Media references must use `/media/name.png`, `.jpg`, `.jpeg` or `.webp`; place the reviewed files in `apps/web/public/media` before building. There is no media upload service in this slice.
 

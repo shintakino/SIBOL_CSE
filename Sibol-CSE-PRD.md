@@ -7,6 +7,8 @@
 **Primary market:** Philippine Career Service Examination reviewers  
 **Initial audience:** One invited learner, with an administrator managing review content
 
+**Current scope override — 19 November 2026:** The user requested an exact CSE adaptation of `../CMMS-REVIEWER` and removal of the extra learner features. [CMMS replica specification](context/feature-specs/15-cmms-replica.md) supersedes the earlier learner scope below. Keep the existing stack, accounts, content and stored history; retire planner/diagnostic/lesson/notes/search/advanced analytics screens.
+
 ## 1. Product vision
 
 Build a calm, mobile-friendly review companion that helps a learner understand concepts, remember lessons, improve weak areas, and practice under time pressure. The first release is a personal review tool for the developer’s girlfriend, but its data model supports additional learners without redesign.
