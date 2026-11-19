@@ -4,8 +4,9 @@ import "../index.css";
 import Providers from "@/components/providers";
 
 export const metadata: Metadata = {
-  title: { default: "Sibol · Your review companion", template: "%s · Sibol" },
-  description: "A calm, private companion for your civil service review.",
+  title: { default: "CSE Exam Prep · Sibol", template: "%s · CSE Exam Prep" },
+  description:
+    "Private Civil Service Exam practice with topic drills, mock simulations, flashcards and saved results.",
   robots: { index: false, follow: false },
 };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

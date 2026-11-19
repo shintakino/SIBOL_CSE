@@ -1,5 +1,5 @@
-import { AttemptPlayer } from "@/components/attempt-player";
+import { ReviewerPlayer } from "@/components/reviewer/player";
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  return <AttemptPlayer id={id} />;
+  return <ReviewerPlayer id={id} />;
 }

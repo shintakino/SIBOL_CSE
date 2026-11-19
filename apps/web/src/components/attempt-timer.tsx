@@ -7,12 +7,14 @@ export function AttemptTimer({
   serverNow,
   onFinalized,
   onElapsed,
+  compact = false,
 }: {
   id: string;
   expiresAt: Date;
   serverNow: Date;
   onFinalized: () => void;
   onElapsed: (elapsed: boolean) => void;
+  compact?: boolean;
 }) {
   const [seconds, setSeconds] = useState<number | null>(null),
     [notice, setNotice] = useState("");
@@ -98,14 +100,23 @@ export function AttemptTimer({
     };
   }, [id, expiresAt, serverNow, onFinalized, onElapsed]);
   return (
-    <aside className="mb-5 rounded-xl border bg-card p-5" aria-label="Original server deadline">
-      <p className="text-sm text-muted-foreground">Time remaining · no pause</p>
-      <p role="timer" aria-live="off" className="mt-1 text-2xl font-semibold tabular-nums">
+    <aside
+      className={compact ? "quiz-timer" : "mb-5 rounded-xl border bg-card p-5"}
+      aria-label="Original server deadline"
+    >
+      <p className={compact ? "sr-only" : "text-sm text-muted-foreground"}>
+        Time remaining · no pause
+      </p>
+      <p
+        role="timer"
+        aria-live="off"
+        className={compact ? "font-bold tabular-nums" : "mt-1 text-2xl font-semibold tabular-nums"}
+      >
         {seconds === null
           ? "Synchronizing…"
           : `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`}
       </p>
-      <p role="status" className="text-sm">
+      <p role="status" className={compact ? "sr-only" : "text-sm"}>
         {milestone}
       </p>
       {notice && (
