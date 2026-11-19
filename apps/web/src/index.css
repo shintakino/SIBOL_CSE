@@ -84,6 +84,22 @@
   text-underline-offset: 4px;
 }
 .nav-link {
+  overflow-wrap: anywhere;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 10px;
+  padding: 12px 16px;
+  min-height: 48px;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+}
+.nav-link[aria-current="page"] {
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  font-weight: 600;
+}
+.reviewer-tabs .nav-link {
   min-width: 0;
   justify-content: center;
   gap: 6px;
@@ -103,22 +119,6 @@
 .reviewer-player {
   max-width: 960px;
   padding-top: 12px;
-}
-.nav-link {
-  overflow-wrap: anywhere;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  border-radius: 10px;
-  padding: 12px 16px;
-  min-height: 48px;
-  color: var(--muted-foreground);
-  font-size: 0.875rem;
-}
-.nav-link[aria-current="page"] {
-  background: var(--secondary);
-  color: var(--secondary-foreground);
-  font-weight: 600;
 }
 .shell-main {
   overflow-wrap: anywhere;
