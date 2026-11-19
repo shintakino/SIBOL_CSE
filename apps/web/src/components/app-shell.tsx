@@ -1,6 +1,15 @@
 "use client";
 import { Button } from "@sibol-cse/ui/components/button";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@sibol-cse/ui/components/dialog";
+import {
+  ArrowLeft,
   Bookmark,
   BookOpen,
   CalendarDays,
@@ -8,6 +17,7 @@ import {
   ClipboardList,
   Home,
   LogOut,
+  Menu,
   Palette,
   RotateCcw,
   Settings,
@@ -25,10 +35,19 @@ import { Brand } from "./brand";
 import { ThemeToggle } from "./theme-toggle";
 
 const navigation = [
-  { href: "/dashboard", label: "Today", icon: Home },
-  { href: "/learn", label: "Learn", icon: BookOpen },
-  { href: "/practice", label: "Practice", icon: ClipboardList },
+  { href: "/dashboard", label: "Home", icon: Home },
+  { href: "/practice", label: "Topic drills", icon: ClipboardList },
+  { href: "/mock-exams", label: "Timed exams", icon: Timer },
+  { href: "/review", label: "Mistakes", icon: RotateCcw },
+  { href: "/bookmarks", label: "Saved", icon: Bookmark },
+  { href: "/progress", label: "Progress", icon: ChartNoAxesCombined },
+] as const;
+const tools = [
+  { href: "/learn", label: "Lessons", icon: BookOpen },
+  { href: "/plan", label: "Weekly plan", icon: CalendarDays },
+  { href: "/diagnostic", label: "Diagnostic", icon: ClipboardList },
   { href: "/settings", label: "Settings", icon: Settings },
+  { href: "/design-system", label: "UI preview", icon: Palette },
 ] as const;
 export function AppShell({
   children,
@@ -43,17 +62,9 @@ export function AppShell({
   const router = useRouter();
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
-  const links = navigation.map(({ href, label, icon: Icon }) => (
-    <Link
-      className="nav-link"
-      href={href as Route}
-      key={href}
-      aria-current={path === href ? "page" : undefined}
-    >
-      <Icon className="size-5" aria-hidden="true" />
-      {label}
-    </Link>
-  ));
+  const [menuOpen, setMenuOpen] = useState(false);
+  const inPlayer = /^\/attempts\/[^/]+$/.test(path);
+  const current = (href: string) => path === href || path.startsWith(`${href}/`);
   async function signOut() {
     setPending(true);
     setError("");
@@ -71,86 +82,108 @@ export function AppShell({
   return (
     <AppearanceProvider>
       <div className="shell">
-        <aside className="shell-sidebar">
-          <Brand />
-          <p className="eyebrow mb-5 mt-12 px-4">Your study space</p>
-          <nav aria-label="Main navigation" className="space-y-2">
-            {links}
-            {[
-              { href: "/review", label: "Review", icon: RotateCcw },
-              { href: "/bookmarks", label: "Saved & search", icon: Bookmark },
-              { href: "/plan", label: "Weekly plan", icon: CalendarDays },
-              { href: "/mock-exams", label: "Timed sets & mocks", icon: Timer },
-              { href: "/progress", label: "Progress", icon: ChartNoAxesCombined },
-            ].map(({ href, label, icon: Icon }) => (
-              <Link
-                className="nav-link"
-                key={href}
-                href={href as Route}
-                aria-current={path === href ? "page" : undefined}
-              >
-                <Icon className="size-5" aria-hidden="true" />
-                {label}
-              </Link>
-            ))}
-            <Link
-              className="nav-link"
-              href="/design-system"
-              aria-current={path === "/design-system" ? "page" : undefined}
-            >
-              <Palette className="size-5" aria-hidden="true" />
-              UI preview
-            </Link>
-            {admin &&
-              adminNavigation.map((link) => (
-                <Link
-                  key={link.href}
-                  className="nav-link"
-                  href={link.href}
-                  aria-current={path === link.href ? "page" : undefined}
-                >
-                  <ShieldCheck className="size-5" aria-hidden="true" />
-                  {link.label}
-                </Link>
-              ))}
-          </nav>
-          <div className="mt-auto border-t pt-6">
-            <p className="px-4 text-sm font-medium">Grow at your own pace.</p>
-            <p className="mt-1 px-4 text-sm text-muted-foreground">
-              A little progress is still progress.
-            </p>
-          </div>
-        </aside>
         <header className="shell-header">
-          <Brand />
-          <p className="hidden text-sm text-muted-foreground md:block">
-            Your civil service review companion
-          </p>
-          <div className="flex items-center gap-3">
-            <span className="hidden text-sm sm:inline">{name}</span>
-            <ThemeToggle />
-            <Button
-              variant="ghost"
-              size="icon"
-              aria-label="Sign out"
-              disabled={pending}
-              onClick={signOut}
-            >
-              <LogOut aria-hidden="true" />
-            </Button>
+          <div className="reviewer-header-inner">
+            <div className="flex items-center gap-4">
+              <Brand href="/dashboard" />
+              <span className="hidden border-l pl-4 text-sm text-muted-foreground sm:inline">
+                CSE reviewer
+              </span>
+            </div>
+            <div className="flex items-center gap-1 sm:gap-3">
+              <span className="hidden max-w-40 truncate text-sm md:inline">{name}</span>
+              <ThemeToggle />
+              <Dialog open={menuOpen} onOpenChange={setMenuOpen}>
+                <DialogTrigger
+                  render={<Button variant="ghost" size="icon" aria-label="More tools" />}
+                >
+                  <Menu aria-hidden="true" />
+                </DialogTrigger>
+                <DialogContent className="max-h-[85dvh] overflow-y-auto sm:max-w-xl">
+                  <DialogHeader>
+                    <DialogTitle>Your study tools</DialogTitle>
+                    <DialogDescription>Lessons, planning and account settings.</DialogDescription>
+                  </DialogHeader>
+                  <nav aria-label="More study tools" className="grid gap-2 sm:grid-cols-2">
+                    {tools.map(({ href, label, icon: Icon }) => (
+                      <Link
+                        key={href}
+                        href={href}
+                        className="nav-link"
+                        aria-current={current(href) ? "page" : undefined}
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        <Icon className="size-5 shrink-0" aria-hidden="true" />
+                        {label}
+                      </Link>
+                    ))}
+                  </nav>
+                  {admin && (
+                    <section className="border-t pt-4" aria-label="Administration">
+                      <h3 className="mb-3 text-base font-medium">Administration</h3>
+                      <nav aria-label="Admin tools" className="grid gap-2 sm:grid-cols-2">
+                        {adminNavigation.map(({ href, label }) => (
+                          <Link
+                            key={href}
+                            href={href}
+                            className="nav-link"
+                            aria-current={current(href) ? "page" : undefined}
+                            onClick={() => setMenuOpen(false)}
+                          >
+                            <ShieldCheck className="size-5 shrink-0" aria-hidden="true" />
+                            {label}
+                          </Link>
+                        ))}
+                      </nav>
+                    </section>
+                  )}
+                </DialogContent>
+              </Dialog>
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Sign out"
+                disabled={pending}
+                onClick={signOut}
+              >
+                <LogOut aria-hidden="true" />
+              </Button>
+            </div>
           </div>
         </header>
+        {inPlayer ? (
+          <div className="reviewer-return">
+            <Link
+              className="inline-flex min-h-11 items-center gap-2 text-sm text-primary"
+              href="/dashboard"
+            >
+              <ArrowLeft className="size-4" aria-hidden="true" />
+              Back to reviewer
+            </Link>
+          </div>
+        ) : (
+          <nav aria-label="Main navigation" className="reviewer-tabs">
+            {navigation.map(({ href, label, icon: Icon }) => (
+              <Link
+                key={href}
+                href={href as Route}
+                className="nav-link"
+                aria-current={current(href) ? "page" : undefined}
+              >
+                <Icon className="size-4 shrink-0" aria-hidden="true" />
+                <span>{label}</span>
+              </Link>
+            ))}
+          </nav>
+        )}
         {error && (
           <p role="alert" className="px-5 pt-4 text-destructive">
             {error}
           </p>
         )}
-        <main id="main-content" className="shell-main">
+        <main id="main-content" className={`shell-main${inPlayer ? " reviewer-player" : ""}`}>
           {children}
         </main>
-        <nav className="mobile-nav" aria-label="Mobile navigation">
-          {links}
-        </nav>
       </div>
     </AppearanceProvider>
   );

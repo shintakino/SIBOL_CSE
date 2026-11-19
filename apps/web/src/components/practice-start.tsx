@@ -15,19 +15,24 @@ import {
   type StudySelection,
   selectionAvailability,
 } from "./study-catalog";
-export function PracticeStart({ initialTopic = "" }: { initialTopic?: string }) {
+export function PracticeStart({
+  initialTopic = "",
+  initialArea = "all",
+}: {
+  initialTopic?: string;
+  initialArea?: StudySelection["area"];
+}) {
   const router = useRouter();
-  const load = useCallback(
-    async () => ({
-      catalog: await client.topics.catalog(),
-      profile: await client.profile.get(),
-      attempts: await client.attempts.list(),
-    }),
-    [],
-  );
+  const load = useCallback(async () => {
+    const [catalog, attempts] = await Promise.all([
+      client.topics.catalog(),
+      client.attempts.list(),
+    ]);
+    return { catalog, attempts };
+  }, []);
   const state = useData(load);
   const [selection, setSelection] = useState<StudySelection>({
-      area: "all",
+      area: initialArea,
       topicId: initialTopic || "mixed",
       providerSubcategory: null,
     }),
@@ -66,16 +71,7 @@ export function PracticeStart({ initialTopic = "" }: { initialTopic?: string }) 
   return (
     <>
       <LoadState {...state} />
-      {state.data && (
-        <StudyCatalogCards
-          catalog={state.data.catalog}
-          onSelect={(value) => {
-            select(value);
-            document.getElementById("practice-options-heading")?.focus();
-          }}
-        />
-      )}
-      <Card className="mt-8 max-w-2xl" id="practice-options">
+      <Card className="mb-8 max-w-3xl" id="practice-options">
         <CardContent className="space-y-6">
           <h2 id="practice-options-heading" tabIndex={-1} className="scroll-mt-8">
             Prepare a practice set
@@ -88,45 +84,47 @@ export function PracticeStart({ initialTopic = "" }: { initialTopic?: string }) 
               prefix="practice"
             />
           )}
-          <div className="grid gap-5 sm:grid-cols-2">
-            <SelectField
-              id="practice-difficulty"
-              label="Difficulty"
-              value={difficulty}
-              options={["any", "easy", "medium", "hard"].map((v) => ({
-                value: v,
-                label: v === "any" ? "Any difficulty" : v[0]?.toUpperCase() + v.slice(1),
-              }))}
-              onChange={(v) => {
-                setDifficulty(v);
-                changed();
-              }}
-            />
-            <SelectField
-              id="practice-length"
-              label="Set length"
-              value={count}
-              options={[5, 10, 20].map((n) => ({ value: String(n), label: `${n} questions` }))}
-              onChange={(v) => {
-                setCount(v);
-                changed();
-              }}
-            />
-          </div>
-          <Label htmlFor="unseen-first" className="flex min-h-11 items-center gap-3">
-            <Checkbox
-              id="unseen-first"
-              checked={unseen}
-              onCheckedChange={(v) => {
-                setUnseen(!!v);
-                changed();
-              }}
-            />
-            Prefer questions I haven’t seen
-          </Label>
+          <SelectField
+            id="practice-length"
+            label="Set length"
+            value={count}
+            options={[5, 10, 20].map((n) => ({ value: String(n), label: `${n} questions` }))}
+            onChange={(v) => {
+              setCount(v);
+              changed();
+            }}
+          />
+          <details className="rounded-lg border p-4">
+            <summary className="cursor-pointer py-1 font-medium">More options</summary>
+            <div className="mt-4 space-y-4">
+              <SelectField
+                id="practice-difficulty"
+                label="Difficulty"
+                value={difficulty}
+                options={["any", "easy", "medium", "hard"].map((v) => ({
+                  value: v,
+                  label: v === "any" ? "Any difficulty" : v[0]?.toUpperCase() + v.slice(1),
+                }))}
+                onChange={(v) => {
+                  setDifficulty(v);
+                  changed();
+                }}
+              />
+              <Label htmlFor="unseen-first" className="flex min-h-11 items-center gap-3">
+                <Checkbox
+                  id="unseen-first"
+                  checked={unseen}
+                  onCheckedChange={(v) => {
+                    setUnseen(!!v);
+                    changed();
+                  }}
+                />
+                Prefer questions I haven’t seen
+              </Label>
+            </div>
+          </details>
           <p className="text-sm text-muted-foreground">
-            Every choice is saved before commitment. Explanations appear when you commit an answer.
-            Shortages never create duplicate questions.
+            Choose an answer, select Check answer, then move to the next question.
           </p>
           {available < Number(count) && state.data && (
             <p role="note">
@@ -140,6 +138,15 @@ export function PracticeStart({ initialTopic = "" }: { initialTopic?: string }) 
           <FormError message={state.error} />
         </CardContent>
       </Card>
+      {state.data && (
+        <StudyCatalogCards
+          catalog={state.data.catalog}
+          onSelect={(value) => {
+            select(value);
+            document.getElementById("practice-options-heading")?.focus();
+          }}
+        />
+      )}
       <section className="mt-8">
         <h2 className="mb-3">A balanced starting point</h2>
         <p className="mb-4 text-muted-foreground">

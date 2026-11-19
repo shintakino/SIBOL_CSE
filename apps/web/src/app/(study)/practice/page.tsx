@@ -1,20 +1,21 @@
+import { areaLabels } from "@sibol-cse/api/study-catalog";
 import { PracticeStart } from "@/components/practice-start";
 export default async function Page({
   searchParams,
 }: {
-  searchParams: Promise<{ topic?: string }>;
+  searchParams: Promise<{ topic?: string; area?: string }>;
 }) {
-  const { topic } = await searchParams;
+  const { topic, area } = await searchParams;
+  const initialArea =
+    area && Object.hasOwn(areaLabels, area) ? (area as keyof typeof areaLabels) : "all";
   return (
     <>
       <div className="page-heading">
-        <p className="eyebrow">A little focused retrieval</p>
-        <h1>Make room for practice.</h1>
-        <p>
-          Choose a manageable set. Save a choice, commit when ready, and learn from the reasoning.
-        </p>
+        <p className="eyebrow">Topic drills</p>
+        <h1>What would you like to practise?</h1>
+        <p>Choose a subject and a short set. Check your answers as you go.</p>
       </div>
-      <PracticeStart initialTopic={topic} />
+      <PracticeStart initialTopic={topic} initialArea={initialArea} />
     </>
   );
 }

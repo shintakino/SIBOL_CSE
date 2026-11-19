@@ -67,7 +67,12 @@ export function DesignPreview() {
         <Card>
           <CardHeader>
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <Badge variant="secondary">Question player preview</Badge>
+              <Badge
+                variant="secondary"
+                className="h-auto max-w-full whitespace-normal py-1 leading-relaxed"
+              >
+                Question player preview
+              </Badge>
               <span className="status-row tabular-nums">
                 <Clock3 className="size-4" aria-hidden="true" />
                 <span>

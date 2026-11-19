@@ -179,7 +179,7 @@ export function StudyFilters({
       {selected && selected.focuses.length > 1 && (
         <SelectField
           id={`${prefix}-focus`}
-          label="Source subcategory (optional)"
+          label="Focus (optional)"
           value={value.providerSubcategory ?? "all"}
           options={[
             { value: "all", label: "All reviewed questions for this topic" },

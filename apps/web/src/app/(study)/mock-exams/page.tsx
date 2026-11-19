@@ -3,9 +3,9 @@ export default function Page() {
   return (
     <>
       <div className="page-heading">
-        <p className="eyebrow">Find your pace</p>
+        <p className="eyebrow">Timed exams</p>
         <h1>Timed sets & mock exams</h1>
-        <p>An uninterrupted simulation with a server-owned deadline.</p>
+        <p>Pick a short exam or build your own timed set.</p>
       </div>
       <MockStart />
     </>

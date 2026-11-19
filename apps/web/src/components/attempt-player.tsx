@@ -152,28 +152,31 @@ function PersonalTools({ attemptId, item }: { attemptId: string; item: Item }) {
         <Bookmark aria-hidden="true" />
         {state.data?.bookmarked ? "Bookmarked" : "Bookmark question"}
       </Button>
-      <div className="field">
-        <Label htmlFor="private-note">Private note</Label>
-        <Textarea
-          id="private-note"
-          value={note}
-          onChange={(e) => {
-            setNote(e.target.value);
-            setSaved("");
-          }}
-          maxLength={10000}
-          rows={4}
-        />
-        <p className="field-hint">Only you can read this note.</p>
-        <Button
-          variant="outline"
-          className="self-start"
-          disabled={pending || !state.data}
-          onClick={() => save("note")}
-        >
-          Save private note
-        </Button>
-      </div>
+      <details>
+        <summary className="cursor-pointer py-2 font-medium">Add a private note</summary>
+        <div className="field">
+          <Label htmlFor="private-note">Private note</Label>
+          <Textarea
+            id="private-note"
+            value={note}
+            onChange={(e) => {
+              setNote(e.target.value);
+              setSaved("");
+            }}
+            maxLength={10000}
+            rows={4}
+          />
+          <p className="field-hint">Only you can read this note.</p>
+          <Button
+            variant="outline"
+            className="self-start"
+            disabled={pending || !state.data}
+            onClick={() => save("note")}
+          >
+            Save private note
+          </Button>
+        </div>
+      </details>
       <details>
         <summary className="cursor-pointer py-3 font-medium">Report an issue</summary>
         <div className="space-y-4 pt-4">
@@ -394,7 +397,9 @@ export function AttemptPlayer({ id }: { id: string }) {
                         ? `Timed practice · ${attemptData.timeMultiplier / 100}× time`
                         : "Practice"}
               </p>
-              <h1 className="mt-2 text-2xl">One question at a time.</h1>
+              <h1 className="mt-2 text-2xl">
+                Question {position + 1} of {attemptData.items.length}
+              </h1>
             </div>
             <div className="status-row" role="status">
               {saveStatus === "saving" ? (
@@ -454,8 +459,11 @@ export function AttemptPlayer({ id }: { id: string }) {
           <Card className="mt-5">
             <CardHeader>
               <div className="flex flex-wrap justify-between gap-3">
-                <span className="flex flex-wrap items-center gap-2">
-                  <Badge variant="secondary">
+                <span className="flex min-w-0 max-w-full flex-wrap items-center gap-2">
+                  <Badge
+                    variant="secondary"
+                    className="h-auto max-w-full whitespace-normal py-1 text-left leading-relaxed"
+                  >
                     {areaLabels[item.area as keyof typeof areaLabels] ?? "Study"} / {item.topic}
                   </Badge>
                   {item.provider &&
@@ -575,25 +583,26 @@ export function AttemptPlayer({ id }: { id: string }) {
               )}
               {["practice", "review"].includes(attemptData.mode) && !item.committed && !ended && (
                 <>
-                  <SelectField
-                    id="confidence"
-                    label="Confidence (optional)"
-                    value={item.confidence ?? "none"}
-                    options={[
-                      { value: "none", label: "No confidence label" },
-                      { value: "guessed", label: "Guessed" },
-                      { value: "unsure", label: "Unsure" },
-                      { value: "confident", label: "Confident" },
-                    ]}
-                    disabled={!!locked}
-                    onChange={(v) => choose(item.selectedChoiceId, v === "none" ? null : v)}
-                  />
+                  <details className="rounded-lg border px-4 py-2">
+                    <summary className="cursor-pointer py-2 text-sm font-medium">
+                      Confidence (optional)
+                    </summary>
+                    <SelectField
+                      id="confidence"
+                      label="Confidence (optional)"
+                      value={item.confidence ?? "none"}
+                      options={[
+                        { value: "none", label: "No confidence label" },
+                        { value: "guessed", label: "Guessed" },
+                        { value: "unsure", label: "Unsure" },
+                        { value: "confident", label: "Confident" },
+                      ]}
+                      disabled={!!locked}
+                      onChange={(v) => choose(item.selectedChoiceId, v === "none" ? null : v)}
+                    />
+                  </details>
                   <Button disabled={pending || unsaved} onClick={commit}>
-                    {pending
-                      ? "Committing…"
-                      : answered(item)
-                        ? "Commit answer and see explanation"
-                        : "Commit as unanswered"}
+                    {pending ? "Checking…" : answered(item) ? "Check answer" : "Skip question"}
                   </Button>
                 </>
               )}
@@ -653,6 +662,7 @@ export function AttemptPlayer({ id }: { id: string }) {
             {attemptData.items.map((i, index) => (
               <Button
                 key={i.id}
+                className="min-w-11"
                 variant={position === index ? "default" : "outline"}
                 disabled={unsaved || pending}
                 aria-label={`Question ${index + 1}, ${answered(i) ? "answered" : "unanswered"}${i.flagged ? ", flagged" : ""}`}

@@ -5,9 +5,9 @@ export default async function Page() {
   return (
     <>
       <div className="page-heading">
-        <p className="eyebrow">A fresh page</p>
-        <h1>Welcome, {profile.name.split(" ")[0]}.</h1>
-        <p>Your learning stays private. Choose a manageable next step.</p>
+        <p className="eyebrow">Sibol CSE reviewer</p>
+        <h1>Let’s study, {profile.name.split(" ")[0]}.</h1>
+        <p>Pick a quiz, choose a topic, or revisit your mistakes.</p>
       </div>
       <StudyHome />
     </>
