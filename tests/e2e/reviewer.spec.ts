@@ -160,11 +160,25 @@ async function signIn(page: Page, email = learnerEmail) {
   await expect(page).toHaveURL(/dashboard/);
 }
 async function scan(page: Page) {
+  await expect(page.getByRole("button", { name: "Toggle light and dark theme" })).toBeEnabled();
+  await page.evaluate(async () => {
+    const animations = document
+      .getAnimations()
+      .filter(
+        (animation) =>
+          animation.playState === "running" &&
+          Number.isFinite(animation.effect?.getComputedTiming().endTime ?? 0),
+      );
+    await Promise.all(animations.map((animation) => animation.finished.catch(() => {})));
+  });
   const result = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
     .analyze();
   expect(
-    result.violations.map((v) => ({ id: v.id, targets: v.nodes.map((n) => n.target) })),
+    result.violations.map((v) => ({
+      id: v.id,
+      nodes: v.nodes.map((n) => ({ target: n.target, summary: n.failureSummary })),
+    })),
   ).toEqual([]);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(
     true,
@@ -247,6 +261,12 @@ test("replica dashboard, six reference tabs, flashcards and cheatsheet replace t
   await page.goto("/dashboard");
   await page.getByRole("button", { name: "Toggle light and dark theme" }).click();
   await expect(page.locator("html")).toHaveClass(/dark/);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  expect(
+    await page
+      .locator(".cmms-app")
+      .evaluate((element) => getComputedStyle(element).transitionDuration),
+  ).toBe("0s");
   await page.setViewportSize({ width: 320, height: 800 });
   await page.evaluate(() => {
     document.documentElement.style.fontSize = "200%";

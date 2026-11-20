@@ -1543,6 +1543,7 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .cmms-app,
   .cmms-app * {
     animation: none;
     transition: none;
@@ -1557,10 +1558,6 @@
   .cmms-app .flashcard.flipped .flashcard-back {
     transform: none;
   }
-}
-html[data-motion="reduce"] .cmms-app * {
-  animation: none;
-  transition: none;
 }
 .cmms-app.auth-screen {
   background: linear-gradient(135deg, var(--bg-subtle), var(--bg-main));
@@ -1748,4 +1745,10 @@ html[data-motion="reduce"] .cmms-app * {
   background: var(--bg-card);
   color: var(--text-main);
   border-color: var(--border);
+}
+
+html[data-motion="reduce"] .cmms-app,
+html[data-motion="reduce"] .cmms-app * {
+  animation: none;
+  transition: none;
 }
