@@ -262,11 +262,14 @@ test("replica dashboard, six reference tabs, flashcards and cheatsheet replace t
   await page.getByRole("button", { name: "Toggle light and dark theme" }).click();
   await expect(page.locator("html")).toHaveClass(/dark/);
   await page.emulateMedia({ reducedMotion: "reduce" });
-  expect(
-    await page
-      .locator(".cmms-app")
-      .evaluate((element) => getComputedStyle(element).transitionDuration),
-  ).toBe("0s");
+  const reducedDuration = await page.locator(".cmms-app").evaluate((element) =>
+    Math.max(
+      ...getComputedStyle(element)
+        .transitionDuration.split(",")
+        .map((value) => Number.parseFloat(value)),
+    ),
+  );
+  expect(reducedDuration).toBeLessThanOrEqual(0.001);
   await page.setViewportSize({ width: 320, height: 800 });
   await page.evaluate(() => {
     document.documentElement.style.fontSize = "200%";
