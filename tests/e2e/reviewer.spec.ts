@@ -332,14 +332,22 @@ test("ordering keeps keyboard controls, saves full sequences and explains the or
   await openTopic(page, "Ordering fixtures");
   const region = page.getByRole("region", { name: "Arrange your answer" }),
     desired = ["First, begin.", "Then, continue.", "Finally, finish."];
+  await expect(region).toBeVisible();
+  await expect(region.locator("li p")).toHaveCount(desired.length);
   for (let target = 0; target < desired.length; target++) {
     let positions = await region.locator("li p").allTextContents(),
       current = positions.indexOf(desired[target] ?? "");
     while (current > target) {
+      const expected = [...positions];
+      [expected[current - 1], expected[current]] = [
+        expected[current] ?? "",
+        expected[current - 1] ?? "",
+      ];
       await region
         .getByRole("button", { name: `Move item ${current + 1} up`, exact: true })
         .focus();
       await page.keyboard.press("Enter");
+      await expect(region.locator("li p")).toHaveText(expected);
       await expect(page.getByText("Saved to your account", { exact: true })).toBeVisible();
       positions = await region.locator("li p").allTextContents();
       current = positions.indexOf(desired[target] ?? "");
