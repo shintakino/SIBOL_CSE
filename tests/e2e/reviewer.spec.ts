@@ -34,6 +34,7 @@ const adminId = crypto.randomUUID(),
 const adminEmail = `media-admin-${stamp}@example.test`,
   learnerEmail = `media-learner-${stamp}@example.test`;
 let assetUrl = "";
+test.use({ reducedMotion: "reduce" });
 test.beforeEach(async () => {
   await resetBrowserRateLimits(db);
 });
@@ -161,16 +162,6 @@ async function signIn(page: Page, email = learnerEmail) {
 }
 async function scan(page: Page) {
   await expect(page.getByRole("button", { name: "Toggle light and dark theme" })).toBeEnabled();
-  await page.evaluate(async () => {
-    const animations = document
-      .getAnimations()
-      .filter(
-        (animation) =>
-          animation.playState === "running" &&
-          Number.isFinite(animation.effect?.getComputedTiming().endTime ?? 0),
-      );
-    await Promise.all(animations.map((animation) => animation.finished.catch(() => {})));
-  });
   const result = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
     .analyze();
