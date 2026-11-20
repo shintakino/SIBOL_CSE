@@ -272,7 +272,10 @@ export function ReviewerPlayer({ id }: { id: string }) {
                 wrong = !!item.feedback && selected && !item.feedback.correct,
                 struck = eliminated[item.id]?.includes(choice.id);
               return (
-                <div className="option-row" key={choice.id}>
+                <div
+                  className={`option-row ${choice.media ? "image-option-row" : ""}`}
+                  key={choice.id}
+                >
                   <Button
                     variant="ghost"
                     className={`option-btn ${selected ? "selected" : ""} ${correct ? "correct" : ""} ${wrong ? "wrong" : ""} ${struck ? "eliminated" : ""} ${locked ? "locked" : ""}`}
@@ -583,7 +586,7 @@ function PracticeCertificate({ name, score, date }: { name: string; score: numbe
       <DialogTrigger render={<Button className="btn" />}>
         🎓 View Practice Certificate
       </DialogTrigger>
-      <DialogContent className="cmms-certificate max-h-[90svh] overflow-y-auto sm:max-w-3xl">
+      <DialogContent className="cmms-certificate max-h-[90svh] overflow-y-auto sm:max-w-3xl print:translate-x-0 print:translate-y-0">
         <DialogHeader>
           <DialogTitle>CSE Exam Prep</DialogTitle>
           <DialogDescription>Independent Practice Achievement</DialogDescription>

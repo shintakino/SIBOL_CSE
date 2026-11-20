@@ -37,11 +37,6 @@
 .cmms-app h3 {
   letter-spacing: normal;
 }
-.cmms-app * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 .cmms-app {
   font-family: var(--font-main);
   background-color: var(--bg-main);
@@ -1693,9 +1688,10 @@ html[data-motion="reduce"] .cmms-app * {
     visibility: visible;
   }
   body .cmms-certificate {
+    animation: none;
+    transition: none;
     position: absolute;
     inset: 0 auto auto 0;
-    translate: none;
     width: 100%;
     overflow: visible;
     margin: 0;
@@ -1732,4 +1728,24 @@ html[data-motion="reduce"] .cmms-app * {
   body:has(.cmms-certificate) .cmms-app {
     display: none;
   }
+}
+.cmms-app .option-row.image-option-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  gap: 0.5rem;
+}
+.cmms-app .option-row.image-option-row .option-btn {
+  grid-column: 1 / -1;
+  width: 100%;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+}
+.cmms-app .image-option-row .btn-strike {
+  grid-column: 2;
+}
+.cmms-app .image-option-row > button:not(.option-btn):not(.btn-strike) {
+  max-width: 100%;
+  background: var(--bg-card);
+  color: var(--text-main);
+  border-color: var(--border);
 }
