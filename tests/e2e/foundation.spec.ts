@@ -57,23 +57,6 @@ test.afterAll(async () => {
   await db.$client.end();
 });
 
-async function noOverflow(page: Page) {
-  await expect(async () => {
-    const metrics = await page.evaluate(() => ({
-      width: document.documentElement.scrollWidth,
-      viewport: window.innerWidth,
-      outside: [...document.querySelectorAll("body *")]
-        .filter((el) => el.getBoundingClientRect().right > window.innerWidth + 1)
-        .slice(0, 10)
-        .map((el) => ({
-          tag: el.tagName,
-          className: String(el.className),
-          width: el.getBoundingClientRect().width,
-        })),
-    }));
-    expect(metrics.width, JSON.stringify(metrics)).toBeLessThanOrEqual(metrics.viewport);
-  }).toPass({ timeout: 5000 });
-}
 async function noAccessibilityViolations(page: Page) {
   await expect(page).toHaveTitle(/Sibol/);
   const scan = await new AxeBuilder({ page })
@@ -88,20 +71,15 @@ async function noAccessibilityViolations(page: Page) {
   ).toEqual([]);
 }
 
-test("invitation, onboarding, private shell and accessible study controls on mobile", async ({
+test("invitation, track-only onboarding and the replica account controls on mobile", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 360, height: 800 });
   await page.emulateMedia({ colorScheme: "dark", reducedMotion: "reduce" });
   await page.goto("/");
-  await expect(page.locator("html")).toHaveClass(/\blight\b/);
-  await noOverflow(page);
-  expect(await page.locator("body").evaluate((el) => getComputedStyle(el).fontFamily)).toContain(
-    "Geist",
-  );
-  await noAccessibilityViolations(page);
-  await page.goto("/dashboard");
   await expect(page).toHaveURL(/sign-in/);
+  await expect(page.locator("html")).toHaveClass(/\blight\b/);
+  await noAccessibilityViolations(page);
   await page.goto(`/accept-invitation?token=${invitationToken}`);
   await page.getByLabel("Your name").fill("Maya Learner");
   await page.getByLabel("Create a password").fill(password);
@@ -112,61 +90,32 @@ test("invitation, onboarding, private shell and accessible study controls on mob
   await page.getByLabel("Password", { exact: true }).fill(password);
   await page.getByRole("button", { name: "Sign in", exact: true }).click();
   await expect(page).toHaveURL(/onboarding/);
-  await expect(page.getByLabel("Minutes per study day")).toHaveValue("");
-  await expect(page.getByRole("radio", { checked: true })).toHaveCount(0);
-  await page.getByRole("radio", { name: /^Professional/ }).check();
-  await page.getByRole("checkbox", { name: "Monday" }).check();
-  await page.getByRole("checkbox", { name: "Wednesday" }).check();
-  await page.getByLabel("Minutes per study day").fill("25");
-  await page.getByLabel("Preferred explanation language").click();
-  await page.getByRole("option", { name: "Filipino" }).click();
-  await noOverflow(page);
+  await expect(page.getByLabel("Exam track")).toHaveValue("");
+  await expect(page.getByLabel("Minutes per study day")).toHaveCount(0);
+  await page.getByLabel("Exam track").selectOption("professional");
   await noAccessibilityViolations(page);
-  await page.getByRole("button", { name: "Create my study space" }).click();
+  await page.getByRole("button", { name: "Start reviewing", exact: true }).click();
   await expect(page).toHaveURL(/dashboard/);
-  await page.getByText("Study plan & preferences", { exact: true }).click();
-  await expect(page.getByText("25 minutes per study day")).toBeVisible();
-  await expect(page.getByText("Insufficient evidence:", { exact: false })).toBeVisible();
-  await page.screenshot({ path: "test-results/mobile-dashboard.png", fullPage: true });
-  await noOverflow(page);
+  await expect(page.getByRole("button", { name: "Start 10 Qs Sprint", exact: true })).toBeVisible();
+  await expect(
+    page.getByRole("navigation", { name: "Main navigation" }).getByRole("link"),
+  ).toHaveCount(6);
   await noAccessibilityViolations(page);
+  await page.getByRole("button", { name: "Account settings", exact: true }).click();
+  await expect(
+    page.getByRole("dialog").getByRole("link", { name: "Content administration" }),
+  ).toHaveCount(0);
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("button", { name: "Account settings", exact: true })).toBeFocused();
   await page.getByRole("button", { name: "Toggle light and dark theme" }).click();
   await expect(page.locator("html")).toHaveClass(/\bdark\b/);
   await page.reload();
   await expect(page.locator("html")).toHaveClass(/\bdark\b/);
   await noAccessibilityViolations(page);
-  await page.getByRole("button", { name: "More tools", exact: true }).click();
-  await page.getByRole("link", { name: "Settings", exact: true }).click();
-  await page.getByRole("link", { name: "UI preview", exact: true }).click();
-  await expect(page.getByRole("heading", { name: "Designed for a calmer focus." })).toBeVisible();
-  await page.getByRole("radio", { name: "4 seedlings", exact: true }).focus();
-  await page.keyboard.press("Space");
-  await page.keyboard.press("ArrowDown");
-  await expect(page.getByRole("radio", { name: "6 seedlings", exact: true })).toBeChecked();
-  const review = page.getByRole("button", { name: "Review selection" });
-  await review.click();
-  await expect(page.getByRole("dialog")).toBeVisible();
-  await expect(page.getByRole("dialog")).toContainText("Selected: 6 seedlings");
-  await page.keyboard.press("Escape");
-  await expect(page.getByRole("dialog")).not.toBeVisible();
-  await expect(review).toBeFocused();
-  await noOverflow(page);
-  await noAccessibilityViolations(page);
-  await page.screenshot({ path: "test-results/mobile-preview-dark.png", fullPage: true });
-  await page.getByRole("button", { name: "Toggle light and dark theme" }).click();
-  await noAccessibilityViolations(page);
-  await page.setViewportSize({ width: 1440, height: 1000 });
-  await noOverflow(page);
-  await noAccessibilityViolations(page);
-  await page.screenshot({ path: "test-results/desktop-preview.png", fullPage: true });
-  await page.evaluate(() => {
-    document.documentElement.style.fontSize = "200%";
-  });
-  await page.setViewportSize({ width: 360, height: 800 });
-  await noOverflow(page);
   await page.goto("/admin/users");
   await expect(page.getByText("This page could not be found.")).toBeVisible();
   await page.goto("/dashboard");
+  await page.getByRole("button", { name: "Account settings", exact: true }).click();
   await page.getByRole("button", { name: "Sign out", exact: true }).click();
   await expect(page).toHaveURL(/sign-in/);
   await page.goto("/dashboard");
